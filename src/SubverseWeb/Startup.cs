@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ON.Authentication;
 using ON.Settings;
-using SubverseWeb.Helper;
 using SubverseWeb.Services;
 
 namespace SubverseWeb
@@ -35,12 +34,8 @@ namespace SubverseWeb
 
             services.AddScoped<AssetService>();
             services.AddScoped<ContentService>();
-            services.AddScoped<FakePaymentsService>();
-            services.AddScoped<MainPaymentsService>();
             services.AddScoped<UserService>();
-            services.AddScoped<Services.Paypal.PaymentsService>();
 
-            services.AddSingleton<HtmlSubscriptionTierHelper>();
             services.AddSingleton<SettingsService>();
 
             services.AddJwtAuthentication();

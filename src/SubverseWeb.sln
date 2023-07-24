@@ -3,13 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{682436A8-21D0-47A6-9E32-5D4CE7C46781}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose-prod.yml = docker-compose-prod.yml
-		docker-compose.yml = docker-compose.yml
-		tye.yaml = tye.yaml
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ON.Authentication.Shared", "..\..\node\ON.Install\src\ON.Authentication\Shared\ON.Authentication.Shared.csproj", "{B2FCAC1C-5ABA-484E-9CA0-D12F9AFAE6F8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ON.Fragment", "..\..\node\ON.Install\src\ON.Fragment\ON.Fragment.csproj", "{09936083-39D4-4441-857A-549FC1875DE2}"
