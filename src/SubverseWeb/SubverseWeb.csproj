@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Grpc.Net.Client" Version="2.48.0" />
+		<PackageReference Include="Microsoft.Tye.Extensions.Configuration" Version="0.4.0-*" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Models\Subscription\Crypto\" />
+	  <Folder Include="Views\SubscriptionCrypto\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\node\ON.Install\src\ON.Authentication\Shared\ON.Authentication.Shared.csproj" />
+	  <ProjectReference Include="..\..\..\node\ON.Install\src\ON.Fragment\ON.Fragment.csproj" />
+	  <ProjectReference Include="..\..\..\node\ON.Install\src\ON.Settings\Shared\ON.Settings.Shared.csproj" />
+	</ItemGroup>
+
+</Project>
