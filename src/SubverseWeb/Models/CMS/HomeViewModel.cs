@@ -26,5 +26,20 @@ namespace SubverseWeb.Models.CMS
         public uint UserSubscriptionLevel { get; set; } = 0;
 
         public List<ContentListRecord> Records { get; } = new List<ContentListRecord>();
+
+        public IEnumerable<ContentListRecord> EvenRecords => SkipEvenOrOdd(Records, true);
+        public IEnumerable<ContentListRecord> OddRecords => SkipEvenOrOdd(Records, false);
+
+        private IEnumerable<ContentListRecord> SkipEvenOrOdd(IEnumerable<ContentListRecord> records, bool wantEven)
+        {
+            bool flip = wantEven;
+
+            foreach (var record in records)
+            {
+                if (flip)
+                    yield return record;
+                flip = !flip;
+            }
+        }
     }
 }

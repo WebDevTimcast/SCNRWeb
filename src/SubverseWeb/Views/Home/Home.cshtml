@@ -4,22 +4,30 @@
     ViewData["Title"] = "Home";
 }
 
-<h1>@settings.PublicData?.Personalization?.MetaDescription</h1>
+<section class="section section-lg bg-default text-center">
+    <div class="container container-wide">
+        <div class="row row-90 justify-content-xlg-between">
+            <div class="col-lg-9 col-xxl-8">
+                <div class="row row-30">
+                    <div class="col-md-6">
+                        @foreach (var record in Model.EvenRecords)
+                        {
+                            @await Html.PartialAsync("ContentRecord", record)
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        @foreach (var record in Model.OddRecords)
+                        {
+                            @await Html.PartialAsync("ContentRecord", record)
+                        }
+                    </div>
+                </div>
 
-@foreach (var record in Model.Records)
-{
-    <i>@record.PublishOnUTC.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt")</i>
-    <h3>
-        <a href="/content/@(record.ContentID)">@record.Title</a>
-        @if (record.SubscriptionLevel > 0 && Model.ShowLockStatus)
-        {
-            if (record.SubscriptionLevel > Model.UserSubscriptionLevel)
-            {
-                <i class="bi-lock-fill" style="font-size: 1rem; color: cornflowerblue;" aria-label="Locked"></i>
-            } else {
-                <i class="bi-unlock-fill" style="font-size: 1rem; color: cornflowerblue;" aria-label="UnLocked"></i>
-            }
-        }
-    </h3>
-    <pre>@record.Description</pre>
-}
+                @await Html.PartialAsync("Paged")
+            </div>
+            <div class="col-lg-3">
+                @await Html.PartialAsync("RightNav")
+            </div>
+        </div>
+    </div>
+</section>

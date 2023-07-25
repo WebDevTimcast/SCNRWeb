@@ -1,90 +1,146 @@
 ﻿@inject ON.Authentication.ONUserHelper userHelper;
 @inject ON.Settings.SettingsClient settings;
-@{
-    var siteTitle = settings.PublicData?.Personalization?.Title;
-}
 <!DOCTYPE html>
-<html lang="en">
+<html class="wide wow-animation" lang="en">
 <head>
+    <!-- Site Title-->
+    <title>@ViewData["Title"] - Subverse</title>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - @siteTitle</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:300,400,700,400italic%7CCormorant+Garamond:400,700,400italic" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."/></a></div>
+    <script src="js/html5shiv.min.js"></script>
+        <![endif]-->
     @await RenderSectionAsync("Head", required: false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="navbar-toggler-icon"></span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/">Home</a>
-                            @if (userHelper.IsLoggedIn)
-                            {
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/subscription">Manage Subscription</a>
-                                <a class="dropdown-item" href="/settings">User Profile</a>
-                                @if (userHelper.MyUser.CanCreateContent)
-                                {
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/content/manage">Manage Articles</a>
-                                }
-                                @if (userHelper.MyUser.IsAdminOrHigher)
-                                {
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/auth/admin">Manage Users</a>
-                                    <a class="dropdown-item" href="/settings/site">Site Settings</a>
-                                }
-                            }
+    <!-- Page Loader-->
+    <div class="page-loader" id="page-loader">
+        <div class="page-loader-body">
+            <svg width="40" height="40" viewbox="0 0 40 40">
+                <polygon class="rect" points="0 0 0 40 40 40 40 0"></polygon>
+            </svg>
+        </div>
+    </div>
+    <!-- Page-->
+    <div class="page">
+        @await Html.PartialAsync("Header")
+
+@*        @await Html.PartialAsync("Breadcrumbs")
+*@
+        <!-- Main Body-->
+        @RenderBody()
+
+        <!-- Page Footer-->
+        <footer class="section footer-creative">
+            <div class="footer-creative__main bg-gray-4">
+                <div class="container container-wide">
+                    <div class="row row-50 justify-content-md-center justify-content-xl-between">
+                        <div class="col-md-12 col-lg-10 col-xl-4 col-xxl-4">
+                            <h4 class="footer-creative__title">Contact Information</h4>
+                            <div class="row row-20">
+                                <div class="col-12 col-sm-6">
+                                    <h5>San Diego Office</h5>
+                                    <ul class="list-md">
+                                        <li class="object-inline object-inline_md">
+                                            <span class="icon icon-sm icon-primary mdi mdi-map-marker"></span>
+                                            <div><a href="#">2130 Washington Street, CA 94117-1080 USA</a></div>
+                                        </li>
+                                        <li class="object-inline object-inline_md">
+                                            <span class="icon icon-sm icon-primary mdi mdi-email-outline"></span>
+                                            <div><a href="mailto:#">mail@demolink.org</a></div>
+                                        </li>
+                                        <li class="object-inline object-inline_md">
+                                            <span class="icon icon-sm icon-primary mdi mdi-phone"></span>
+                                            <div><a href="tel:#">1-800-1234-567</a></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <h5>New York Office</h5>
+                                    <ul class="list-md">
+                                        <li class="object-inline object-inline_md">
+                                            <span class="icon icon-sm icon-primary mdi mdi-map-marker"></span>
+                                            <div><a href="#">4710 Angus Road, NY 10004-1570</a></div>
+                                        </li>
+                                        <li class="object-inline object-inline_md">
+                                            <span class="icon icon-sm icon-primary mdi mdi-email-outline"></span>
+                                            <div><a href="mailto:#">mail@demolink.org</a></div>
+                                        </li>
+                                        <li class="object-inline object-inline_md">
+                                            <span class="icon icon-sm icon-primary mdi mdi-phone"></span>
+                                            <div><a href="tel:#">1-800-1234-567</a></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                </ul>
-                &nbsp; &nbsp;
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@siteTitle</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        @if (!userHelper.IsLoggedIn)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="login" asp-action="">Login</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="logout" asp-action="">Logout</a>
-                            </li>
-                        }
-                    </ul>
+                        <div class="col-md-12 col-lg-10 col-xl-4">
+                            <h4 class="footer-creative__title">Tags</h4>
+                            <ul class="list-tags">
+                                <li><a href="#">Debate</a></li>
+                                <li><a href="#">Strategic</a></li>
+                                <li><a href="#">Politics</a></li>
+                                <li><a href="#">Parliament</a></li>
+                                <li><a href="#">President</a></li>
+                                <li><a href="#">Flag</a></li>
+                                <li><a href="#">United States Government</a></li>
+                                <li><a href="#">News</a></li>
+                                <li><a href="#">style</a></li>
+                                <li><a href="#">Washington</a></li>
+                                <li><a href="#">Finance</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-10 col-xl-4">
+                            <h4 class="footer-creative__title">Newsletter</h4>
+                            <p class="text-width-1">Enter your email address to get the latest news, special offers and other information delivered right to your inbox.</p>
+                            <!-- RD Mailform-->
+                            <form class="rd-mailform form_inline" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
+                                <div class="form__inner">
+                                    <div class="form-wrap">
+                                        <label class="form-label-outside" for="subscribe-form-footer-form-email">E-mail</label>
+                                        <input class="form-input" id="subscribe-form-footer-form-email" type="email" name="email" data-constraints="@@Email @@Required" />
+                                    </div>
+                                    <div class="from-wrap form-button">
+                                        <button class="button button-default" type="submit">Subscribe</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+            <div class="footer-creative__aside bg-gray-5">
+                <div class="container container-wide">
+                    <div class="footer-creative__aside-inner">
+                        <ul class="list-icons list-inline-sm">
+                            <li><a class="icon icon-xs icon-lighter fa fa-facebook" href="#"></a></li>
+                            <li><a class="icon icon-xs icon-lighter fa fa-twitter" href="#"></a></li>
+                            <li><a class="icon icon-xs icon-lighter fa fa-instagram" href="#"></a></li>
+                            <li><a class="icon icon-xs icon-lighter fa fa-google-plus" href="#"></a></li>
+                            <li><a class="icon icon-xs icon-lighter fa fa-pinterest" href="#"></a></li>
+                            <li><a class="icon icon-xs icon-lighter fa fa-linkedin" href="#"></a></li>
+                        </ul>
+                        <!-- Rights-->
+                        <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span><span>All Rights Reserved.</span><span>&nbsp</span><br class="d-sm-none" /><a href="terms-of-use.html">Terms of Use</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - @siteTitle -
-            Made with love by <a href="https://opennetworkfoundation.org">Open Network Foundation</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    </div>
+    <!-- Global Mailform Output-->
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="/js/core.min.js"></script>
+    <script src="/js/script.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,21 @@
+﻿@model ON.Fragments.Content.ContentListRecord
+
+<!-- Post Classic-->
+<article class="post-classic">
+    <div class="post-classic__header">
+        <ul class="post-classic__tags">
+            <li><a href="#">Politics</a></li>
+        </ul><a class="post-classic__image-wrap" href="/content/@(Model.ContentID)"><img class="post-classic__image" src="/image/@Model.FeaturedImageAssetID" alt="@Model.Title" width="570" height="360" /></a>
+    </div>
+    <time class="post-classic__time" datetime="2018">@Model.PublishOnUTC.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt") </time>
+    <p class="post-classic__title"><a href="/content/@(Model.ContentID)">@Model.Title</a></p>
+    <div class="post-classic__content">
+        <p>@Model.Description</p>
+    </div>
+    <ul class="post-classic__meta">
+        <li>
+            <img class="post-classic__user-image" src="/image/profile/@Model.AuthorID" alt="" width="50" height="50" />
+            <div><span>by</span><a class="post-classic__user" href="#">@Model.Author</a></div>
+        </li>
+    </ul>
+</article>
