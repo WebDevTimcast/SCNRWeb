@@ -6,6 +6,7 @@ using System.IO.Pipelines;
 using ON.Authentication;
 using Grpc.Core;
 using ON.Settings;
+using System.Collections.Generic;
 
 namespace SubverseWeb.Services
 {
@@ -13,11 +14,25 @@ namespace SubverseWeb.Services
     {
         private readonly ServiceNameHelper nameHelper;
         private readonly SettingsClient settingsClient;
+        private SettingsPublicData publicData = null;
 
         public SettingsService(ServiceNameHelper nameHelper, SettingsClient settingsClient)
         {
             this.nameHelper = nameHelper;
             this.settingsClient = settingsClient;
+        }
+
+        public async Task<SettingsPublicData> GetSettings()
+        {
+            if (publicData != null)
+                return publicData;
+
+            var client = new SettingsInterface.SettingsInterfaceClient(nameHelper.SettingsServiceChannel);
+            var res = await client.GetPublicDataAsync(new());
+
+            publicData = res.Public;
+
+            return publicData;
         }
 
         public async Task<ModifyResponseErrorType> Modify(CMSPublicRecord vm, ONUser user)
@@ -81,6 +96,41 @@ namespace SubverseWeb.Services
             data.Add("Authorization", "Bearer " + user.JwtToken);
 
             return data;
+        }
+        public async Task<List<CategoryRecord>> GetCategories()
+        {
+            var settings = await GetSettings();
+
+            return settings?.CMS?.Categories?.ToList() ?? new();
+        }
+
+        public async Task<CategoryRecord> GetCategoryById(string id)
+        {
+            return (await GetCategories()).FirstOrDefault(c => c.CategoryId == id);
+        }
+
+        public async Task<CategoryRecord> GetCategoryBySlug(string slug)
+        {
+            var settings = await GetSettings();
+
+            return (await GetCategories()).FirstOrDefault(c => c.UrlStub == slug);
+        }
+
+        public async Task<ChannelRecord> GetChannelById(string id)
+        {
+            return (await GetChannels()).FirstOrDefault(c => c.ChannelId == id);
+        }
+
+        public async Task<ChannelRecord> GetChannelBySlug(string slug)
+        {
+            return (await GetChannels()).FirstOrDefault(c => c.UrlStub == slug);
+        }
+
+        public async Task<List<ChannelRecord>> GetChannels()
+        {
+            var settings = await GetSettings();
+
+            return settings?.CMS?.Channels?.ToList() ?? new();
         }
     }
 }

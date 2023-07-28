@@ -93,16 +93,12 @@ namespace SubverseWeb.Services
             return res?.Record;
         }
 
-        public async Task<IEnumerable<ContentListRecord>> GetAll()
+        public async Task<GetAllContentResponse> GetAll(GetAllContentRequest request)
         {
             var client = new ContentInterface.ContentInterfaceClient(nameHelper.ContentServiceChannel);
-            var res = await client.GetAllContentAsync(new()
-            {
-                PageOffset = 0,
-                PageSize = 10,
-            }, GetMetadata());
+            var res = await client.GetAllContentAsync(request, GetMetadata());
 
-            return res?.Records?.ToList() ?? Enumerable.Empty<ContentListRecord>();
+            return res;
         }
 
         public async Task<IEnumerable<ContentListRecord>> GetAllAdmin()
@@ -142,6 +138,15 @@ namespace SubverseWeb.Services
 
             return res?.Record;
         }
+
+        public async Task<IEnumerable<string>> GetRecentTags()
+        {
+            var client = new ContentInterface.ContentInterfaceClient(nameHelper.ContentServiceChannel);
+            var res = await client.GetRecentTagsAsync(new(), GetMetadata());
+
+            return res?.Tags?.ToList() ?? Enumerable.Empty<string>();
+        }
+
 
         public async Task PublishContent(Guid contentId)
         {

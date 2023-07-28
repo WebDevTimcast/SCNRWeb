@@ -16,30 +16,15 @@ namespace SubverseWeb.Models.CMS
         public HomeViewModel(IEnumerable<ContentListRecord> records, ONUser user)
         {
             Records.AddRange(records);
-
-            ShowLockStatus = !(user?.IsWriterOrHigher ?? false);
-            UserSubscriptionLevel = user?.SubscriptionLevel ?? 0;
         }
 
-        public bool ShowLockStatus { get; set; }
-
-        public uint UserSubscriptionLevel { get; set; } = 0;
+        public HomeViewModel(GetAllContentResponse contentResponse, ONUser user)
+        {
+            if (contentResponse?.Records == null)
+                return;
+            Records.AddRange(contentResponse.Records);
+        }
 
         public List<ContentListRecord> Records { get; } = new List<ContentListRecord>();
-
-        public IEnumerable<ContentListRecord> EvenRecords => SkipEvenOrOdd(Records, true);
-        public IEnumerable<ContentListRecord> OddRecords => SkipEvenOrOdd(Records, false);
-
-        private IEnumerable<ContentListRecord> SkipEvenOrOdd(IEnumerable<ContentListRecord> records, bool wantEven)
-        {
-            bool flip = wantEven;
-
-            foreach (var record in records)
-            {
-                if (flip)
-                    yield return record;
-                flip = !flip;
-            }
-        }
     }
 }

@@ -33,8 +33,8 @@
     <div class="page">
         @await Html.PartialAsync("Header")
 
-@*        @await Html.PartialAsync("Breadcrumbs")
-*@
+        @await Html.PartialAsync("Breadcrumbs")
+
         <!-- Main Body-->
         @RenderBody()
 
@@ -120,14 +120,7 @@
             <div class="footer-creative__aside bg-gray-5">
                 <div class="container container-wide">
                     <div class="footer-creative__aside-inner">
-                        <ul class="list-icons list-inline-sm">
-                            <li><a class="icon icon-xs icon-lighter fa fa-facebook" href="#"></a></li>
-                            <li><a class="icon icon-xs icon-lighter fa fa-twitter" href="#"></a></li>
-                            <li><a class="icon icon-xs icon-lighter fa fa-instagram" href="#"></a></li>
-                            <li><a class="icon icon-xs icon-lighter fa fa-google-plus" href="#"></a></li>
-                            <li><a class="icon icon-xs icon-lighter fa fa-pinterest" href="#"></a></li>
-                            <li><a class="icon icon-xs icon-lighter fa fa-linkedin" href="#"></a></li>
-                        </ul>
+                        @await Html.PartialAsync("Socials")
                         <!-- Rights-->
                         <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span><span>All Rights Reserved.</span><span>&nbsp</span><br class="d-sm-none" /><a href="terms-of-use.html">Terms of Use</a></p>
                     </div>

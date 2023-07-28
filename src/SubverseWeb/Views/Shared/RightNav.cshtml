@@ -1,4 +1,7 @@
-﻿<div class="layout-aside">
+﻿@inject SubverseWeb.Services.SettingsService settingsService;
+@inject SubverseWeb.Services.ContentService contentService;
+
+<div class="layout-aside">
     <div class="layout-aside__item">
         <h4 class="heading-bordered">Search</h4>
         <!-- RD Search-->
@@ -14,118 +17,32 @@
     <div class="layout-aside__item">
         <h4 class="heading-bordered">Archive</h4>
         <ul class="list-marked list-marked_light">
-            <li><a href="#">November 2018</a></li>
-            <li><a href="#">October 2018</a></li>
-            <li><a href="#">September 2018</a></li>
-            <li><a href="#">August 2018</a></li>
-            <li><a href="#">July 2018</a></li>
+            @for (int i = DateTime.Today.Year; i > 2020; i--)
+            {
+                <li><a href="/archive/@i">@i</a></li>
+            }
         </ul>
-    </div>
-    <div class="layout-aside__item">
-        <h4 class="heading-bordered">Gallery</h4>
-        <div class="grid-3" data-lightgallery="group">
-            <div class="grid-item">
-                <a class="thumb-minimal" href="images/inline-gallery-1-1200x800-original.jpg" data-lightgallery="group-item">
-                    <div class="thumb-minimal__image-wrap">
-                        <img class="thumb-minimal__image" src="images/inline-gallery-1-110x110.jpg" alt="" width="110" height="110" />
-                    </div>
-                    <div class="thumb-minimal__caption"></div>
-                </a>
-            </div>
-            <div class="grid-item">
-                <a class="thumb-minimal" href="images/inline-gallery-2-1200x800-original.jpg" data-lightgallery="group-item">
-                    <div class="thumb-minimal__image-wrap">
-                        <img class="thumb-minimal__image" src="images/inline-gallery-2-110x110.jpg" alt="" width="110" height="110" />
-                    </div>
-                    <div class="thumb-minimal__caption"></div>
-                </a>
-            </div>
-            <div class="grid-item">
-                <a class="thumb-minimal" href="images/inline-gallery-3-1200x800-original.jpg" data-lightgallery="group-item">
-                    <div class="thumb-minimal__image-wrap">
-                        <img class="thumb-minimal__image" src="images/inline-gallery-3-110x110.jpg" alt="" width="110" height="110" />
-                    </div>
-                    <div class="thumb-minimal__caption"></div>
-                </a>
-            </div>
-            <div class="grid-item">
-                <a class="thumb-minimal" href="images/inline-gallery-4-1200x800-original.jpg" data-lightgallery="group-item">
-                    <div class="thumb-minimal__image-wrap">
-                        <img class="thumb-minimal__image" src="images/inline-gallery-4-110x110.jpg" alt="" width="110" height="110" />
-                    </div>
-                    <div class="thumb-minimal__caption"></div>
-                </a>
-            </div>
-            <div class="grid-item">
-                <a class="thumb-minimal" href="images/inline-gallery-5-1200x800-original.jpg" data-lightgallery="group-item">
-                    <div class="thumb-minimal__image-wrap">
-                        <img class="thumb-minimal__image" src="images/inline-gallery-5-110x110.jpg" alt="" width="110" height="110" />
-                    </div>
-                    <div class="thumb-minimal__caption"></div>
-                </a>
-            </div>
-            <div class="grid-item">
-                <a class="thumb-minimal" href="images/inline-gallery-6-800x1200-original.jpg" data-lightgallery="group-item">
-                    <div class="thumb-minimal__image-wrap">
-                        <img class="thumb-minimal__image" src="images/inline-gallery-6-110x110.jpg" alt="" width="110" height="110" />
-                    </div>
-                    <div class="thumb-minimal__caption"></div>
-                </a>
-            </div>
-        </div>
     </div>
     <div class="layout-aside__item">
         <h4 class="heading-bordered">Categories</h4>
         <ul class="list-marked list-marked_light">
-            <li><a href="#">Debate<span class="inner-text">(621 posts)</span></a></li>
-            <li><a href="#">Strategic<span class="inner-text">(352 posts)</span></a></li>
-            <li><a href="#">Politics<span class="inner-text">(280 posts)</span></a></li>
-            <li><a href="#">President<span class="inner-text">(151 posts)</span></a></li>
-            <li><a href="#">United States Government<span class="inner-text">(98 posts)</span></a></li>
+            @foreach (var cat in await settingsService.GetCategories())
+            {
+                <li>
+                    <a href="/category/@cat.UrlStub">@cat.DisplayName</a>
+                </li>
+            }
         </ul>
     </div>
     <div class="layout-aside__item">
         <h4 class="heading-bordered">Tags</h4>
         <ul class="list-tags">
-            <li><a href="#">Debate</a></li>
-            <li><a href="#">Strategic</a></li>
-            <li><a href="#">news</a></li>
-            <li><a href="#">Politics</a></li>
-            <li><a href="#">Parliament</a></li>
-            <li><a href="#">President</a></li>
-            <li><a href="#">Flag</a></li>
-            <li><a href="#">Democracy</a></li>
+            @foreach (var tag in await contentService.GetRecentTags())
+            {
+                <li>
+                    <a href="/tag/@tag">@tag</a>
+                </li>
+            }
         </ul>
-    </div>
-    <div class="layout-aside__item">
-        <h4 class="heading-bordered">Twitter Feed</h4>
-        <div class="twitter" data-twitter-username="templatemonster">
-            <!-- Post twitter  -->
-            <article class="post-twitter" data-twitter-type="tweet">
-                <div class="post-twitter__header">
-                    <time class="post-twitter__time" data-date="text" data-datetime="datetime" datetime="2018"></time>
-                </div>
-                <div class="post-twitter__text" data-tweet="text"></div>
-            </article>
-            <!-- Post twitter  -->
-            <article class="post-twitter" data-twitter-type="tweet">
-                <div class="post-twitter__header">
-                    <time class="post-twitter__time" data-date="text" data-datetime="datetime" datetime="2018"></time>
-                </div>
-                <div class="post-twitter__text" data-tweet="text"></div>
-            </article>
-        </div>
-    </div>
-    <div class="layout-aside__item">
-        <!-- Facebook Feed-->
-        <div id="fb-root">
-            <div class="fb-page-responsive">
-                <div class="fb-page" data-href="https://www.facebook.com/TemplateMonster" data-tabs="timeline" data-height="540" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-                    <div class="fb-xfbml-parse-ignore">
-                        <blockquote cite="https://www.facebook.com/TemplateMonster"><a href="https://www.facebook.com/TemplateMonster">TemplateMonster</a></blockquote>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>

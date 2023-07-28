@@ -30,7 +30,12 @@ namespace SubverseWeb.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View("Home", new HomeViewModel((await contentService.GetAll()), userHelper.MyUser));
+            return View("Home", new HomeViewModel((await contentService.GetAll(new()
+            {
+                PageOffset = 0,
+                PageSize = 30,
+                ContentType = ON.Fragments.Content.ContentType.Written,
+            })), userHelper.MyUser));
         }
 
         [HttpGet("search")]

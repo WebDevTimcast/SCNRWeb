@@ -4,30 +4,27 @@
     ViewData["Title"] = "Home";
 }
 
-<section class="section section-lg bg-default text-center">
+<section class="section section-lg bg-gray-1 text-center">
     <div class="container container-wide">
-        <div class="row row-90 justify-content-xlg-between">
-            <div class="col-lg-9 col-xxl-8">
-                <div class="row row-30">
-                    <div class="col-md-6">
-                        @foreach (var record in Model.EvenRecords)
+        <div class="row row-90">
+            <div class="col-lg-9">
+                <div class="row row-30 row-flex">
+                    @foreach (var record in Model.Records)
                         {
                             @await Html.PartialAsync("ContentRecord", record)
                         }
-                    </div>
-                    <div class="col-md-6">
-                        @foreach (var record in Model.OddRecords)
-                        {
-                            @await Html.PartialAsync("ContentRecord", record)
-                        }
-                    </div>
                 </div>
-
                 @await Html.PartialAsync("Paged")
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 layout-aside-wrap_extended">
                 @await Html.PartialAsync("RightNav")
             </div>
         </div>
     </div>
 </section>
+
+
+
+
+
+
