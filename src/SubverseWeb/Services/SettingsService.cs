@@ -116,6 +116,21 @@ namespace SubverseWeb.Services
             return (await GetCategories()).FirstOrDefault(c => c.UrlStub == slug);
         }
 
+        public async Task<List<CategoryRecord>> GetCategoriesByIds(params string[] ids)
+        {
+            List<CategoryRecord> ret = new List<CategoryRecord>();
+
+            foreach (var id in ids)
+            {
+                var cat = await GetCategoryById(id);
+                if (cat != null)
+                    ret.Add(cat);
+            }
+
+            return ret;
+        }
+
+
         public async Task<ChannelRecord> GetChannelById(string id)
         {
             return (await GetChannels()).FirstOrDefault(c => c.ChannelId == id);

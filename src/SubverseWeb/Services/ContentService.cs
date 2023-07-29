@@ -10,19 +10,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using SubverseWeb.Models.CMS;
 using ON.Settings;
+using ON.Fragments.Settings;
 
 namespace SubverseWeb.Services
 {
     public class ContentService
     {
         private readonly ServiceNameHelper nameHelper;
+        private readonly SettingsService settingsService;
         public readonly ONUser User;
 
-        public ContentService(ServiceNameHelper nameHelper, ONUserHelper userHelper)
+        public ContentService(ServiceNameHelper nameHelper, SettingsService settingsService, ONUserHelper userHelper)
         {
             User = userHelper.MyUser;
 
             this.nameHelper = nameHelper;
+            this.settingsService = settingsService;
         }
 
         public async Task<ContentRecord> CreateContent(NewVideoViewModel vm)
@@ -139,14 +142,24 @@ namespace SubverseWeb.Services
             return res?.Record;
         }
 
+        public async Task<List<CategoryRecord>> GetRecentCategories()
+        {
+            var client = new ContentInterface.ContentInterfaceClient(nameHelper.ContentServiceChannel);
+            var res = await client.GetRecentCategoriesAsync(new() { NumCategories = 10}, GetMetadata());
+
+            if (res == null)
+                return new();
+
+            return await settingsService.GetCategoriesByIds(res.CategoryIds.ToArray());
+        }
+
         public async Task<IEnumerable<string>> GetRecentTags()
         {
             var client = new ContentInterface.ContentInterfaceClient(nameHelper.ContentServiceChannel);
-            var res = await client.GetRecentTagsAsync(new(), GetMetadata());
+            var res = await client.GetRecentTagsAsync(new() { NumTags = 10 }, GetMetadata());
 
             return res?.Tags?.ToList() ?? Enumerable.Empty<string>();
         }
-
 
         public async Task PublishContent(Guid contentId)
         {
