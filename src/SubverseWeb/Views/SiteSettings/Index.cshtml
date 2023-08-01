@@ -1,5 +1,6 @@
 ﻿@model SubverseWeb.Models.SiteSettings.IndexViewModel
 @{
+    Layout = "_Manage";
     ViewData["Title"] = "Update Site Settings";
 }
 
@@ -18,7 +19,6 @@
 
 <ul class="list-group">
     @await Html.PartialAsync("Personalization", Model)
-    @await Html.PartialAsync("CMS", Model)
     @await Html.PartialAsync("Notification", Model)
 </ul>
 

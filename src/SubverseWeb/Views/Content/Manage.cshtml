@@ -1,6 +1,7 @@
 ﻿@model SubverseWeb.Models.CMS.ManageViewModel
 @using userHelper = ON.Authentication.ONUserHelper;
 @{
+    Layout = "_Manage";
     ViewData["Title"] = "Manage Articles";
 }
 
@@ -15,7 +16,6 @@
             <th>Title</th>
             <th>Date</th>
             <th>Status</th>
-            <th>Subscription</th>
         </tr>
     </thead>
     @foreach (var record in Model.Records)
@@ -30,7 +30,7 @@
                 {
                     @if (userHelper.MyUser.CanPublish)
                     {
-                        <a href="/content/@(record.ContentID)/unpublish">Published</a>
+                        <a href="/content/@(record.ContentID)/unpublish" class="btn btn-primary" style="background-color: green;">Published</a>
                     }
                     else
                     {
@@ -41,7 +41,7 @@
                 {
                     @if (userHelper.MyUser.CanPublish)
                     {
-                        <a href="/content/@(record.ContentID)/publish">Not Published</a>
+                        <a href="/content/@(record.ContentID)/publish" class="btn btn-primary">Not Published</a>
                     }
                     else
                     {
@@ -49,8 +49,6 @@
                     }
                 }
             </td>
-            <td></td>
         </tr>
-
     }
 </table>

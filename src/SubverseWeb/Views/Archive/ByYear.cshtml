@@ -1,0 +1,31 @@
+﻿@model int;
+@{
+    ViewData["Title"] = "News Archive - " + Model;
+
+    var earliest = new DateTime(2021, 6, 1, 0, 0, 0, DateTimeKind.Utc);
+    var month = new DateTime(Model, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+    if (month < earliest)
+        month = earliest;
+}
+
+<section class="section section-lg bg-gray-1 text-center">
+    <div class="container container-wide">
+        <div class="row row-90">
+            <div class="col-lg-9">
+                <h2>News Archive - @Model</h2>
+                <h5>By Month:</h5>
+                <ul>
+                    @while (month < DateTime.UtcNow && month.Year == Model)
+                    {
+                        <li><a href="/archive/@Model/@month.Month">@month.ToString("MMMM")</a></li>
+                        month = month.AddMonths(1);
+                    }
+                </ul>
+            </div>
+            <div class="col-lg-3 layout-aside-wrap_extended">
+                @await Html.PartialAsync("RightNav")
+            </div>
+        </div>
+    </div>
+</section>
+

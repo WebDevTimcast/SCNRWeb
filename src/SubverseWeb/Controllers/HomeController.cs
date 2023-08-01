@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Google.Type;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,8 @@ namespace SubverseWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> logger;
+        private const int ITEMS_PER_PAGE = 15;
+        private readonly ILogger logger;
         private readonly ContentService contentService;
         private readonly ONUserHelper userHelper;
 
@@ -34,14 +36,49 @@ namespace SubverseWeb.Controllers
             {
                 PageOffset = 0,
                 PageSize = 30,
-                ContentType = ON.Fragments.Content.ContentType.Written,
             })), userHelper.MyUser));
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> Search(string query)
+        public async Task<IActionResult> Search(string s, int pageNum = 1)
         {
-            return View("Home", new HomeViewModel((await contentService.Search(query ?? "")), userHelper.MyUser));
+            var res = await contentService.Search(new()
+            {
+                PageSize = ITEMS_PER_PAGE,
+                PageOffset = (uint)((pageNum - 1) * ITEMS_PER_PAGE),
+                Query = s,
+            });
+
+            var model = new HomeViewModel(res, userHelper.MyUser)
+            {
+                PageVM = new(pageNum, ((int)res.PageTotalItems + ITEMS_PER_PAGE - 1) / ITEMS_PER_PAGE, $"/search/?s={s}&pageNum="),
+            };
+
+            return View("Home", model);
+        }
+
+        [HttpGet("about-us")]
+        public IActionResult AboutUs()
+        {
+            return View("AboutUs");
+        }
+
+        [HttpGet("staff")]
+        public IActionResult Staff()
+        {
+            return View("Staff");
+        }
+
+        [HttpGet("privacy")]
+        public IActionResult PrivacyPolicy()
+        {
+            return View("Privacy");
+        }
+
+        [HttpGet("terms")]
+        public IActionResult TermsAndConditions()
+        {
+            return View("Terms");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

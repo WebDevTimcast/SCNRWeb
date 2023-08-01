@@ -9,11 +9,17 @@
         <div class="row row-90 justify-content-md-center">
             <div class="col-lg-8 col-xl-7 col-xxl-5">
                 <div class="post-single__body">
+                    @if (userHelper.MyUser.CanCreateContent)
+                    {
+                        <p>
+                            <a href="/content/@(Model.ContentID)/edit" class="btn btn-primary">Edit</a>
+                        </p>
+                    }
                     <h1>@Model.Data.Title</h1>
                     <p>
                         <em>By: @Model.Data.Author</em>
                         <br />
-                        <em>Date: @Model.PublishOnUTC.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt")</em>
+                        <em>Date: @Model.PublishOnUTC?.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt")</em>
                     </p>
                     <img class="post-single__image" src="/image/@Model.Data.FeaturedImageAssetID" alt="" width="720" />
                     <h5 class="post-single__subtitle">@Model.Data.Description</h5>

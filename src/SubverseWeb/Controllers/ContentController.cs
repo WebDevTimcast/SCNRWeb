@@ -30,7 +30,8 @@ namespace SubverseWeb.Controllers
 
         [AllowAnonymous]
         [HttpGet("/content/{id}")]
-        public async Task<IActionResult> Get(string id)
+        [HttpGet("/content/{id}/{stub}")]
+        public async Task<IActionResult> Get(string id, string stub)
         {
             Guid contentId;
             if (!Guid.TryParse(id, out contentId))

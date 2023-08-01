@@ -25,6 +25,14 @@ namespace SubverseWeb.Models.CMS
             Records.AddRange(contentResponse.Records);
         }
 
+        public HomeViewModel(SearchContentResponse contentResponse, ONUser user)
+        {
+            if (contentResponse?.Records == null)
+                return;
+            Records.AddRange(contentResponse.Records);
+        }
+
         public List<ContentListRecord> Records { get; } = new List<ContentListRecord>();
+        public PageNumViewModel PageVM { get; set; } = null;
     }
 }

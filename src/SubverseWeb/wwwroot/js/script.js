@@ -872,7 +872,7 @@
 			var defaultTemplate = '<h5 class="search-title"><a target="_top" href="#{href}" class="search-link">#{title}</a></h5>' +
 					'<p>...#{token}...</p>' +
 					'<p class="match"><em>Terms matched: #{count} - URL: #{href}</em></p>';
-			var defaultFilter = '*.html';
+			var defaultFilter = '';
 			
 			if (plugins.search.length) {
 				for (var i = 0; i < plugins.search.length; i++) {

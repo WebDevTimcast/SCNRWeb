@@ -35,8 +35,18 @@
 
         @await Html.PartialAsync("Breadcrumbs")
 
-        <!-- Main Body-->
-        @RenderBody()
+        <section class="section section-lg bg-gray-1">
+            <div class="container container-wide">
+                <div class="row row-90">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8">
+                        <!-- Main Body-->
+                        @RenderBody()
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+            </div>
+        </section>
 
         <!-- Page Footer-->
         <footer class="section footer-creative">

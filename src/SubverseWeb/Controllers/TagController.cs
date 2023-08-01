@@ -15,8 +15,8 @@ using SubverseWeb.Services;
 namespace SubverseWeb.Controllers
 {
     [AllowAnonymous]
-    [Route("category")]
-    public class CategoryController : Controller
+    [Route("tag")]
+    public class TagController : Controller
     {
         private readonly ILogger logger;
         private readonly ContentService contentService;
@@ -24,7 +24,7 @@ namespace SubverseWeb.Controllers
         private readonly SettingsService settingsService;
         private const int ITEMS_PER_PAGE = 15;
 
-        public CategoryController(ILogger<CategoryController> logger, ContentService contentService, ONUserHelper userHelper, SettingsService settingsService)
+        public TagController(ILogger<TagController> logger, ContentService contentService, ONUserHelper userHelper, SettingsService settingsService)
         {
             this.logger = logger;
             this.contentService = contentService;
@@ -32,42 +32,41 @@ namespace SubverseWeb.Controllers
             this.settingsService = settingsService;
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            var model = new CategoryIndexViewModel();
-            model.Categories = (await settingsService.GetCategories()).OrderBy(c => c.DisplayName).ToList();
+        //[AllowAnonymous]
+        //[HttpGet]
+        //public async Task<IActionResult> Index()
+        //{
+        //    var model = new TagIndexViewModel();
+        //    model.Tags = (await contentService.GetAllTags()).OrderBy(c => c.DisplayName).ToList();
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
         [AllowAnonymous]
-        [HttpGet("{slug}")]
-        [HttpGet("{slug}/page/{pageNum}")]
-        public async Task<IActionResult> CategoryPage(string slug, int pageNum = 1)
+        [HttpGet("{tag}")]
+        [HttpGet("{tag}/page/{pageNum}")]
+        public async Task<IActionResult> CategoryPage(string tag, int pageNum = 1)
         {
             if (pageNum < 1)
-                return RedirectToAction(nameof(Index));
+                return Redirect("/");
 
-            var category = await settingsService.GetCategoryBySlug(slug);
-            if (category == null)
-                return RedirectToAction(nameof(Index));
+            if (string.IsNullOrEmpty(tag))
+                return Redirect("/");
 
             var res = await contentService.GetAll(new()
             {
                 PageSize = ITEMS_PER_PAGE,
                 PageOffset = (uint)((pageNum - 1) * ITEMS_PER_PAGE),
                 ContentType = ContentType.Written,
-                CategoryId = category.CategoryId,
+                Tag = tag,
             });
             if (res == null)
                 return NotFound();
 
-            var model = new CategoryViewModel();
-            model.CategoryRecord = category;
+            var model = new TagViewModel();
+            model.Tag = tag;
             model.ContentRecords = res.Records.ToList();
-            model.PageVM = new(pageNum, ((int)res.PageTotalItems + ITEMS_PER_PAGE - 1) / ITEMS_PER_PAGE, $"/category/{slug}/page/");
+            model.PageVM = new(pageNum, ((int)res.PageTotalItems + ITEMS_PER_PAGE - 1) / ITEMS_PER_PAGE, $"/tag/{tag}/page/");
 
             return View("View", model);
         }

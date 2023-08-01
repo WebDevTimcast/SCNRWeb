@@ -2,7 +2,7 @@
 
 namespace SubverseWeb.Models
 {
-    public class BreadcrumbModel
+    public class BreadcrumbViewModel
     {
         public string Title { get; set; }
         public List<Path> Paths { get; set; } = new();

@@ -1,18 +1,18 @@
-﻿@model SubverseWeb.Models.CMS.HomeViewModel
-@inject ON.Settings.SettingsClient settings;
+﻿@model SubverseWeb.Models.CMS.ByMonthViewModel;
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "News Archive - " + Model.Date.ToString("MMMM yyyy");
 }
 
 <section class="section section-lg bg-gray-1 text-center">
     <div class="container container-wide">
         <div class="row row-90">
             <div class="col-lg-9">
+                <h2>News Archive - @Model.Date.ToString("MMMM yyyy")</h2>
                 <div class="row row-30 row-flex">
                     @foreach (var record in Model.Records)
-                        {
-                            @await Html.PartialAsync("ContentRecord", record)
-                        }
+                    {
+                        @await Html.PartialAsync("ContentRecord", record)
+                    }
                 </div>
                 @await Html.PartialAsync("Paged", Model.PageVM)
             </div>
@@ -22,9 +22,4 @@
         </div>
     </div>
 </section>
-
-
-
-
-
 

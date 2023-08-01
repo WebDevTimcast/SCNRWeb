@@ -1,10 +1,20 @@
-﻿<!-- Pagination-->
-<ul class="pagination-custom">
-    <li class="pagination-control disabled"><a href="#">Prev</a></li>
-    <li class="active"><a href="#">01</a></li>
-    <li><a href="#">02</a></li>
-    <li><a href="#">03</a></li>
-    <li class="pagination-spacer"></li>
-    <li><a href="#">10</a></li>
-    <li class="pagination-control"><a href="#">Next</a></li>
-</ul>
+﻿@model SubverseWeb.Models.PageNumViewModel;
+
+@if (Model != null)
+{
+    <!-- Pagination-->
+    <ul class="pagination-custom">
+        @if (Model.CurrentPageNum > 1)
+        {
+            <li class="pagination-control"><a href="@Model.UrlBase@(Model.CurrentPageNum - 1)">Prev</a></li>
+        }
+        @for (int i = Model.StartPageNum; i <= Model.EndPageNum; i++)
+        {
+            <li @Html.Raw(i == Model.CurrentPageNum ? "class=\"active\"" : "")><a href="@Model.UrlBase@i">@i</a></li>
+        }
+        @if (Model.CurrentPageNum < Model.TotalPageNum)
+        {
+            <li class="pagination-control"><a href="@Model.UrlBase@(Model.CurrentPageNum + 1)">Next</a></li>
+        }
+    </ul>
+}

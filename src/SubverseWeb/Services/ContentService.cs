@@ -180,12 +180,12 @@ namespace SubverseWeb.Services
             await client.PublishContentAsync(req, GetMetadata());
         }
 
-        public async Task<IEnumerable<ContentListRecord>> Search(string query)
+        public async Task<SearchContentResponse> Search(SearchContentRequest request)
         {
             var client = new ContentInterface.ContentInterfaceClient(nameHelper.ContentServiceChannel);
-            var res = await client.SearchContentAsync(new() { Query = query }, GetMetadata());
+            var res = await client.SearchContentAsync(request, GetMetadata());
 
-            return res?.Records?.ToList() ?? Enumerable.Empty<ContentListRecord>();
+            return res;
         }
 
         public async Task UnpublishContent(Guid contentId)
