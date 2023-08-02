@@ -41,6 +41,8 @@ namespace SubverseWeb.Controllers
             if (res == null)
                 return NotFound();
 
+            logger.LogError("Tracing in ContentController.Get: " + res.ToString());
+
             if (res.Data.ContentDataOneofCase == ON.Fragments.Content.ContentPublicData.ContentDataOneofOneofCase.Video)
                 return View("ViewVideo", res);
             if (res.Data.ContentDataOneofCase == ON.Fragments.Content.ContentPublicData.ContentDataOneofOneofCase.Written)
