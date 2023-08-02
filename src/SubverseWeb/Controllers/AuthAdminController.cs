@@ -32,7 +32,7 @@ namespace SubverseWeb.Controllers
         {
             var v = new ListUsersViewModel
             {
-                UserRecords = await userService.GetUserList()
+                UserRecords = (await userService.GetUserList()).OrderBy(u => u.Public.Data.UserName).ToArray(),
             };
 
             return View(v);
