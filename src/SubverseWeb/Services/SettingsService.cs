@@ -7,32 +7,43 @@ using ON.Authentication;
 using Grpc.Core;
 using ON.Settings;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace SubverseWeb.Services
 {
     public class SettingsService
     {
+        private readonly ILogger logger;
         private readonly ServiceNameHelper nameHelper;
         private readonly SettingsClient settingsClient;
         private SettingsPublicData publicData = null;
 
-        public SettingsService(ServiceNameHelper nameHelper, SettingsClient settingsClient)
+        public SettingsService(ServiceNameHelper nameHelper, SettingsClient settingsClient, ILogger<SettingsService> logger)
         {
+            this.logger = logger;
             this.nameHelper = nameHelper;
             this.settingsClient = settingsClient;
         }
 
         public async Task<SettingsPublicData> GetSettings()
         {
-            if (publicData != null)
+            try
+            {
+                if (publicData != null)
+                    return publicData;
+
+                var client = new SettingsInterface.SettingsInterfaceClient(nameHelper.SettingsServiceChannel);
+                var res = await client.GetPublicDataAsync(new());
+
+                publicData = res.Public;
+
                 return publicData;
-
-            var client = new SettingsInterface.SettingsInterfaceClient(nameHelper.SettingsServiceChannel);
-            var res = await client.GetPublicDataAsync(new());
-
-            publicData = res.Public;
-
-            return publicData;
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "Error pulling Settings");
+                return null;
+            }
         }
 
         public async Task<ModifyResponseErrorType> Modify(CMSPublicRecord vm, ONUser user)
