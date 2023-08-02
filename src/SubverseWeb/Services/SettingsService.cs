@@ -110,7 +110,7 @@ namespace SubverseWeb.Services
         }
         public async Task<List<CategoryRecord>> GetCategories()
         {
-            var settings = await GetSettings();
+            var settings = settingsClient.PublicData;
 
             return settings?.CMS?.Categories?.ToList() ?? new();
         }
@@ -122,8 +122,6 @@ namespace SubverseWeb.Services
 
         public async Task<CategoryRecord> GetCategoryBySlug(string slug)
         {
-            var settings = await GetSettings();
-
             return (await GetCategories()).FirstOrDefault(c => c.UrlStub == slug);
         }
 
@@ -154,7 +152,7 @@ namespace SubverseWeb.Services
 
         public async Task<List<ChannelRecord>> GetChannels()
         {
-            var settings = await GetSettings();
+            var settings = settingsClient.PublicData;
 
             return settings?.CMS?.Channels?.ToList() ?? new();
         }
