@@ -7,17 +7,14 @@
 <section class="section section-lg bg-gray-1 text-center">
     <div class="container container-wide">
         <div class="row row-90">
-            <div class="col-lg-9">
-                <div class="row row-30 row-flex">
+            <div class="col-lg-12">
+                <div class="row row-40 row-flex">
                     @foreach (var record in Model.Records)
                         {
                             @await Html.PartialAsync("ContentRecord", record)
                         }
                 </div>
                 @await Html.PartialAsync("Paged", Model.PageVM)
-            </div>
-            <div class="col-lg-3 layout-aside-wrap_extended">
-                @await Html.PartialAsync("RightNav")
             </div>
         </div>
     </div>

@@ -2,24 +2,34 @@
     <div class="rd-navbar-aside">
         <!-- RD Navbar Panel-->
         <div class="rd-navbar-panel rd-navbar-panel-dark">
-            <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
             <!-- RD Navbar Brand-->
             <div class="rd-navbar-brand">
                 <a class="brand" href="/">
                     <div class="brand__name">
                         <img class="brand__logo-dark" src="/img/scnr-header.png" alt="SCNR" width="194" height="46" /><img class="brand__logo-light" src="/img/scnr-header.png" alt="SCNR" width="194" height="46" style="margin: 10px" />
                     </div>
-                    <span class="brand__slogan">We do news</span>
                 </a>
             </div>
         </div>
         <div class="rd-navbar-content-outer">
-            <div class="rd-navbar-content__toggle rd-navbar-fullwidth--hidden" data-rd-navbar-toggle=".rd-navbar-content"><span></span></div>
+            <div class="rd-navbar-content__toggle rd-navbar-fullwidth--hidden small-menu-box" data-rd-navbar-toggle=".rd-navbar-content"><span></span></div>
             <div class="rd-navbar-content">
-                <div>
-                </div>
                 <div class="rd-navbar-element">
                     @await Html.PartialAsync("Socials")
+                </div>
+                <div>
+                    <!-- RD Navbar Search-->
+                    <div class="rd-navbar-search rd-navbar-search-toggled">
+                        <button class="rd-navbar-search-toggle" data-rd-navbar-toggle=".rd-navbar-search"></button>
+                        <form class="rd-search" action="/search" data-search-live="rd-search-results-live" method="GET">
+                            <div class="form-wrap">
+                                <input class="form-input" id="rd-navbar-search-form-input" type="text" name="s" autocomplete="off" />
+                                <label class="form-label" for="rd-navbar-search-form-input">Search</label>
+                            </div>
+                            <button class="rd-navbar-search-submit" type="submit"></button>
+                            <div class="rd-search-results-live" id="rd-search-results-live"></div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

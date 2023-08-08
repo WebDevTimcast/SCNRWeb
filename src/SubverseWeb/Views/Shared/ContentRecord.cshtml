@@ -10,9 +10,9 @@
     }
 }
 
-<div class="col-md-6 col-xxl-4">
+<div class="col-md-6 col-xl-4 col-xxl-3">
     <!-- Post Boxed-->
-    <article class="post-boxed">
+    <article class="post-boxed local-post-boxed">
         <a class="post-boxed__image-wrap" href="/content/@(Model.ContentID)/@(Model.URL)"><img class="post-boxed__image" src="/image/@Model.FeaturedImageAssetID" alt="" width="420" height="360" /></a>
         <div class="post-boxed__body">
             <div class="post-boxed__main">
@@ -23,13 +23,13 @@
                             <li><a href="/category/@cat.UrlStub">@cat.DisplayName</a></li>
                         </ul>
                     }
-                    <div class="post-boxed__info"><span>by</span><a class="post-boxed__user" href="/author/@Model.AuthorID">@Model.Author</a></div>
+                    <div class="post-boxed__info"><span>by</span><a class="post-boxed__user" style="color: #ffffff !important;" href="/author/@Model.AuthorID">@Model.Author</a></div>
                 </div>
-                <p class="post-boxed__title"><a href="/content/@(Model.ContentID)/@(Model.URL)">@Model.Title</a></p>
+                <p class="post-boxed__title"><a href="/content/@(Model.ContentID)/@(Model.URL)" style="color: #ffffff !important;">@Model.Title</a></p>
                 <p>@Model.Description</p>
             </div>
             <div class="post-boxed__footer">
-                <time class="post-boxed__time" datetime="2018">@Model.PublishOnUTC.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt")</time><a class="post-boxed__link" href="/content/@(Model.ContentID)/@(Model.URL)">Read More</a>
+                <time class="post-boxed__time" datetime="2018">@Model.PublishOnUTC.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt")</time><a class="post-boxed__link" href="/content/@(Model.ContentID)/@(Model.URL)" style="color: #ffffff !important;">Read More</a>
             </div>
         </div>
     </article>

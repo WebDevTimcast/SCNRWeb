@@ -35,7 +35,7 @@ namespace SubverseWeb.Controllers
             return View("Home", new HomeViewModel((await contentService.GetAll(new()
             {
                 PageOffset = 0,
-                PageSize = 30,
+                PageSize = 24,
             })), userHelper.MyUser));
         }
 
