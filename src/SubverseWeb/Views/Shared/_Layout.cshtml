@@ -38,19 +38,7 @@
         <!-- Main Body-->
         @RenderBody()
 
-        <!-- Page Footer-->
-        <footer class="section footer-creative">
-            <div class="footer-creative__aside bg-gray-5">
-                <div class="container container-wide">
-                    <div class="footer-creative__aside-inner">
-                        @await Html.PartialAsync("Socials")
-                        <!-- Rights-->
-                        <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span><span>All Rights Reserved.</span><span>&nbsp</span><br class="d-sm-none" /><a href="/terms">Terms of Use</a></p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
+        @await Html.PartialAsync("Footer")
     </div>
     <!-- Global Mailform Output-->
     <div class="snackbars" id="form-output-global"></div>

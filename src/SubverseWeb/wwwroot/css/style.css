@@ -205,20 +205,20 @@ body {
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 1.625;
-	color: #747474;
+	color: #ffffff;
 	background-color: #000000;
 	-webkit-text-size-adjust: none;
 	-webkit-font-smoothing: subpixel-antialiased;
 }
 
 a {
-	color: #747474;
+	color: #ffffff;
 	text-decoration: none;
 	transition: .25s;
 }
 
 a:hover, a:focus {
-	color: #c10e38;
+	color: #9f9f9f;
 	text-decoration: none;
 	outline: none;
 }
@@ -228,11 +228,11 @@ a[href*='tel'], a[href*='mailto'] {
 }
 
 p a {
-	color: #c10e38;
+	color: #ffffff;
 }
 
 p a:hover, p a:focus {
-	color: #2b2b2c;
+	color: #9f9f9f;
 }
 
 .link-hover {
@@ -296,7 +296,7 @@ p * {
 }
 
 p a {
-	color: #c10e38;
+	color: #9999ff;
 }
 
 p [data-toggle='tooltip'] {
@@ -16743,7 +16743,7 @@ html .page .group-middle > * {
 * Contexts
 */
 .bg-gray-darker, .bg-gray-dark, .bg-gray-4, .bg-gray-5 {
-	color: rgba(255, 255, 255, 0.8);
+	color: #ffffff;
 }
 
 .bg-gray-darker a, .bg-gray-dark a, .bg-gray-4 a, .bg-gray-5 a {
@@ -16751,11 +16751,11 @@ html .page .group-middle > * {
 }
 
 .bg-gray-darker a:hover, .bg-gray-dark a:hover, .bg-gray-4 a:hover, .bg-gray-5 a:hover {
-	color: rgba(184, 187, 213, 0.8);
+	color: #ffffff;
 }
 
 .bg-gray-darker h1, .bg-gray-dark h1, .bg-gray-4 h1, .bg-gray-5 h1, .bg-gray-darker h2, .bg-gray-dark h2, .bg-gray-4 h2, .bg-gray-5 h2, .bg-gray-darker h3, .bg-gray-dark h3, .bg-gray-4 h3, .bg-gray-5 h3, .bg-gray-darker h4, .bg-gray-dark h4, .bg-gray-4 h4, .bg-gray-5 h4, .bg-gray-darker h5, .bg-gray-dark h5, .bg-gray-4 h5, .bg-gray-5 h5, .bg-gray-darker h6, .bg-gray-dark h6, .bg-gray-4 h6, .bg-gray-5 h6, .bg-gray-darker .heading-1, .bg-gray-dark .heading-1, .bg-gray-4 .heading-1, .bg-gray-5 .heading-1, .bg-gray-darker .heading-2, .bg-gray-dark .heading-2, .bg-gray-4 .heading-2, .bg-gray-5 .heading-2, .bg-gray-darker .heading-3, .bg-gray-dark .heading-3, .bg-gray-4 .heading-3, .bg-gray-5 .heading-3, .bg-gray-darker .heading-4, .bg-gray-dark .heading-4, .bg-gray-4 .heading-4, .bg-gray-5 .heading-4, .bg-gray-darker .heading-5, .bg-gray-dark .heading-5, .bg-gray-4 .heading-5, .bg-gray-5 .heading-5, .bg-gray-darker .heading-6, .bg-gray-dark .heading-6, .bg-gray-4 .heading-6, .bg-gray-5 .heading-6 {
-	color: #ffffff;
+	color: #9f9f9f;
 }
 
 .bg-gray-darker h1 a, .bg-gray-dark h1 a, .bg-gray-4 h1 a, .bg-gray-5 h1 a, .bg-gray-darker h2 a, .bg-gray-dark h2 a, .bg-gray-4 h2 a, .bg-gray-5 h2 a, .bg-gray-darker h3 a, .bg-gray-dark h3 a, .bg-gray-4 h3 a, .bg-gray-5 h3 a, .bg-gray-darker h4 a, .bg-gray-dark h4 a, .bg-gray-4 h4 a, .bg-gray-5 h4 a, .bg-gray-darker h5 a, .bg-gray-dark h5 a, .bg-gray-4 h5 a, .bg-gray-5 h5 a, .bg-gray-darker h6 a, .bg-gray-dark h6 a, .bg-gray-4 h6 a, .bg-gray-5 h6 a, .bg-gray-darker .heading-1 a, .bg-gray-dark .heading-1 a, .bg-gray-4 .heading-1 a, .bg-gray-5 .heading-1 a, .bg-gray-darker .heading-2 a, .bg-gray-dark .heading-2 a, .bg-gray-4 .heading-2 a, .bg-gray-5 .heading-2 a, .bg-gray-darker .heading-3 a, .bg-gray-dark .heading-3 a, .bg-gray-4 .heading-3 a, .bg-gray-5 .heading-3 a, .bg-gray-darker .heading-4 a, .bg-gray-dark .heading-4 a, .bg-gray-4 .heading-4 a, .bg-gray-5 .heading-4 a, .bg-gray-darker .heading-5 a, .bg-gray-dark .heading-5 a, .bg-gray-4 .heading-5 a, .bg-gray-5 .heading-5 a, .bg-gray-darker .heading-6 a, .bg-gray-dark .heading-6 a, .bg-gray-4 .heading-6 a, .bg-gray-5 .heading-6 a {
@@ -17266,7 +17266,7 @@ html .page .group-middle > * {
 * Light
 */
 .bg-default {
-	background-color: #ffffff;
+	background-color: #000000;
 }
 
 .bg-default[class*='section-'] + .bg-default[class*='section-'] {

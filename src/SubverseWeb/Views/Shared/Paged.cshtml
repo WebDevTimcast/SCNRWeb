@@ -1,6 +1,6 @@
 ﻿@model SubverseWeb.Models.PageNumViewModel;
 
-@if (Model != null)
+@if (Model != null && Model.TotalPageNum > 1)
 {
     <!-- Pagination-->
     <ul class="pagination-custom">

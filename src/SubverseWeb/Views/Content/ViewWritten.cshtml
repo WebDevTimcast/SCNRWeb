@@ -7,7 +7,9 @@
 <section class="section section-lg bg-default">
     <div class="container container-wide container-single">
         <div class="row row-90 justify-content-md-center">
-            <div class="col-lg-8 col-xl-7 col-xxl-5">
+            <div class="col-lg-2">
+            </div>
+            <div class="col-lg-8">
                 <div class="post-single__body">
                     @if (userHelper.MyUser.CanCreateContent)
                     {
@@ -38,8 +40,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-4 col-xl-3 layout-aside-wrap_wide">
-                @await Html.PartialAsync("RightNav")
+            <div class="col-lg-2">
             </div>
         </div>
     </div>
