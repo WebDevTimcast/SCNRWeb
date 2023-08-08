@@ -19,9 +19,9 @@
                     }
                     <h1>@Model.Data.Title</h1>
                     <p>
-                        <em>By: @Model.Data.Author</em>
+                        <em>By @Model.Data.Author</em>
                         <br />
-                        <em>Date: @Model.PublishOnUTC?.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt")</em>
+                        <em>@Model.PublishOnUTC?.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt")</em>
                     </p>
                         <a class="minds-share-button" target="_blank" title="Share to Minds"
                            href="https://www.minds.com/newsfeed/subscriptions/latest?intentUrl=@Uri.EscapeDataString($"https://scnr.com/content/{Model.ContentID}/{Model.Data.URL}")">
