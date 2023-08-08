@@ -14,6 +14,8 @@ namespace SubverseWeb.Models.Auth.Admin
 
         public EditUserViewModel(UserNormalRecord user)
         {
+            IsDisabled = user.Public.DisabledOnUTC != null;
+
             UserID = user.Public.UserID;
             UserName = user.Public.Data.UserName;
             DisplayName = user.Public.Data.DisplayName;
@@ -28,6 +30,9 @@ namespace SubverseWeb.Models.Auth.Admin
         }
 
         public string UserID { get; set; }
+
+        [Display(Name = "User Disabled")]
+        public bool IsDisabled { get; set; }
 
         [Display(Name = "User Name")]
         [RegularExpression(@"^[a-zA-Z0-9]+$")]

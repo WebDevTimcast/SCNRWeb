@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ON.Authentication;
 using SubverseWeb.Models;
+using SubverseWeb.Models.Auth;
 using SubverseWeb.Models.Auth.Admin;
 using SubverseWeb.Services;
 
@@ -79,6 +80,38 @@ namespace SubverseWeb.Controllers
             };
 
             return View("EditUser", vm);
+        }
+
+        [HttpGet("changepassword")]
+        public IActionResult ChangePasswordGet()
+        {
+            var vm = new ChangePasswordOtherViewModel();
+
+            return View("ChangePasswordOther", vm);
+        }
+
+        [HttpPost("changepassword")]
+        public async Task<IActionResult> ChangePasswordPost(ChangePasswordOtherViewModel vm)
+        {
+            vm.ErrorMessage = vm.SuccessMessage = "";
+            if (!ModelState.IsValid)
+            {
+                vm.ErrorMessage = ModelState.Values.FirstOrDefault(v => v.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
+                                        ?.Errors?.FirstOrDefault()?.ErrorMessage;
+                return View("ChangePasswordOther", vm);
+            }
+
+            var error = await userService.ChangePasswordOtherUser(vm);
+            switch (error)
+            {
+                case ON.Fragments.Authentication.ChangeOtherPasswordResponse.Types.ChangeOtherPasswordResponseErrorType.NoError:
+                    return View("ChangePasswordOther", new ChangePasswordOtherViewModel { SuccessMessage = "Settings updated Successfully" });
+                case ON.Fragments.Authentication.ChangeOtherPasswordResponse.Types.ChangeOtherPasswordResponseErrorType.BadNewPassword:
+                    return View("ChangePasswordOther", new ChangePasswordOtherViewModel { ErrorMessage = "New password is not valid" });
+                case ON.Fragments.Authentication.ChangeOtherPasswordResponse.Types.ChangeOtherPasswordResponseErrorType.UnknownError:
+                default:
+                    return RedirectToAction(nameof(Error));
+            }
         }
 
         [AllowAnonymous]

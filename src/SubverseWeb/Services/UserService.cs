@@ -54,6 +54,18 @@ namespace SubverseWeb.Services
             return reply.Error;
         }
 
+        public async Task<ChangeOtherPasswordResponse.Types.ChangeOtherPasswordResponseErrorType> ChangePasswordOtherUser(ChangePasswordOtherViewModel vm)
+        {
+            var req = new ChangeOtherPasswordRequest()
+            {
+                NewPassword = vm.NewPassword
+            };
+
+            var client = new UserInterface.UserInterfaceClient(nameHelper.UserServiceChannel);
+            var reply = await client.ChangeOtherPasswordAsync(req, GetMetadata());
+            return reply.Error;
+        }
+
         public async Task<ChangeOwnProfileImageResponse> ChangeProfilePicture(Stream stream)
         {
             var req = new ChangeOwnProfileImageRequest()

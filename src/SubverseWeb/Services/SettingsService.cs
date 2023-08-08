@@ -108,11 +108,11 @@ namespace SubverseWeb.Services
 
             return data;
         }
-        public async Task<List<CategoryRecord>> GetCategories()
+        public Task<List<CategoryRecord>> GetCategories()
         {
             var settings = settingsClient.PublicData;
 
-            return settings?.CMS?.Categories?.ToList() ?? new();
+            return Task.FromResult(settings?.CMS?.Categories?.ToList() ?? new());
         }
 
         public async Task<CategoryRecord> GetCategoryById(string id)
@@ -150,11 +150,11 @@ namespace SubverseWeb.Services
             return (await GetChannels()).FirstOrDefault(c => c.UrlStub == slug);
         }
 
-        public async Task<List<ChannelRecord>> GetChannels()
+        public Task<List<ChannelRecord>> GetChannels()
         {
             var settings = settingsClient.PublicData;
 
-            return settings?.CMS?.Channels?.ToList() ?? new();
+            return Task.FromResult(settings?.CMS?.Channels?.ToList() ?? new());
         }
     }
 }
