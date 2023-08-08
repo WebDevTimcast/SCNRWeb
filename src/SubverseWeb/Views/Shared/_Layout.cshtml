@@ -35,8 +35,10 @@
 
         @await Html.PartialAsync("Breadcrumbs")
 
-        <!-- Main Body-->
-        @RenderBody()
+        <div style="min-height: 700px;">
+            <!-- Main Body-->
+            @RenderBody()
+        </div>
 
         @await Html.PartialAsync("Footer")
     </div>
