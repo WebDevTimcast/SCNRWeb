@@ -9,31 +9,56 @@
         <div class="row row-90 justify-content-md-center">
             <div class="col-lg-2">
             </div>
-            <div class="col-lg-8">
-                <div class="post-single__body">
-                    @if (userHelper?.MyUser?.CanCreateContent == true)
+            <div class="col-lg-7">
+                @if (userHelper?.MyUser?.CanCreateContent == true)
+                {
+                    <p>
+                        <a href="/content/@(Model.ContentID)/edit" class="btn btn-primary">Edit</a>
+                    </p>
+                }
+            </div>
+            <div class="col-lg-1">
+                @if (userHelper?.MyUser?.CanPublish == true)
+                {
+                    @if (Model.PublishOnUTC != null)
                     {
                         <p>
-                            <a href="/content/@(Model.ContentID)/edit" class="btn btn-primary">Edit</a>
+                            <a href="/content/@(Model.ContentID)/unpublish?returnUrl=@Uri.EscapeDataString($"/content/{Model.ContentID}")" class="btn btn-primary" style="background-color: green;">Published</a>
                         </p>
                     }
+                    else
+                    {
+                        <p>
+                            <a href="/content/@(Model.ContentID)/publish?returnUrl=@Uri.EscapeDataString($"/content/{Model.ContentID}")" class="btn btn-primary">Not Published</a>
+                        </p>
+                    }
+                }
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+        <div class="row row-90 justify-content-md-center">
+            <div class="col-lg-2">
+            </div>
+            <div class="col-lg-8">
+                <div class="post-single__body">
                     <h1>@Model.Data.Title</h1>
                     <p>
                         <em>By @Model.Data.Author</em>
                         <br />
                         <em>@Model.PublishOnUTC?.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt")</em>
                     </p>
-                        <a class="minds-share-button" target="_blank" title="Share to Minds"
-                           href="https://www.minds.com/newsfeed/subscriptions/latest?intentUrl=@Uri.EscapeDataString($"https://scnr.com/content/{Model.ContentID}/{Model.Data.URL}")">
-                            <img src="/img/mindsBulb.png" alt="Minds" style="height: 40px; width: 33px !important;" height="40" width="33" />
-                        </a>
+                    <a class="minds-share-button" target="_blank" title="Share to Minds"
+                       href="https://www.minds.com/newsfeed/subscriptions/latest?intentUrl=@Uri.EscapeDataString($"https://scnr.com/content/{Model.ContentID}/{Model.Data.URL}")">
+                        <img src="/img/mindsBulb.png" alt="Minds" style="height: 40px; width: 33px !important;" height="40" width="33" />
+                    </a>
                     <img class="post-single__image" src="/image/@Model.Data.FeaturedImageAssetID" alt="" width="720" />
                     <h5 class="post-single__subtitle">@Model.Data.Description</h5>
                     <p>
                         @Html.Raw(Model.Data.Written.HtmlBody)
                     </p>
                     <ul class="list-tags post-single__tags">
-                        @foreach(var tag in Model.Data.Tags)
+                        @foreach (var tag in Model.Data.Tags)
                         {
                             <li><a href="/tag/@tag">@tag</a></li>
                         }

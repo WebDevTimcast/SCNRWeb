@@ -13,11 +13,7 @@ namespace SubverseWeb.Models.CMS
     {
         public ManageViewModel() { }
 
-        public ManageViewModel(IEnumerable<ContentListRecord> records)
-        {
-            Records.AddRange(records);
-        }
-
-        public List<ContentListRecord> Records { get; } = new List<ContentListRecord>();
+        public List<ContentListRecord> Records { get; set; } = new List<ContentListRecord>();
+        public PageNumViewModel PageVM { get; set; } = null;
     }
 }

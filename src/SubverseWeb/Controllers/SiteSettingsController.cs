@@ -26,7 +26,7 @@ using SubverseWeb.Services;
 namespace SubverseWeb.Controllers
 {
     [Authorize(Roles = ONUser.ROLE_IS_ADMIN_OR_OWNER)]
-    [Route("settings/site")]
+    [Route("admin/settings")]
     public class SiteSettingsController : Controller
     {
         private readonly ILogger logger;
@@ -79,7 +79,7 @@ namespace SubverseWeb.Controllers
         }
 
         [HttpPost("notification/owner/sendgrid")]
-        public async Task<IActionResult> ModifyNotificationOwnerSendgrid(SendgridOwnerSettings vm)
+        public async Task<IActionResult> ModifyNotificationOwnerSendgrid(SendgridOwnerPostViewModel vm)
         {
             if (vm == null)
                 return RedirectToAction(nameof(Index), new { errorMsg = "An error occured!" });
@@ -87,7 +87,12 @@ namespace SubverseWeb.Controllers
             var data = settingsClient.OwnerData;
             var record = data.Notification ?? new();
 
-            record.Sendgrid = vm;
+            record.Sendgrid = new()
+            {
+                Enabled = vm.Enabled,
+                ApiKeySecret = vm.ApiKeySecret ?? "",
+                SendFromAddress = vm.SendFromAddress ?? "",
+            };
 
             var res = await settingsService.Modify(record, userHelper.MyUser);
 
@@ -98,7 +103,7 @@ namespace SubverseWeb.Controllers
         }
 
         [HttpPost("personalization/public")]
-        public async Task<IActionResult> ModifyPersonalizationPublic(PersonalizationPublicRecord vm)
+        public async Task<IActionResult> ModifyPersonalizationPublic(PersonalizationPublicPostViewModel vm)
         {
             if (vm == null)
                 return RedirectToAction(nameof(Index), new { errorMsg = "An error occured!" });
@@ -107,7 +112,7 @@ namespace SubverseWeb.Controllers
             var record = data.Personalization;
 
             record.Title = vm.Title;
-            record.MetaDescription = vm.MetaDescription;
+            record.MetaDescription = vm.MetaDescription ?? "";
             record.DefaultToDarkMode = vm.DefaultToDarkMode;
 
             var res = await settingsService.Modify(record, userHelper.MyUser);

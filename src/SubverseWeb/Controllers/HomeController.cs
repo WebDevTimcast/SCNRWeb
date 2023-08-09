@@ -39,6 +39,15 @@ namespace SubverseWeb.Controllers
             })), userHelper.MyUser));
         }
 
+        [Authorize]
+        [HttpGet("/admin")]
+        public IActionResult AdminIndex()
+        {
+            if (userHelper.MyUser.CanCreateContent)
+                return RedirectToAction("Manage", "Content");
+            return RedirectToAction("SettingsGet", "Auth");
+        }
+
         [HttpGet("search")]
         public async Task<IActionResult> Search(string s, int pageNum = 1)
         {

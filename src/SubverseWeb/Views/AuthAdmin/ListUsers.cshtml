@@ -4,7 +4,6 @@
     ViewData["Title"] = "User List";
 }
 
-<h1>User List</h1>
 <br />
 
 <table class="table">
@@ -19,11 +18,11 @@
         @foreach (var u in Model.UserRecords)
         {
             <tr>
-                <th scope="row"><a href="/auth/admin/@(u.UserIDGuid.ToString())">@(u.Public.Data.UserName)</a></th>
+                <th scope="row"><a href="/admin/auth/@(u.UserIDGuid.ToString())">@(u.Public.Data.UserName)</a></th>
                 <td>
                     @if (u.Public.DisabledOnUTC != null)
                     {
-                        <i class="bi-x-octagon-fill" style="font-size: 1rem; color: cornflowerblue;" aria-label="Disabled"></i>
+                        <span style="color: red;">X</span>
                     }
                 </td>
                 <td>@(string.Join(',', u.Private.Roles))</td>

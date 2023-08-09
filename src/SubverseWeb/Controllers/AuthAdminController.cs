@@ -16,7 +16,7 @@ using SubverseWeb.Services;
 namespace SubverseWeb.Controllers
 {
     [Authorize(Roles = ONUser.ROLE_IS_ADMIN_OR_OWNER)]
-    [Route("auth/admin")]
+    [Route("admin/auth")]
     public class AuthAdminController : Controller
     {
         private readonly ILogger<AuthAdminController> logger;
@@ -40,14 +40,16 @@ namespace SubverseWeb.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> EditUser(string id)
+        public async Task<IActionResult> EditUser(string id, string success, string error)
         {
             var userId = Guid.Parse(id);
             var r = await userService.GetOtherUser(userId);
 
-            var v = new EditUserViewModel(r);
+            var vm = new EditUserViewModel(r);
+            vm.ErrorMessage = error;
+            vm.SuccessMessage = success;
 
-            return View(v);
+            return View(vm);
         }
 
         [HttpPost("{id}")]
@@ -82,15 +84,15 @@ namespace SubverseWeb.Controllers
             return View("EditUser", vm);
         }
 
-        [HttpGet("changepassword")]
-        public IActionResult ChangePasswordGet()
+        [HttpGet("{id}/changepassword")]
+        public IActionResult ChangePasswordGet(string id)
         {
             var vm = new ChangePasswordOtherViewModel();
 
             return View("ChangePasswordOther", vm);
         }
 
-        [HttpPost("changepassword")]
+        [HttpPost("{userId}/changepassword")]
         public async Task<IActionResult> ChangePasswordPost(ChangePasswordOtherViewModel vm)
         {
             vm.ErrorMessage = vm.SuccessMessage = "";
@@ -105,13 +107,65 @@ namespace SubverseWeb.Controllers
             switch (error)
             {
                 case ON.Fragments.Authentication.ChangeOtherPasswordResponse.Types.ChangeOtherPasswordResponseErrorType.NoError:
-                    return View("ChangePasswordOther", new ChangePasswordOtherViewModel { SuccessMessage = "Settings updated Successfully" });
+                    return RedirectToAction(nameof(EditUser), new { id = vm.UserId, success = "Password updated successfully" });
                 case ON.Fragments.Authentication.ChangeOtherPasswordResponse.Types.ChangeOtherPasswordResponseErrorType.BadNewPassword:
                     return View("ChangePasswordOther", new ChangePasswordOtherViewModel { ErrorMessage = "New password is not valid" });
                 case ON.Fragments.Authentication.ChangeOtherPasswordResponse.Types.ChangeOtherPasswordResponseErrorType.UnknownError:
                 default:
-                    return RedirectToAction(nameof(Error));
+                    return View("ChangePasswordOther", new ChangePasswordOtherViewModel { ErrorMessage = "An unknown error occurred" });
             }
+        }
+
+        [HttpPost("{id}/changepic")]
+        public async Task<IActionResult> ChangeProfilePic(string id, IFormFile file)
+        {
+            if (file == null) return RedirectToAction(nameof(EditUser), new { id, error = "No file uploaded" });
+            if (file.Length == 0) return RedirectToAction(nameof(EditUser), new { id, error = "No file uploaded" });
+
+            using var stream = file.OpenReadStream();
+
+            var res = await userService.ChangeOtherProfilePicture(id, stream);
+            switch (res.Error)
+            {
+                case ON.Fragments.Authentication.ChangeOtherProfileImageResponse.Types.ChangeOtherProfileImageResponseErrorType.NoError:
+                    return RedirectToAction(nameof(EditUser), new { id, success = "Profile pic updated" });
+            }
+
+            return RedirectToAction(nameof(EditUser), new { id, error = "Unknown error updating profile pic" });
+        }
+
+        [HttpGet("{id}/disable")]
+        public async Task<IActionResult> DisableUser(string id)
+        {
+            var vm = new EditUserViewModel();
+
+            var res = await userService.DisableUser(id);
+            switch (res.Error)
+            {
+                case ON.Fragments.Authentication.DisableEnableOtherUserResponse.Types.DisableEnableOtherUserResponseErrorType.NoError:
+                    return RedirectToAction(nameof(EditUser), new { id, success = "The user was successfully disabled" });
+                case ON.Fragments.Authentication.DisableEnableOtherUserResponse.Types.DisableEnableOtherUserResponseErrorType.UnknownError:
+                    return RedirectToAction(nameof(EditUser), new { id, error = "An error occured" });
+            }
+
+            return RedirectToAction(nameof(EditUser), new { id });
+        }
+
+        [HttpGet("{id}/enable")]
+        public async Task<IActionResult> EnableUser(string id)
+        {
+            var vm = new EditUserViewModel();
+
+            var res = await userService.EnableUser(id);
+            switch (res.Error)
+            {
+                case ON.Fragments.Authentication.DisableEnableOtherUserResponse.Types.DisableEnableOtherUserResponseErrorType.NoError:
+                    return RedirectToAction(nameof(EditUser), new { id, success = "The user was successfully enabled" });
+                case ON.Fragments.Authentication.DisableEnableOtherUserResponse.Types.DisableEnableOtherUserResponseErrorType.UnknownError:
+                    return RedirectToAction(nameof(EditUser), new { id, error = "An error occured" });
+            }
+
+            return RedirectToAction(nameof(EditUser), new { id });
         }
 
         [AllowAnonymous]

@@ -1,4 +1,6 @@
-﻿<!-- Page Footer-->
+﻿@inject ON.Authentication.ONUserHelper userHelper;
+
+<!-- Page Footer-->
 <footer class="section footer-creative">
     <div class="footer-creative__aside bg-gray-5">
         <div class="container container-wide">
@@ -10,6 +12,15 @@
                         <li><a href="/about-us">About Us</a></li>
                         <li><a href="/terms">Terms of Use</a></li>
                         <li><a href="/privacy">Privacy Policy</a></li>
+                        @if (userHelper.IsLoggedIn)
+                        {
+                            <li><a href="/admin">Admin</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="/login">Login</a></li>
+                        }
+
                     </ul>
                 </p>
                 <p>

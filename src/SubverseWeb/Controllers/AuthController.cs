@@ -98,7 +98,7 @@ namespace SubverseWeb.Controllers
                 Expires = DateTimeOffset.UtcNow.AddDays(21),
                 IsEssential = true,
             });
-            return Redirect("/");
+            return Redirect("/admin");
         }
 
         [AllowAnonymous]
@@ -126,44 +126,6 @@ namespace SubverseWeb.Controllers
             });
 
             return Redirect(url);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("/register")]
-        public IActionResult RegisterGet()
-        {
-            return View("Register");
-        }
-
-        [AllowAnonymous]
-        [HttpPost("/register")]
-        public async Task<IActionResult> Register(RegisterViewModel vm)
-        {
-            if (!ModelState.IsValid)
-            {
-                vm.ErrorMessage = ModelState.Values.FirstOrDefault()?.Errors?.FirstOrDefault()?.ErrorMessage;
-                return View(vm);
-            }
-
-            var res = await userService.CreateUser(vm);
-
-            if (res.Error == ON.Fragments.Authentication.CreateUserResponse.Types.CreateUserResponseErrorType.UserNameTaken)
-            {
-                vm.ErrorMessage = "The User Name is already taken.";
-                return View(vm);
-            }
-
-            if (res.Error == ON.Fragments.Authentication.CreateUserResponse.Types.CreateUserResponseErrorType.UnknownError)
-            {
-                vm.ErrorMessage = "An error occured creating your account.";
-                return View(vm);
-            }
-
-            Response.Cookies.Append(JwtExtensions.JWT_COOKIE_NAME, res.BearerToken, new CookieOptions()
-            {
-                HttpOnly = true
-            });
-            return RedirectToAction(nameof(SettingsGet));
         }
 
         [HttpGet("/settings")]

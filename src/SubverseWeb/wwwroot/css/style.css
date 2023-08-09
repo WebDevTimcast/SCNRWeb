@@ -27410,3 +27410,9 @@ html[dir='rtl'] .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-current {
 	background-color: #000000 !important;
 	margin-bottom: 30px;
 }
+
+.list-group, .list-group-item {
+	background-color: black;
+	color: white;
+	border-color: #8f8f8f;
+}

@@ -1,0 +1,21 @@
+﻿@model ManageLeftNavViewModel
+
+<div class="tabs-custom tabs-vertical tabs-line" id="tabs-2">
+    <!-- Nav tabs-->
+    <ul class="nav nav-tabs">
+        @if (Model.CanSeeContent)
+        {
+            <li><a class="nav-link @(Model.IsContent ? "active" : "")" href="/admin/content">Manage Articles</a></li>
+        }
+        @if (Model.CanSeeAuth)
+        {
+            <li><a class="nav-link @(Model.IsAuth ? "active" : "")" href="/admin/auth">User List</a></li>
+        }
+        @if (Model.CanSeeSettings)
+        {
+        <li><a class="nav-link @(Model.IsSettings ? "active" : "")" href="/admin/settings">Site Settings</a></li>
+        }
+        <li><a class="nav-link @(Model.IsProfile ? "active" : "")" href="/settings">My Profile</a></li>
+        <li><a class="nav-link" href="/logout">Logout</a></li>
+    </ul>
+</div>

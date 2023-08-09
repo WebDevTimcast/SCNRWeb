@@ -5,6 +5,8 @@
     ViewData["Title"] = "Manage Articles";
 }
 
+<br />
+
 <a href="/content/written/new" class="btn btn-primary">New Article</a>
 
 <br />
@@ -52,3 +54,5 @@
         </tr>
     }
 </table>
+
+@await Html.PartialAsync("Paged", Model.PageVM)

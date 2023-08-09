@@ -104,16 +104,12 @@ namespace SubverseWeb.Services
             return res;
         }
 
-        public async Task<IEnumerable<ContentListRecord>> GetAllAdmin()
+        public async Task<GetAllContentAdminResponse> GetAllAdmin(GetAllContentAdminRequest request)
         {
             var client = new ContentInterface.ContentInterfaceClient(nameHelper.ContentServiceChannel);
-            var res = await client.GetAllContentAdminAsync(new()
-            {
-                PageOffset = 0,
-                PageSize = 10,
-            }, GetMetadata());
+            var res = await client.GetAllContentAdminAsync(request, GetMetadata());
 
-            return res?.Records?.ToList() ?? Enumerable.Empty<ContentListRecord>();
+            return res;
         }
 
         public async Task<ContentPublicRecord> GetContent(Guid contentId)

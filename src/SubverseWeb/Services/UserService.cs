@@ -9,6 +9,7 @@ using System;
 using ON.Settings;
 using Google.Protobuf;
 using System.IO;
+using Microsoft.AspNetCore.Routing;
 
 namespace SubverseWeb.Services
 {
@@ -58,7 +59,8 @@ namespace SubverseWeb.Services
         {
             var req = new ChangeOtherPasswordRequest()
             {
-                NewPassword = vm.NewPassword
+                UserID = vm.UserId,
+                NewPassword = vm.NewPassword,
             };
 
             var client = new UserInterface.UserInterfaceClient(nameHelper.UserServiceChannel);
@@ -79,6 +81,20 @@ namespace SubverseWeb.Services
             return reply;
         }
 
+        public async Task<ChangeOtherProfileImageResponse> ChangeOtherProfilePicture(string userId, Stream stream)
+        {
+            var req = new ChangeOtherProfileImageRequest()
+            {
+                UserID = userId,
+                ProfileImage = await ByteString.FromStreamAsync(stream)
+            };
+
+            var client = new UserInterface.UserInterfaceClient(nameHelper.UserServiceChannel);
+            var reply = await client.ChangeOtherProfileImageAsync(req, GetMetadata());
+
+            return reply;
+        }
+
         public async Task<CreateUserResponse> CreateUser(RegisterViewModel vm)
         {
             var req = new CreateUserRequest
@@ -93,6 +109,36 @@ namespace SubverseWeb.Services
             var client = new UserInterface.UserInterfaceClient(nameHelper.UserServiceChannel);
             var reply = await client.CreateUserAsync(req);
 
+            return reply;
+        }
+
+        public async Task<DisableEnableOtherUserResponse> DisableUser(string userId)
+        {
+            if (!IsLoggedIn)
+                return null;
+
+            var req = new DisableEnableOtherUserRequest()
+            {
+                UserID = userId,
+            };
+
+            var client = new UserInterface.UserInterfaceClient(nameHelper.UserServiceChannel);
+            var reply = await client.DisableOtherUserAsync(req, GetMetadata());
+            return reply;
+        }
+
+        public async Task<DisableEnableOtherUserResponse> EnableUser(string userId)
+        {
+            if (!IsLoggedIn)
+                return null;
+
+            var req = new DisableEnableOtherUserRequest()
+            {
+                UserID = userId,
+            };
+
+            var client = new UserInterface.UserInterfaceClient(nameHelper.UserServiceChannel);
+            var reply = await client.EnableOtherUserAsync(req, GetMetadata());
             return reply;
         }
 

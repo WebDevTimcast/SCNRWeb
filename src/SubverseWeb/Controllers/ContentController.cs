@@ -20,6 +20,7 @@ namespace SubverseWeb.Controllers
         private readonly ILogger<HomeController> logger;
         private readonly ContentService contentService;
         private readonly ONUserHelper userHelper;
+        private const int ITEMS_PER_MANAGE_PAGE = 20;
 
         public ContentController(ILogger<HomeController> logger, ContentService contentService, ONUserHelper userHelper)
         {
@@ -48,10 +49,20 @@ namespace SubverseWeb.Controllers
             return NotFound();
         }
 
-        [HttpGet("/content/manage")]
-        public async Task<IActionResult> Manage()
+        [HttpGet("/admin/content")]
+        [HttpGet("/admin/content/page/{pageNum}")]
+        public async Task<IActionResult> Manage(int pageNum = 1)
         {
-            return View("Manage", new ManageViewModel(await contentService.GetAllAdmin()));
+            var res = await contentService.GetAllAdmin(new()
+            {
+                PageSize = ITEMS_PER_MANAGE_PAGE,
+                PageOffset = (uint)((pageNum - 1) * ITEMS_PER_MANAGE_PAGE),
+            });
+            var model = new ManageViewModel();
+            model.Records = res.Records.ToList();
+            model.PageVM = new(pageNum, ((int)res.PageTotalItems + ITEMS_PER_MANAGE_PAGE - 1) / ITEMS_PER_MANAGE_PAGE, $"/admin/content/page/");
+
+            return View("Manage", model);
         }
 
         [HttpGet("/content/video/new")]
@@ -216,28 +227,40 @@ namespace SubverseWeb.Controllers
 
         [Authorize(Roles = ONUser.ROLE_CAN_PUBLISH)]
         [HttpGet("/content/{id}/publish")]
-        public async Task<IActionResult> Publish(string id)
+        public async Task<IActionResult> Publish(string id, string returnUrl)
         {
             Guid contentId;
             if (!Guid.TryParse(id, out contentId))
-                return Redirect("/content/manage");
+            {
+                if (string.IsNullOrEmpty(returnUrl))
+                    return RedirectToAction(nameof(Manage));
+                return Redirect(returnUrl);
+            }
 
             await contentService.PublishContent(contentId);
 
-            return Redirect("/content/manage");
+            if (string.IsNullOrEmpty(returnUrl))
+                return RedirectToAction(nameof(Manage));
+            return Redirect(returnUrl);
         }
 
         [Authorize(Roles = ONUser.ROLE_CAN_PUBLISH)]
         [HttpGet("/content/{id}/unpublish")]
-        public async Task<IActionResult> Unpublish(string id)
+        public async Task<IActionResult> Unpublish(string id, string returnUrl)
         {
             Guid contentId;
             if (!Guid.TryParse(id, out contentId))
-                return Redirect("/content/manage");
+            {
+                if (string.IsNullOrEmpty(returnUrl))
+                    return RedirectToAction(nameof(Manage));
+                return Redirect(returnUrl);
+            }
 
             await contentService.UnpublishContent(contentId);
 
-            return Redirect("/content/manage");
+            if (string.IsNullOrEmpty(returnUrl))
+                return RedirectToAction(nameof(Manage));
+            return Redirect(returnUrl);
         }
 
         [AllowAnonymous]
