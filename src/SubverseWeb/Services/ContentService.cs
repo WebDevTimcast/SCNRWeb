@@ -243,6 +243,13 @@ namespace SubverseWeb.Services
             record.Public.Data.Author = vm.Author;
             record.Public.Data.SubscriptionLevel = vm.Level;
             record.Public.Data.Written.HtmlBody = vm.Body;
+            record.Public.Data.FeaturedImageAssetID = vm.FeaturedImageAssetID;
+
+            record.Public.Data.CategoryIds.Clear();
+            record.Public.Data.CategoryIds.Add(vm.CategoryID ?? "");
+
+            record.Public.Data.Tags.Clear();
+            record.Public.Data.Tags.AddRange((vm.Tags ?? "").ToLower().Split(',').Distinct().Where(s => !string.IsNullOrWhiteSpace(s)));
 
             var req = new ModifyContentRequest()
             {

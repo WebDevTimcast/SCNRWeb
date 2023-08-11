@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using ON.Authentication;
+using ON.Fragments.Content;
+using ON.Settings;
 using SubverseWeb.Models;
 using SubverseWeb.Models.CMS;
 using SubverseWeb.Services;
@@ -18,15 +21,19 @@ namespace SubverseWeb.Controllers
     public class ContentController : Controller
     {
         private readonly ILogger<HomeController> logger;
+        private readonly AssetService assetService;
         private readonly ContentService contentService;
         private readonly ONUserHelper userHelper;
+        private readonly SettingsService settingsService;
         private const int ITEMS_PER_MANAGE_PAGE = 20;
 
-        public ContentController(ILogger<HomeController> logger, ContentService contentService, ONUserHelper userHelper)
+        public ContentController(ILogger<HomeController> logger, AssetService assetService, ContentService contentService, ONUserHelper userHelper, SettingsService settingsService)
         {
             this.logger = logger;
+            this.assetService = assetService;
             this.contentService = contentService;
             this.userHelper = userHelper;
+            this.settingsService = settingsService;
         }
 
         [AllowAnonymous]
@@ -194,9 +201,14 @@ namespace SubverseWeb.Controllers
                 Title = res.Public.Data.Title,
                 Subtitle = res.Public.Data.Description,
                 Author = res.Public.Data.Author,
+                Tags = string.Join(',', res.Public.Data.Tags),
+                CategoryID = res.Public.Data.CategoryIds.FirstOrDefault(),
                 Body = res.Public.Data.Written.HtmlBody,
                 Level = res.Public.Data.SubscriptionLevel,
+                FeaturedImageAssetID = res.Public.Data.FeaturedImageAssetID,
             };
+
+            vm.Categories = GetCategoryDropDowns();
 
             return View("EditWritten", vm);
         }
@@ -212,12 +224,21 @@ namespace SubverseWeb.Controllers
             if (res == null)
                 return NotFound();
 
+            vm.Categories = GetCategoryDropDowns();
+
             vm.ErrorMessage = vm.SuccessMessage = "";
             if (!ModelState.IsValid)
             {
                 vm.ErrorMessage = ModelState.Values.FirstOrDefault(v => v.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
                                         ?.Errors?.FirstOrDefault()?.ErrorMessage;
                 return View("EditWritten", vm);
+            }
+
+            if (vm.File?.Length > 0)
+            {
+                var resImage = await assetService.CreateImage(vm.File);
+                if ((resImage?.Record?.AssetIDGuid ?? Guid.Empty) != Guid.Empty)
+                    vm.FeaturedImageAssetID = resImage.Record.AssetIDGuid.ToString();
             }
 
             var res2 = await contentService.UpdateContent(contentId, vm);
@@ -268,6 +289,15 @@ namespace SubverseWeb.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private List<SelectListItem> GetCategoryDropDowns()
+        {
+            List<SelectListItem> categories = new() { new SelectListItem("", "") };
+
+            categories.AddRange(settingsService.GetCategories().Result.OrderBy(c => c.DisplayName).Select(c => new SelectListItem(c.DisplayName, c.CategoryId)));
+
+            return categories;
         }
     }
 }

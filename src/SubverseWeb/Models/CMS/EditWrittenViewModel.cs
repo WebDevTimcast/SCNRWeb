@@ -1,4 +1,6 @@
-﻿using ON.Fragments.Authentication;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using ON.Fragments.Authentication;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,8 +20,16 @@ namespace SubverseWeb.Models.CMS
 
         [Required]
         [Display(Name = "Subtitle")]
-        [StringLength(100, ErrorMessage = "{0} length must be less than {1}.")]
+        [StringLength(1000, ErrorMessage = "{0} length must be less than {1}.")]
         public string Subtitle { get; set; }
+
+        [Display(Name = "Category")]
+        public string CategoryID { get; set; }
+
+        [Display(Name = "Tags (comma separated)")]
+        [RegularExpression(@"^[A-Za-z0-9,-]*$", ErrorMessage = "Tags can only be letters, numbers, and dashes.")]
+        [StringLength(1000, ErrorMessage = "{0} length must be less than {1}.")]
+        public string Tags { get; set; }
 
         [Display(Name = "Minimum subscription to view")]
         [DataType(DataType.Currency)]
@@ -33,7 +43,13 @@ namespace SubverseWeb.Models.CMS
         [Display(Name = "Body")]
         public string Body { get; set; }
 
+        public string FeaturedImageAssetID { get; set; }
+
+        public IFormFile File { get; set; }
+
         public string ErrorMessage { get; set; }
         public string SuccessMessage { get; set; }
+
+        public List<SelectListItem> Categories { get; set; }
     }
 }

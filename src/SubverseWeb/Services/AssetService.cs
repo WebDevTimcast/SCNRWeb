@@ -4,6 +4,8 @@ using ON.Fragments.Content;
 using System.Threading.Tasks;
 using System;
 using ON.Settings;
+using Microsoft.AspNetCore.Http;
+using Google.Protobuf;
 
 namespace SubverseWeb.Services
 {
@@ -17,6 +19,32 @@ namespace SubverseWeb.Services
             User = userHelper.MyUser;
 
             this.nameHelper = nameHelper;
+        }
+
+        public async Task<CreateAssetResponse> CreateImage(IFormFile file)
+        {
+            using var stream = file.OpenReadStream();
+
+            var req = new CreateAssetRequest
+            {
+                Image = new()
+                {
+                    Public = new()
+                    {
+                        MimeType = file.ContentType,
+                        Data = await ByteString.FromStreamAsync(stream),
+                    },
+                    Private = new()
+                    {
+
+                    }
+                }
+            };
+
+            var client = new AssetInterface.AssetInterfaceClient(nameHelper.ContentServiceChannel);
+            var res = await client.CreateAssetAsync(req, GetMetadata());
+
+            return res;
         }
 
         public async Task<ImageAssetPublicRecord> GetImage(Guid contentId)

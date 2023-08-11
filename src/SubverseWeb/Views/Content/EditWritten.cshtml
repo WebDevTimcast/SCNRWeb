@@ -17,7 +17,8 @@
     <h2 style="color: green;">@Model.SuccessMessage</h2>
 }
 
-<form method="post" class="needs-validation" novalidate>
+<form method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+    <input type="hidden" asp-for="FeaturedImageAssetID" />
     <div class="form-group">
         <label asp-for="Title"></label>
         <input class="form-control" asp-for="Title" />
@@ -29,6 +30,15 @@
         <span asp-validation-for="Subtitle"></span>
     </div>
     <div class="form-group">
+        <label asp-for="CategoryID"></label>
+        <select class="form-control" asp-for="CategoryID" asp-items="Model.Categories"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Tags"></label>
+        <input class="form-control" asp-for="Tags" />
+        <span asp-validation-for="Tags"></span>
+    </div>
+    <div class="form-group">
         <label asp-for="Author"></label>
         <input class="form-control" asp-for="Author" />
         <span asp-validation-for="Author"></span>
@@ -38,6 +48,24 @@
         <textarea rows="5" class="form-control" id="HtmlBodyPart_Html" asp-for="Body"></textarea>
         <span class="hint">The body of the content item.</span>
     </div>
+    <hr />
+    <div class="form-group">
+        <label>Featured Image</label>
+        @if (string.IsNullOrWhiteSpace(Model.FeaturedImageAssetID))
+        {
+            <b>None</b>
+        }
+        else
+        {
+            <img src="/image/@Model.FeaturedImageAssetID" height="200">
+        }
+    </div>
+    <div class="form-group">
+        <label>Upload a file to change.</label>
+        <input name="file" type="file">
+    </div>
+    <hr />
+
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
 

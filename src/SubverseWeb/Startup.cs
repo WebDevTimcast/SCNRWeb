@@ -30,8 +30,6 @@ namespace SubverseWeb
             services.AddHttpContextAccessor();
             services.AddControllersWithViews();
 
-            services.Configure<SettingsClientSettings>(Configuration.GetSection("SettingsClientSettings"));
-
             services.AddScoped<AssetService>();
             services.AddScoped<ContentService>();
             services.AddScoped<UserService>();
