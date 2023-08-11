@@ -46,7 +46,7 @@ namespace SubverseWeb.Services
                     {
                         RumbleVideoId = vm.RumbleVideoId ?? "",
                         YoutubeVideoId = vm.YoutubeVideoId ?? "",
-                        HtmlBody = vm.Body
+                        HtmlBody = vm.Body ?? ""
                     }
                 },
                 Private = new()
@@ -73,13 +73,13 @@ namespace SubverseWeb.Services
                 Public = new()
                 {
                     Title = vm.Title,
-                    Description = vm.Subtitle,
-                    Author = vm.Author,
+                    Description = vm.Subtitle ?? "",
+                    Author = vm.Author ?? "",
                     SubscriptionLevel = vm.Level,
 
                     Written = new()
                     {
-                        HtmlBody = vm.Body
+                        HtmlBody = vm.Body ?? ""
                     }
                 },
                 Private = new()
@@ -90,10 +90,31 @@ namespace SubverseWeb.Services
                 }
             };
 
+            req.Public.CategoryIds.Add(vm.CategoryID ?? "");
+            req.Public.Tags.AddRange((vm.Tags ?? "").ToLower().Split(',').Distinct().Where(s => !string.IsNullOrWhiteSpace(s)));
+
             var client = new ContentInterface.ContentInterfaceClient(nameHelper.ContentServiceChannel);
             var res = await client.CreateContentAsync(req, GetMetadata());
 
             return res?.Record;
+        }
+
+        public async Task DeleteContent(Guid contentId)
+        {
+            if (!User.CanPublish)
+                return;
+
+            var res = await GetContentAdmin(contentId);
+            if (res == null)
+                return;
+
+            var req = new DeleteContentRequest()
+            {
+                ContentID = contentId.ToString(),
+            };
+
+            var client = new ContentInterface.ContentInterfaceClient(nameHelper.ContentServiceChannel);
+            await client.DeleteContentAsync(req, GetMetadata());
         }
 
         public async Task<GetAllContentResponse> GetAll(GetAllContentRequest request)
@@ -182,6 +203,24 @@ namespace SubverseWeb.Services
             var res = await client.SearchContentAsync(request, GetMetadata());
 
             return res;
+        }
+
+        public async Task UndeleteContent(Guid contentId)
+        {
+            if (!User.CanPublish)
+                return;
+
+            var res = await GetContentAdmin(contentId);
+            if (res == null)
+                return;
+
+            var req = new UndeleteContentRequest()
+            {
+                ContentID = contentId.ToString(),
+            };
+
+            var client = new ContentInterface.ContentInterfaceClient(nameHelper.ContentServiceChannel);
+            await client.UndeleteContentAsync(req, GetMetadata());
         }
 
         public async Task UnpublishContent(Guid contentId)

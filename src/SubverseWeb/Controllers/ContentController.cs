@@ -97,12 +97,14 @@ namespace SubverseWeb.Controllers
         [HttpGet("/content/written/new")]
         public IActionResult NewWrittenGet()
         {
-            return View("NewWritten", new NewWrittenViewModel(userHelper.MyUser));
+            return View("NewWritten", new NewWrittenViewModel(userHelper.MyUser) { Categories = GetCategoryDropDowns() });
         }
 
         [HttpPost("/content/written/new")]
         public async Task<IActionResult> NewWrittenPost(NewWrittenViewModel vm)
         {
+            vm.Categories = GetCategoryDropDowns();
+
             vm.ErrorMessage = vm.SuccessMessage = "";
             if (!ModelState.IsValid)
             {
@@ -198,6 +200,7 @@ namespace SubverseWeb.Controllers
 
             EditWrittenViewModel vm = new()
             {
+                ID = res.Public.ContentID,
                 Title = res.Public.Data.Title,
                 Subtitle = res.Public.Data.Description,
                 Author = res.Public.Data.Author,
@@ -226,19 +229,19 @@ namespace SubverseWeb.Controllers
 
             vm.Categories = GetCategoryDropDowns();
 
+            if (vm.File?.Length > 0)
+            {
+                var resImage = await assetService.CreateImage(vm.File);
+                if ((resImage?.Record?.AssetIDGuid ?? Guid.Empty) != Guid.Empty)
+                    vm.FeaturedImageAssetID = resImage.Record.AssetIDGuid.ToString();
+            }
+
             vm.ErrorMessage = vm.SuccessMessage = "";
             if (!ModelState.IsValid)
             {
                 vm.ErrorMessage = ModelState.Values.FirstOrDefault(v => v.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
                                         ?.Errors?.FirstOrDefault()?.ErrorMessage;
                 return View("EditWritten", vm);
-            }
-
-            if (vm.File?.Length > 0)
-            {
-                var resImage = await assetService.CreateImage(vm.File);
-                if ((resImage?.Record?.AssetIDGuid ?? Guid.Empty) != Guid.Empty)
-                    vm.FeaturedImageAssetID = resImage.Record.AssetIDGuid.ToString();
             }
 
             var res2 = await contentService.UpdateContent(contentId, vm);
@@ -278,6 +281,44 @@ namespace SubverseWeb.Controllers
             }
 
             await contentService.UnpublishContent(contentId);
+
+            if (string.IsNullOrEmpty(returnUrl))
+                return RedirectToAction(nameof(Manage));
+            return Redirect(returnUrl);
+        }
+
+        [Authorize(Roles = ONUser.ROLE_CAN_PUBLISH)]
+        [HttpGet("/content/{id}/delete")]
+        public async Task<IActionResult> Delete(string id, string returnUrl)
+        {
+            Guid contentId;
+            if (!Guid.TryParse(id, out contentId))
+            {
+                if (string.IsNullOrEmpty(returnUrl))
+                    return RedirectToAction(nameof(Manage));
+                return Redirect(returnUrl);
+            }
+
+            await contentService.DeleteContent(contentId);
+
+            if (string.IsNullOrEmpty(returnUrl))
+                return RedirectToAction(nameof(Manage));
+            return Redirect(returnUrl);
+        }
+
+        [Authorize(Roles = ONUser.ROLE_CAN_PUBLISH)]
+        [HttpGet("/content/{id}/undelete")]
+        public async Task<IActionResult> Undelete(string id, string returnUrl)
+        {
+            Guid contentId;
+            if (!Guid.TryParse(id, out contentId))
+            {
+                if (string.IsNullOrEmpty(returnUrl))
+                    return RedirectToAction(nameof(Manage));
+                return Redirect(returnUrl);
+            }
+
+            await contentService.UndeleteContent(contentId);
 
             if (string.IsNullOrEmpty(returnUrl))
                 return RedirectToAction(nameof(Manage));

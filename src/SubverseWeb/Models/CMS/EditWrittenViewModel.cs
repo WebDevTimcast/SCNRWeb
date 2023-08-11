@@ -13,6 +13,8 @@ namespace SubverseWeb.Models.CMS
     {
         public EditWrittenViewModel() { }
 
+        public string ID { get; set; }
+
         [Required]
         [Display(Name = "Title")]
         [StringLength(100, ErrorMessage = "{0} length must be less than {1}.")]
@@ -40,6 +42,7 @@ namespace SubverseWeb.Models.CMS
         [StringLength(100, ErrorMessage = "{0} length must be less than {1}.")]
         public string Author { get; set; }
 
+        [Required]
         [Display(Name = "Body")]
         public string Body { get; set; }
 
