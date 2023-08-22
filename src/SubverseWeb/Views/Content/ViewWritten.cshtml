@@ -2,6 +2,7 @@
 @using userHelper = ON.Authentication.ONUserHelper;
 @{
     ViewData["Title"] = Model.Data.Title;
+    var escapedUrl = Uri.EscapeDataString($"https://scnr.com/content/{Model.ContentID}/{Model.Data.URL}");
 }
 
 <section class="section section-lg bg-default">
@@ -48,15 +49,24 @@
                         <br />
                         <em>@Model.PublishOnUTC?.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt")</em>
                     </p>
-                    <a class="minds-share-button" target="_blank" title="Share to Minds"
-                       href="https://www.minds.com/newsfeed/subscriptions/latest?intentUrl=@Uri.EscapeDataString($"https://scnr.com/content/{Model.ContentID}/{Model.Data.URL}")">
-                        <img src="/img/mindsBulb.png" alt="Minds" style="height: 40px; width: 33px !important;" height="40" width="33" />
-                    </a>
                     <img class="post-single__image" src="/image/@Model.Data.FeaturedImageAssetID" alt="" width="720" />
                     <h5 class="post-single__subtitle">@Model.Data.Description</h5>
                     <p>
                         @Html.Raw(Model.Data.Written.HtmlBody)
                     </p>
+                    Share
+                    <a class="minds-share-button" target="_blank" title="Share to Minds"
+                       href="https://www.minds.com/newsfeed/subscriptions/latest?intentUrl=@escapedUrl">
+                        <img src="~/img/mindsBulb.png" alt="Minds" style="height: 32px; width: 29px !important;" height="40" width="33" />
+                    </a>
+                    <a class="twitter-share-button" target="_blank"
+                       href="https://twitter.com/intent/tweet?url=@escapedUrl">
+                        <img src="~/img/x-logo-white.png" />
+                    </a>
+                    <a class="facebook-share-button" target="_blank"
+                       href="https://www.facebook.com/sharer/sharer.php?u=@escapedUrl">
+                        <img src="~/img/facebookShare.png" />
+                    </a>
                     <ul class="list-tags post-single__tags">
                         @foreach (var tag in Model.Data.Tags)
                         {

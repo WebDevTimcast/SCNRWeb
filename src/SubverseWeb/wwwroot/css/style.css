@@ -27385,15 +27385,24 @@ html[dir='rtl'] .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-current {
 /*# sourceMappingURL=style.css.map */
 
 .minds-share-button {
-	display: block;
+	display: inline;
 	max-width: 50px;
 	max-height: 60px;
 	padding: 10px 5px 5px;
 	text-align: center;
-	background-color: #242a30;
-	border: 1px solid #414c57;
 	border-radius: 3px;
-	box-shadow: 5px 5px 8px -4px rgba(0, 0, 0, 0.4);
+}
+
+.twitter-share-button img {
+	display: inline;
+	max-height: 28px;
+	max-width: 28px;
+}
+
+.facebook-share-button img {
+	display: inline;
+	max-height: 30px;
+	max-width: 30px;
 }
 
 .rd-navbar-main-outer {
@@ -27416,3 +27425,4 @@ html[dir='rtl'] .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-current {
 	color: white;
 	border-color: #8f8f8f;
 }
+
