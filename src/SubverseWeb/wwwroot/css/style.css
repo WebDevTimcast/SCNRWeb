@@ -13451,11 +13451,17 @@ a.post-classic__image-wrap:hover::after {
 	margin-top: 20px;
 }
 
+.post-single__subtitle {
+	font-size: 25px;
+	line-height: 1.36364;
+}
+
 @media (min-width: 576px) {
-	.post-single__subtitle {
-		font-size: 22px;
+/*	.post-single__subtitle {
+		font-size: 30px;
 		line-height: 1.36364;
 	}
+*/
 }
 
 @media (min-width: 768px) {
@@ -13472,6 +13478,10 @@ a.post-classic__image-wrap:hover::after {
 	* + .post-single__meta {
 		margin-top: 35px;
 	}
+	.post-single__subtitle {
+		font-size: 30px;
+		line-height: 1.36364;
+	}
 }
 
 @media (min-width: 1200px) {
@@ -13486,6 +13496,10 @@ a.post-classic__image-wrap:hover::after {
 	}
 	* + .post-single__meta {
 		margin-top: 45px;
+	}
+	.post-single__subtitle {
+		font-size: 40px;
+		line-height: 1.36364;
 	}
 }
 

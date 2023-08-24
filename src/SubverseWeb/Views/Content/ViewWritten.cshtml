@@ -44,13 +44,14 @@
             <div class="col-lg-8">
                 <div class="post-single__body">
                     <h1>@Model.Data.Title</h1>
+                    <hr />
+                    <h2 class="post-single__subtitle">@Model.Data.Description</h2>
                     <p>
                         <em>By @Model.Data.Author</em>
                         <br />
                         <em>@Model.PublishOnUTC?.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt")</em>
                     </p>
                     <img class="post-single__image" src="/image/@Model.Data.FeaturedImageAssetID" alt="" width="720" />
-                    <h5 class="post-single__subtitle">@Model.Data.Description</h5>
                     <p>
                         @Html.Raw(Model.Data.Written.HtmlBody)
                     </p>
