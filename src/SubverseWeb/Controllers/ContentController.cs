@@ -26,6 +26,7 @@ namespace SubverseWeb.Controllers
         private readonly ONUserHelper userHelper;
         private readonly SettingsService settingsService;
         private const int ITEMS_PER_MANAGE_PAGE = 20;
+        private static TimeZoneInfo estZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
 
         public ContentController(ILogger<HomeController> logger, AssetService assetService, ContentService contentService, ONUserHelper userHelper, SettingsService settingsService)
         {
@@ -261,11 +262,44 @@ namespace SubverseWeb.Controllers
                 return Redirect(returnUrl);
             }
 
-            await contentService.PublishContent(contentId);
+            var res = await contentService.GetContentAdmin(contentId);
+            if (res == null)
+            {
+                if (string.IsNullOrEmpty(returnUrl))
+                    return RedirectToAction(nameof(Manage));
+                return Redirect(returnUrl);
+            }
 
-            if (string.IsNullOrEmpty(returnUrl))
+            var vm = new PublishViewModel
+            {
+                ID = id,
+                ReturnUrl = returnUrl ?? Url.Action(nameof(Manage)),
+                Title = res.Public.Data.Title,
+                PublishOnEST = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, estZoneInfo),
+            };
+
+            return View(vm);
+        }
+
+        [Authorize(Roles = ONUser.ROLE_CAN_PUBLISH)]
+        [HttpPost("/content/{id}/publish")]
+        public async Task<IActionResult> PublishPost(PublishViewModel vm)
+        {
+            Guid contentId;
+            if (!Guid.TryParse(vm.ID, out contentId))
+            {
+                if (string.IsNullOrEmpty(vm.ReturnUrl))
+                    return RedirectToAction(nameof(Manage));
+                return Redirect(vm.ReturnUrl);
+            }
+
+            var publishUTC = TimeZoneInfo.ConvertTimeToUtc(vm.PublishOnEST, estZoneInfo);
+
+            await contentService.PublishContent(contentId, publishUTC);
+
+            if (string.IsNullOrEmpty(vm.ReturnUrl))
                 return RedirectToAction(nameof(Manage));
-            return Redirect(returnUrl);
+            return Redirect(vm.ReturnUrl);
         }
 
         [Authorize(Roles = ONUser.ROLE_CAN_PUBLISH)]

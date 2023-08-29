@@ -1,0 +1,28 @@
+﻿@model SubverseWeb.Models.CMS.PublishViewModel
+@{
+    Layout = "_Manage";
+    ViewData["Title"] = "Publish: " + Model.Title;
+}
+
+<div style="float: right; padding-top: 20px;"><a href="@Model.ReturnUrl" class="btn btn-primary" style="color: white;">&lt;&lt; Back</a></div>
+<h1>Publish article</h1>
+<h4>@Model.Title</h4>
+<br />
+
+@if (!string.IsNullOrEmpty(Model?.ErrorMessage))
+{
+    <h2 style="color: red;">@Model.ErrorMessage</h2>
+}
+
+<form method="post" class="needs-validation" enctype="multipart/form-data" novalidate style="width: 400px !important;">
+    <input type="hidden" asp-for="ID" />
+    <input type="hidden" asp-for="ReturnUrl" />
+    <div class="form-group">
+        <label asp-for="PublishOnEST"></label>
+        <input class="form-control" asp-for="PublishOnEST" asp-format="{0:yyyy-MM-ddTHH:mm}" />
+        <span asp-validation-for="PublishOnEST"></span>
+    </div>
+    <hr />
+
+    <button type="submit" class="btn btn-primary">Publish</button>
+</form>

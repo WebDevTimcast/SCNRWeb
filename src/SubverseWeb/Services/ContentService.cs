@@ -178,7 +178,7 @@ namespace SubverseWeb.Services
             return res?.Tags?.ToList() ?? Enumerable.Empty<string>();
         }
 
-        public async Task PublishContent(Guid contentId)
+        public async Task PublishContent(Guid contentId, DateTime publishOnUTC)
         {
             if (!User.CanPublish)
                 return;
@@ -190,7 +190,7 @@ namespace SubverseWeb.Services
             var req = new PublishContentRequest()
             {
                 ContentID = contentId.ToString(),
-                PublishOnUTC = Timestamp.FromDateTimeOffset(DateTimeOffset.UtcNow),
+                PublishOnUTC = Timestamp.FromDateTimeOffset(publishOnUTC),
             };
 
             var client = new ContentInterface.ContentInterfaceClient(nameHelper.ContentServiceChannel);

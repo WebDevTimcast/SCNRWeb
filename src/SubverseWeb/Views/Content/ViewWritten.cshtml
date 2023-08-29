@@ -24,7 +24,7 @@
                     @if (Model.PublishOnUTC != null)
                     {
                         <p>
-                            <a href="/content/@(Model.ContentID)/unpublish?returnUrl=@Uri.EscapeDataString($"/content/{Model.ContentID}")" class="btn btn-primary" style="background-color: green;">Published</a>
+                            <a href="/content/@(Model.ContentID)/unpublish?returnUrl=@Uri.EscapeDataString($"/content/{Model.ContentID}")" class="btn btn-primary" style="background-color: green;" onclick="return confirm('Are you sure you want to unpublish this?');">Published</a>
                         </p>
                     }
                     else
