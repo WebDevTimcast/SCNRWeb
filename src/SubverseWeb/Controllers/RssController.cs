@@ -33,7 +33,6 @@ namespace SubverseWeb.Controllers
         private readonly AssetService assetService;
         private readonly ContentService contentService;
         private readonly SettingsService settingsService;
-        private readonly ONUserHelper userHelper;
 
         private const string MIME_TYPE = "application/rss+xml";
 

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ON.Authentication;
+using ON.Fragments.Generic;
 using SubverseWeb.Models;
 using SubverseWeb.Models.Auth;
 using SubverseWeb.Models.CMS;
@@ -67,6 +68,14 @@ namespace SubverseWeb.Controllers
             }
         }
 
+        [HttpGet("/settings/totp/{id}/disable")]
+        public async Task<IActionResult> DisableTotp(string id)
+        {
+            await userService.DisableOwnTotp(id.ToGuid());
+
+            return RedirectToAction(nameof(SettingsGet));
+        }
+
         [AllowAnonymous]
         [HttpGet("/login")]
         public IActionResult LoginGet()
@@ -85,10 +94,10 @@ namespace SubverseWeb.Controllers
                 return View("Login", vm);
             }
 
-            var token = await userService.AuthenticateUser(vm.LoginName, vm.Password);
+            var token = await userService.AuthenticateUser(vm.LoginName, vm.Password, vm.MFACode);
             if (string.IsNullOrEmpty(token))
             {
-                vm.ErrorMessage = "Your login/password is not correct.";
+                vm.ErrorMessage = "Your login/ password/ mfa code is not correct.";
                 return View("Login", vm);
             }
 
@@ -107,6 +116,39 @@ namespace SubverseWeb.Controllers
         {
             Response.Cookies.Delete(JwtExtensions.JWT_COOKIE_NAME);
             return RedirectToAction(nameof(LoginGet));
+        }
+
+        [HttpGet("/settings/totp/new")]
+        public IActionResult NewTotp()
+        {
+            return View("NewTotp");
+        }
+
+        [HttpPost("/settings/totp/new")]
+        public async Task<IActionResult> NewTotpPost(NewTotpViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                vm.ErrorMessage = ModelState.Values.FirstOrDefault()?.Errors?.FirstOrDefault()?.ErrorMessage;
+                return View("NewTotp", vm);
+            }
+
+            var res = await userService.GenerateOwnTotp(vm.DeviceName);
+            if (!string.IsNullOrWhiteSpace(res?.Error))
+            {
+                vm.ErrorMessage = res?.Error ?? "An unknown error occured";
+                return View("NewTotp", vm);
+            }
+
+            VerifyTotpViewModel vm2 = new()
+            {
+                TotpID = res.TotpID,
+                DeviceName = vm.DeviceName,
+                QRCode = res.QRCode,
+                Key = res.Key,
+            };
+
+            return View("VerifyTotp", vm2);
         }
 
         [HttpGet("/settings/refreshtoken")]
@@ -137,6 +179,9 @@ namespace SubverseWeb.Controllers
 
             var vm = new SettingsViewModel(user);
 
+            var totps = await userService.GetOwnTotp();
+            vm.TotpDevices = totps?.Devices?.ToList() ?? new();
+
             return View("Settings", vm);
         }
 
@@ -148,6 +193,10 @@ namespace SubverseWeb.Controllers
             {
                 vm.ErrorMessage = ModelState.Values.FirstOrDefault(v => v.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
                                         ?.Errors?.FirstOrDefault()?.ErrorMessage;
+
+                var totps2 = await userService.GetOwnTotp();
+                vm.TotpDevices = totps2?.Devices?.ToList() ?? new();
+
                 return View("Settings", vm);
             }
 
@@ -155,6 +204,10 @@ namespace SubverseWeb.Controllers
             if (!string.IsNullOrEmpty(res.Error))
             {
                 vm.ErrorMessage = res.Error;
+
+                var totps2 = await userService.GetOwnTotp();
+                vm.TotpDevices = totps2?.Devices?.ToList() ?? new();
+
                 return View("Settings", vm);
             }
 
@@ -176,6 +229,9 @@ namespace SubverseWeb.Controllers
             {
                 SuccessMessage = "Settings updated Successfully"
             };
+
+            var totps = await userService.GetOwnTotp();
+            vm.TotpDevices = totps?.Devices?.ToList() ?? new();
 
             return View("Settings", vm);
         }
@@ -215,6 +271,25 @@ namespace SubverseWeb.Controllers
                 return NotFound();
 
             return base.File(user.Data.ProfileImagePNG.ToArray(), "image/png"); ;
+        }
+
+        [HttpPost("/settings/totp/verify")]
+        public async Task<IActionResult> VerifyTotp(VerifyTotpViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                vm.ErrorMessage = ModelState.Values.FirstOrDefault(s => s.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)?.Errors?.FirstOrDefault()?.ErrorMessage;
+                return View("VerifyTotp", vm);
+            }
+
+            var res = await userService.VerifyOwnTotp(vm.TotpID.ToGuid(), vm.Code);
+            if (!string.IsNullOrWhiteSpace(res?.Error))
+            {
+                vm.ErrorMessage = res?.Error ?? "An unknown error occured";
+                return View("VerifyTotp", vm);
+            }
+
+            return RedirectToAction(nameof(SettingsGet));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
