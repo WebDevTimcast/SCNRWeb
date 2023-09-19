@@ -1,0 +1,35 @@
+﻿@model SubverseWeb.Models.Asset.ImageSearchViewModel;
+@{
+    Layout = "_Manage";
+    ViewData["Title"] = "Manage Articles";
+}
+
+<a href="/image/new" class="btn btn-primary">New Image</a>
+<br />
+<br />
+<br />
+
+<form method="get">
+    <input name="s" />
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<br />
+<br />
+
+<div class="container container-wide">
+    <div class="row row-90">
+        <div class="col-lg-12">
+            <div class="row row-40 row-flex">
+                @foreach (var record in Model.Records)
+                {
+                    <div class="col-md-6 col-xl-4 col-xxl-3">
+                        <a href="/admin/image/@(record.AssetID)/detail"><img src="/image/@(record.AssetID)" alt="@record.Caption" title="@record.Caption" /></a>
+                        <a href="/admin/image/@(record.AssetID)/detail">@record.Title</a>
+                    </div>
+                }
+            </div>
+            @await Html.PartialAsync("Paged", Model.PageVM)
+        </div>
+    </div>
+</div>

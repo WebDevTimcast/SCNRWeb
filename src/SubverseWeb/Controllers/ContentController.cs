@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using ON.Authentication;
 using ON.Fragments.Content;
-using ON.Settings;
 using SubverseWeb.Models;
 using SubverseWeb.Models.CMS;
 using SubverseWeb.Services;
@@ -248,6 +247,47 @@ namespace SubverseWeb.Controllers
             var res2 = await contentService.UpdateContent(contentId, vm);
 
             return Redirect("/content/" + res2.Public.ContentID);
+        }
+
+        [Authorize(Roles = ONUser.ROLE_CAN_CREATE_CONTENT)]
+        [HttpGet("/content/{id}/pickImage")]
+        [HttpPost("/content/{id}/pickImage")]
+        public async Task<IActionResult> PickImage(string id, string s, int pageNum = 1)
+        {
+            int ITEMS_PER_PAGE = 24;
+
+            var res = await assetService.SearchImages(new()
+            {
+                AssetType = AssetType.Image,
+                PageSize = (uint)ITEMS_PER_PAGE,
+                PageOffset = (uint)((pageNum - 1) * ITEMS_PER_PAGE),
+                Query = s ?? "",
+            });
+
+            var model = new PickImageViewModel(res)
+            {
+                Id = id,
+                PageVM = new(pageNum, ((int)res.PageTotalItems + ITEMS_PER_PAGE - 1) / ITEMS_PER_PAGE, $"/content/{id}/pickImage?s={s}&pageNum="),
+            };
+
+            return View("PickImage", model);
+        }
+
+        [Authorize(Roles = ONUser.ROLE_CAN_CREATE_CONTENT)]
+        [HttpGet("/content/{id}/imagePicked/{aid}")]
+        public async Task<IActionResult> ImagePicked(string id, string aid)
+        {
+            Guid contentId;
+            if (!Guid.TryParse(id, out contentId))
+                return RedirectToAction(nameof(Manage));
+
+            Guid assetId;
+            if (!Guid.TryParse(aid, out assetId))
+                return RedirectToAction(nameof(EditWrittenGet), new { id });
+
+            var res = await contentService.UpdateFeaturedItem(contentId, assetId);
+
+            return RedirectToAction(nameof(EditWrittenGet), new { id });
         }
 
         [Authorize(Roles = ONUser.ROLE_CAN_PUBLISH)]

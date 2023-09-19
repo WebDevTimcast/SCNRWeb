@@ -7,6 +7,10 @@
         {
             <li><a class="nav-link @(Model.IsContent ? "active" : "")" href="/admin/content">Manage Articles</a></li>
         }
+        @if (Model.CanSeeImageLibrary)
+        {
+            <li><a class="nav-link @(Model.IsImage ? "active" : "")" href="/admin/image">Manage Images</a></li>
+        }
         @if (Model.CanSeeAuth)
         {
             <li><a class="nav-link @(Model.IsAuth ? "active" : "")" href="/admin/auth">User List</a></li>

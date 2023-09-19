@@ -21,7 +21,7 @@ namespace SubverseWeb.Services
             this.nameHelper = nameHelper;
         }
 
-        public async Task<CreateAssetResponse> CreateImage(IFormFile file)
+        public async Task<CreateAssetResponse> CreateImage(IFormFile file, string title = "", string caption = "")
         {
             using var stream = file.OpenReadStream();
 
@@ -31,12 +31,14 @@ namespace SubverseWeb.Services
                 {
                     Public = new()
                     {
+                        Title = title,
+                        Caption = caption,
                         MimeType = file.ContentType,
                         Data = await ByteString.FromStreamAsync(stream),
                     },
                     Private = new()
                     {
-
+                        
                     }
                 }
             };
@@ -58,6 +60,14 @@ namespace SubverseWeb.Services
             var res = await client.GetAssetAsync(req, GetMetadata());
 
             return res?.Image;
+        }
+
+        public async Task<SearchAssetResponse> SearchImages(SearchAssetRequest req)
+        {
+            var client = new AssetInterface.AssetInterfaceClient(nameHelper.ContentServiceChannel);
+            var res = await client.SearchAssetAsync(req, GetMetadata());
+
+            return res;
         }
 
         private Metadata GetMetadata()

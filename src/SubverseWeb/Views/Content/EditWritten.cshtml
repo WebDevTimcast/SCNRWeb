@@ -66,6 +66,10 @@
         <label>Upload a file to change.</label>
         <input name="file" type="file">
     </div>
+    <div class="form-group">
+        <label>Pick an image from the image library <span style="color:red;">(Make sure you save any work prior to picking an image)</span>.</label>
+        <a asp-action="PickImage" asp-route-id="@Model.ID" class="btn btn-primary">Pick Image</a>
+    </div>
     <hr />
 
     <button type="submit" class="btn btn-primary">Update</button>

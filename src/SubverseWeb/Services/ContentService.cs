@@ -302,6 +302,28 @@ namespace SubverseWeb.Services
             return res?.Record;
         }
 
+        public async Task<ContentRecord> UpdateFeaturedItem(Guid contentId, Guid assetId)
+        {
+            if (!User.CanCreateContent)
+                return null;
+
+            var client = new ContentInterface.ContentInterfaceClient(nameHelper.ContentServiceChannel);
+            var record = await GetContentAdmin(contentId);
+
+            record.Public.Data.FeaturedImageAssetID = assetId.ToString();
+
+            var req = new ModifyContentRequest()
+            {
+                ContentID = record.Public.ContentID,
+                Public = record.Public.Data,
+                Private = record.Private.Data,
+            };
+
+            var res = await client.ModifyContentAsync(req, GetMetadata());
+
+            return res?.Record;
+        }
+
         private Metadata GetMetadata()
         {
             var data = new Metadata();
