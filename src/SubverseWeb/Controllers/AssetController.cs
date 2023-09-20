@@ -47,22 +47,6 @@ namespace SubverseWeb.Controllers
             return File(res.Data.Data.ToByteArray(), res.Data.MimeType);
         }
 
-        [AllowAnonymous]
-        [HttpGet("/image/profile/{id}")]
-        public async Task<IActionResult> GetProfile(string id)
-        {
-            Guid userId;
-            if (!Guid.TryParse(id, out userId))
-                return NotFound();
-
-            var res = await userService.GetUserPublic(userId.ToString());
-            if (res == null)
-                return NotFound();
-
-            return File(res.Data.ProfileImagePNG.ToByteArray(), "image/png");
-        }
-
-
         [HttpGet("/admin/image/{id}/detail")]
         public async Task<IActionResult> ImageDetail(string id)
         {

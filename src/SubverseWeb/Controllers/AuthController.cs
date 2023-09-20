@@ -18,6 +18,7 @@ using SubverseWeb.Services;
 
 namespace SubverseWeb.Controllers
 {
+    [Authorize]
     public class AuthController : Controller
     {
         private readonly ILogger<HomeController> logger;
@@ -259,6 +260,7 @@ namespace SubverseWeb.Controllers
             return RedirectToAction(nameof(SettingsGet));
         }
 
+        [AllowAnonymous]
         [HttpGet("/profile/pic/{id}")]
         public async Task<IActionResult> GetProfilePic(string id)
         {
