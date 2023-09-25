@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ON.Authentication;
+using ON.Fragments.Generic;
 using SubverseWeb.Models;
 using SubverseWeb.Models.Auth;
 using SubverseWeb.Models.Auth.Admin;
@@ -49,6 +50,9 @@ namespace SubverseWeb.Controllers
             vm.ErrorMessage = error;
             vm.SuccessMessage = success;
 
+            var totps = await userService.GetOtherTotp(userId);
+            vm.TotpDevices = totps?.Devices?.ToList() ?? new();
+
             return View(vm);
         }
 
@@ -56,6 +60,9 @@ namespace SubverseWeb.Controllers
         public async Task<IActionResult> EditUserPost(string id, EditUserViewModel vm)
         {
             var userId = Guid.Parse(id);
+
+            var totps = await userService.GetOtherTotp(userId);
+            vm.TotpDevices = totps?.Devices?.ToList() ?? new();
 
             vm.ErrorMessage = vm.SuccessMessage = "";
             if (!ModelState.IsValid)
@@ -164,6 +171,14 @@ namespace SubverseWeb.Controllers
                 case ON.Fragments.Authentication.DisableEnableOtherUserResponse.Types.DisableEnableOtherUserResponseErrorType.UnknownError:
                     return RedirectToAction(nameof(EditUser), new { id, error = "An error occured" });
             }
+
+            return RedirectToAction(nameof(EditUser), new { id });
+        }
+
+        [HttpGet("{id}/totp/{totpid}/disable")]
+        public async Task<IActionResult> DisableTotp(string id, string totpid)
+        {
+            await userService.DisableOtherTotp(id.ToGuid(), totpid.ToGuid());
 
             return RedirectToAction(nameof(EditUser), new { id });
         }

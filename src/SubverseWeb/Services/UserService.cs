@@ -195,6 +195,19 @@ namespace SubverseWeb.Services
             return reply;
         }
 
+        public async Task<GetOtherTotpListResponse> GetOtherTotp(Guid userId)
+        {
+            if (!IsLoggedIn)
+                return null;
+
+            if (nameHelper.UserServiceChannel == null)
+                return null;
+
+            var client = new UserInterface.UserInterfaceClient(nameHelper.UserServiceChannel);
+            var reply = await client.GetOtherTotpListAsync(new() { UserID = userId.ToString() }, GetMetadata());
+            return reply;
+        }
+
         public async Task<GetOwnTotpListResponse> GetOwnTotp()
         {
             if (!IsLoggedIn)
