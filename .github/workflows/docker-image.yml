@@ -18,12 +18,11 @@ jobs:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         DOCKER_SERVER: ${{secrets.DOCKER_SERVER}}
-        TAG: $(date +%s)
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_SERVER
     
     - name: Build the Docker image
-      run: docker build src/SCNRWeb --file src/SCNRWeb/Dockerfile --tag scnr/web:$TAG
+      run: docker build src/SCNRWeb --file src/SCNRWeb/Dockerfile --tag scnr/web:latest
 
     - name: Push image
-      run: docker push scnr/web:$TAG
+      run: docker push scnr/web:latest
       
