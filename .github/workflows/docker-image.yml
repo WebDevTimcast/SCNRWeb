@@ -21,7 +21,7 @@ jobs:
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_SERVER
     
     - name: Build the Docker image
-      run: docker build ./src/SCNRWeb --file Dockerfile --tag scnr/web:$(date +%s)
+      run: docker build src/SCNRWeb --file src/SCNRWeb/Dockerfile --tag scnr/web:$(date +%s)
 
     - name: Push image
       run: docker push scnr/web:$(date +%s)
