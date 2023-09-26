@@ -21,8 +21,12 @@ jobs:
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_SERVER
     
     - name: Build the Docker image
+      env:
+        DOCKER_SERVER: ${{secrets.DOCKER_SERVER}}
       run: docker build src/SCNRWeb --file src/SCNRWeb/Dockerfile --tag $DOCKER_SERVER/scnr/web:latest
 
     - name: Push image
+      env:
+        DOCKER_SERVER: ${{secrets.DOCKER_SERVER}}
       run: docker push $DOCKER_SERVER/scnr/web:latest
       
