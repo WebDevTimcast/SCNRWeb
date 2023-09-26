@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SubverseWeb.Models.Auth
+namespace SCNRWeb.Models.Auth
 {
     public class ChangePasswordOtherViewModel
     {

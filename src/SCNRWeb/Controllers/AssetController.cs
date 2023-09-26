@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ON.Authentication;
 using ON.Fragments.Content;
-using SubverseWeb.Models.Asset;
-using SubverseWeb.Services;
+using SCNRWeb.Models.Asset;
+using SCNRWeb.Services;
 
-namespace SubverseWeb.Controllers
+namespace SCNRWeb.Controllers
 {
     [Authorize(Roles = ONUser.ROLE_CAN_CREATE_CONTENT)]
     public class AssetController : Controller

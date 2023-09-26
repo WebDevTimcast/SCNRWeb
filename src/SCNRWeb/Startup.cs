@@ -9,9 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ON.Authentication;
 using ON.Settings;
-using SubverseWeb.Services;
+using SCNRWeb.Services;
 
-namespace SubverseWeb
+namespace SCNRWeb
 {
     public class Startup
     {

@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using ON.Authentication;
 using ON.Fragments.Content;
-using SubverseWeb.Models;
-using SubverseWeb.Models.CMS;
-using SubverseWeb.Services;
+using SCNRWeb.Models;
+using SCNRWeb.Models.CMS;
+using SCNRWeb.Services;
 
-namespace SubverseWeb.Controllers
+namespace SCNRWeb.Controllers
 {
     [Authorize(Roles = ONUser.ROLE_CAN_CREATE_CONTENT)]
     public class ContentController : Controller

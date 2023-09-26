@@ -1,6 +1,6 @@
 ﻿using ON.Fragments.Content;
 
-namespace SubverseWeb.Models.Asset
+namespace SCNRWeb.Models.Asset
 {
     public class ImageDetailViewModel
     {

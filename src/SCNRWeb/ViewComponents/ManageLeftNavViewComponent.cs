@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ON.Authentication;
-using SubverseWeb.Models;
+using SCNRWeb.Models;
 using System.Threading.Tasks;
 
-namespace SubverseWeb.ViewComponents
+namespace SCNRWeb.ViewComponents
 {
     public class ManageLeftNavViewComponent : ViewComponent
     {

@@ -2,7 +2,7 @@
 using ON.Fragments.Settings;
 using System.Collections.Generic;
 
-namespace SubverseWeb.Models.CMS
+namespace SCNRWeb.Models.CMS
 {
     public class CategoryViewModel
     {

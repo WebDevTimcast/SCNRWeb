@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ON.Authentication;
-using SubverseWeb.Models;
-using SubverseWeb.Models.Auth;
-using SubverseWeb.Models.CMS;
-using SubverseWeb.Services;
+using SCNRWeb.Models;
+using SCNRWeb.Models.Auth;
+using SCNRWeb.Models.CMS;
+using SCNRWeb.Services;
 
-namespace SubverseWeb.Controllers
+namespace SCNRWeb.Controllers
 {
     public class HomeController : Controller
     {

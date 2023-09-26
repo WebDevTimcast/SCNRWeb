@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SubverseWeb.Models.CMS
+namespace SCNRWeb.Models.CMS
 {
     public class PublishViewModel
     {

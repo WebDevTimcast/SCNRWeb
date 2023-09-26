@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SubverseWeb.Models
+namespace SCNRWeb.Models
 {
     public class BreadcrumbViewModel
     {

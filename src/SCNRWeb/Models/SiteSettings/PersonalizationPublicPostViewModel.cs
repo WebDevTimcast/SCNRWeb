@@ -1,4 +1,4 @@
-﻿namespace SubverseWeb.Models.SiteSettings
+﻿namespace SCNRWeb.Models.SiteSettings
 {
     public class PersonalizationPublicPostViewModel
     {

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SubverseWeb.Models.Asset
+namespace SCNRWeb.Models.Asset
 {
     public class NewImageViewModel
     {

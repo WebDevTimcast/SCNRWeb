@@ -1,10 +1,10 @@
 ﻿using ON.Authentication;
 using ON.Fragments.Settings;
 using ON.Settings;
-using SubverseWeb.Services;
+using SCNRWeb.Services;
 using System.Threading.Tasks;
 
-namespace SubverseWeb.Models.SiteSettings
+namespace SCNRWeb.Models.SiteSettings
 {
     public class IndexViewModel
     {

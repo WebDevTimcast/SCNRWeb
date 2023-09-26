@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ON.Fragment", "..\..\node\O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ON.Settings.Shared", "..\..\node\ON.Install\src\ON.Settings\Shared\ON.Settings.Shared.csproj", "{5C6C10DF-44AE-47D2-BEF4-00790D30410A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubverseWeb", "SubverseWeb\SubverseWeb.csproj", "{DA6E7E29-AF5B-4E2D-A900-A12109B7A885}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCNRWeb", "SCNRWeb\SCNRWeb.csproj", "{DA6E7E29-AF5B-4E2D-A900-A12109B7A885}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

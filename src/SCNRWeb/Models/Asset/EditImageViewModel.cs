@@ -2,7 +2,7 @@
 using ON.Fragments.Content;
 using System.ComponentModel.DataAnnotations;
 
-namespace SubverseWeb.Models.Asset
+namespace SCNRWeb.Models.Asset
 {
     public class EditImageViewModel
     {

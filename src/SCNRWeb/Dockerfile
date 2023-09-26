@@ -5,15 +5,15 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src/node/
 RUN git clone https://github.com/phillipfisher/ON.Install.git
-WORKDIR /src/SubverseWeb/src/SubverseWeb
+WORKDIR /src/SCNRWeb/src/SCNRWeb
 COPY . .
-RUN dotnet restore "SubverseWeb.csproj"
-RUN dotnet build "SubverseWeb.csproj" -c Release -o /app/build
+RUN dotnet restore "SCNRWeb.csproj"
+RUN dotnet build "SCNRWeb.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "SubverseWeb.csproj" -c Release -o /app/publish
+RUN dotnet publish "SCNRWeb.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "SubverseWeb.dll"]
+ENTRYPOINT ["dotnet", "SCNRWeb.dll"]

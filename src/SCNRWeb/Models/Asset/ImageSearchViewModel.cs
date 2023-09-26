@@ -2,7 +2,7 @@
 using ON.Fragments.Content;
 using System.Collections.Generic;
 
-namespace SubverseWeb.Models.Asset
+namespace SCNRWeb.Models.Asset
 {
     public class ImageSearchViewModel
     {

@@ -8,11 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SubverseWeb.Models.CMS;
+using SCNRWeb.Models.CMS;
 using ON.Settings;
 using ON.Fragments.Settings;
 
-namespace SubverseWeb.Services
+namespace SCNRWeb.Services
 {
     public class ContentService
     {

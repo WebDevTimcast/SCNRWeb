@@ -3,7 +3,7 @@ using ON.Authentication;
 using System.Diagnostics;
 using System.Threading;
 
-namespace SubverseWeb.Models
+namespace SCNRWeb.Models
 {
     public class ManageLeftNavViewModel
     {

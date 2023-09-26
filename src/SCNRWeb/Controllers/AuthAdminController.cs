@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ON.Authentication;
 using ON.Fragments.Generic;
-using SubverseWeb.Models;
-using SubverseWeb.Models.Auth;
-using SubverseWeb.Models.Auth.Admin;
-using SubverseWeb.Services;
+using SCNRWeb.Models;
+using SCNRWeb.Models.Auth;
+using SCNRWeb.Models.Auth.Admin;
+using SCNRWeb.Services;
 
-namespace SubverseWeb.Controllers
+namespace SCNRWeb.Controllers
 {
     [Authorize(Roles = ONUser.ROLE_IS_ADMIN_OR_OWNER)]
     [Route("admin/auth")]

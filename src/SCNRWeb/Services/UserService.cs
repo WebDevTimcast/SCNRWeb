@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using ON.Authentication;
 using ON.Fragments.Authentication;
-using SubverseWeb.Models.Auth;
+using SCNRWeb.Models.Auth;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
@@ -11,7 +11,7 @@ using Google.Protobuf;
 using System.IO;
 using Microsoft.AspNetCore.Routing;
 
-namespace SubverseWeb.Services
+namespace SCNRWeb.Services
 {
     public class UserService
     {

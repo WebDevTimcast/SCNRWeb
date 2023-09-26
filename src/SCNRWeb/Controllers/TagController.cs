@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ON.Authentication;
 using ON.Fragments.Content;
-using SubverseWeb.Models.CMS;
-using SubverseWeb.Services;
+using SCNRWeb.Models.CMS;
+using SCNRWeb.Services;
 
-namespace SubverseWeb.Controllers
+namespace SCNRWeb.Controllers
 {
     [AllowAnonymous]
     [Route("tag")]

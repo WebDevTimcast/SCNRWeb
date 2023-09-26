@@ -3,7 +3,7 @@ using ON.Fragments.Settings;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SubverseWeb.Models.CMS
+namespace SCNRWeb.Models.CMS
 {
     public class CategoryIndexViewModel
     {

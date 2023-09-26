@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SubverseWeb.Models.Auth.Admin
+namespace SCNRWeb.Models.Auth.Admin
 {
     public class ListUsersViewModel
     {

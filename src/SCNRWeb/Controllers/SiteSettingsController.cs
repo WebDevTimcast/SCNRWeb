@@ -17,13 +17,13 @@ using ON.Fragments.Authorization.Payment.Stripe;
 using ON.Fragments.Notification;
 using ON.Fragments.Settings;
 using ON.Settings;
-using SubverseWeb.Models;
-using SubverseWeb.Models.Auth;
-using SubverseWeb.Models.CMS;
-using SubverseWeb.Models.SiteSettings;
-using SubverseWeb.Services;
+using SCNRWeb.Models;
+using SCNRWeb.Models.Auth;
+using SCNRWeb.Models.CMS;
+using SCNRWeb.Models.SiteSettings;
+using SCNRWeb.Services;
 
-namespace SubverseWeb.Controllers
+namespace SCNRWeb.Controllers
 {
     [Authorize(Roles = ONUser.ROLE_IS_ADMIN_OR_OWNER)]
     [Route("admin/settings")]

@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "SubverseWeb": {
+    "SCNRWeb": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "http://localhost:80/admin/",

@@ -1,6 +1,6 @@
 using System;
 
-namespace SubverseWeb.Models
+namespace SCNRWeb.Models
 {
     public class ErrorViewModel
     {

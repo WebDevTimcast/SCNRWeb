@@ -7,7 +7,7 @@ using ON.Settings;
 using Microsoft.AspNetCore.Http;
 using Google.Protobuf;
 
-namespace SubverseWeb.Services
+namespace SCNRWeb.Services
 {
     public class AssetService
     {

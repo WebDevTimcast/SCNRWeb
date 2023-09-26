@@ -9,7 +9,7 @@ using ON.Settings;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 
-namespace SubverseWeb.Services
+namespace SCNRWeb.Services
 {
     public class SettingsService
     {
