@@ -1,0 +1,35 @@
+version: '3'
+include:
+  - path: ../common/auth.yml
+  - path: ../common/cms.yml
+  - path: ../common/comment.yml
+  - path: ../common/payment.yml
+  - path: ../common/settings.yml
+  - path: ../common/stats.yml
+  - path: ../common/web.yml
+services:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy:dev-alpine
+    ports:
+      - "80:80"
+    logging:
+      options:
+        max-size: "10m"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+  eventdb:
+    image: eventstore/eventstore:21.10.8-buster-slim
+    ports:
+      - "2113:2113"
+    environment:
+      - EVENTSTORE_CLUSTER_SIZE=1
+      - EVENTSTORE_RUN_PROJECTIONS=All
+      - EVENTSTORE_START_STANDARD_PROJECTIONS=true
+      - EVENTSTORE_HTTP_PORT=2113
+      - EVENTSTORE_INSECURE=true
+    logging:
+      options:
+        max-size: "10m"
+    volumes:
+      - ./data/eventdb/data:/var/lib/eventstore
+      - ./data/eventdb/logs:/var/log/eventstore
