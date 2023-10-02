@@ -23,7 +23,7 @@
                             <li><a href="/category/@cat.UrlStub">@cat.DisplayName</a></li>
                         </ul>
                     }
-                    <div class="post-boxed__info"><span>by</span><a class="post-boxed__user" style="color: #ffffff !important;" href="/author/@Model.AuthorID">@Model.Author</a></div>
+                    <div class="post-boxed__info"><span>by</span><a class="post-boxed__user" style="color: #ffffff !important;" @*href="/author/@Model.AuthorID"*@>@Model.Author</a></div>
                 </div>
                 <p class="post-boxed__title"><a href="/content/@(Model.ContentID)/@(Model.URL)" style="color: #ffffff !important;">@Model.Title</a></p>
                 <p>@Model.Description</p>

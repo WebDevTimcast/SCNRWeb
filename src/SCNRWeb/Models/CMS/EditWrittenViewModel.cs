@@ -17,10 +17,9 @@ namespace SCNRWeb.Models.CMS
 
         [Required]
         [Display(Name = "Title")]
-        [StringLength(100, ErrorMessage = "{0} length must be less than {1}.")]
+        [StringLength(200, ErrorMessage = "{0} length must be less than {1}.")]
         public string Title { get; set; }
 
-        [Required]
         [Display(Name = "Subtitle")]
         [StringLength(1000, ErrorMessage = "{0} length must be less than {1}.")]
         public string Subtitle { get; set; }
@@ -42,7 +41,6 @@ namespace SCNRWeb.Models.CMS
         [StringLength(100, ErrorMessage = "{0} length must be less than {1}.")]
         public string Author { get; set; }
 
-        [Required]
         [Display(Name = "Body")]
         public string Body { get; set; }
 

@@ -255,7 +255,7 @@ namespace SCNRWeb.Services
             record.Public.Data.SubscriptionLevel = vm.Level;
             record.Public.Data.Video.RumbleVideoId = vm.RumbleVideoId ?? "";
             record.Public.Data.Video.YoutubeVideoId = vm.YoutubeVideoId ?? "";
-            record.Public.Data.Video.HtmlBody = vm.Body;
+            record.Public.Data.Video.HtmlBody = vm.Body ?? "";
 
             var req = new ModifyContentRequest()
             {
@@ -278,10 +278,10 @@ namespace SCNRWeb.Services
             var record = await GetContentAdmin(contentId);
 
             record.Public.Data.Title = vm.Title;
-            record.Public.Data.Description = vm.Subtitle;
-            record.Public.Data.Author = vm.Author;
+            record.Public.Data.Description = vm.Subtitle ?? "";
+            record.Public.Data.Author = vm.Author ?? "";
             record.Public.Data.SubscriptionLevel = vm.Level;
-            record.Public.Data.Written.HtmlBody = vm.Body;
+            record.Public.Data.Written.HtmlBody = vm.Body ?? "";
             record.Public.Data.FeaturedImageAssetID = vm.FeaturedImageAssetID ?? "";
 
             record.Public.Data.CategoryIds.Clear();
