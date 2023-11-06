@@ -18,7 +18,7 @@ namespace SCNRWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private const int ITEMS_PER_PAGE = 15;
+        private const int ITEMS_PER_PAGE = 24;
         private readonly ILogger logger;
         private readonly ContentService contentService;
         private readonly ONUserHelper userHelper;
@@ -35,7 +35,7 @@ namespace SCNRWeb.Controllers
             return View("Home", new HomeViewModel((await contentService.GetAll(new()
             {
                 PageOffset = 0,
-                PageSize = 24,
+                PageSize = ITEMS_PER_PAGE,
             })), userHelper.MyUser));
         }
 

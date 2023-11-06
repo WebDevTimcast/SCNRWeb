@@ -12265,11 +12265,11 @@ textarea.form-input {
 }
 
 .list-marked a {
-	color: #c10e38;
+	color: #c1c1c1;
 }
 
 .list-marked a:hover, .list-marked a:hover .inner-text {
-	color: #000;
+	color: #888;
 }
 
 .list-marked > li + li {

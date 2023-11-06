@@ -15,23 +15,35 @@ namespace SCNRWeb.Models.CMS
 
         public HomeViewModel(IEnumerable<ContentListRecord> records, ONUser user)
         {
-            Records.AddRange(records);
+            var list = records.ToList();
+
+            PinnedRecords.AddRange(list.Where(r => r.PinnedOnUTC != null));
+            Records.AddRange(list.Where(r => r.PinnedOnUTC == null));
         }
 
         public HomeViewModel(GetAllContentResponse contentResponse, ONUser user)
         {
             if (contentResponse?.Records == null)
                 return;
-            Records.AddRange(contentResponse.Records);
+
+            var list = contentResponse.Records.ToList();
+
+            PinnedRecords.AddRange(list.Where(r => r.PinnedOnUTC != null));
+            Records.AddRange(list.Where(r => r.PinnedOnUTC == null));
         }
 
         public HomeViewModel(SearchContentResponse contentResponse, ONUser user)
         {
             if (contentResponse?.Records == null)
                 return;
-            Records.AddRange(contentResponse.Records);
+
+            var list = contentResponse.Records.ToList();
+
+            PinnedRecords.AddRange(list.Where(r => r.PinnedOnUTC != null));
+            Records.AddRange(list.Where(r => r.PinnedOnUTC == null));
         }
 
+        public List<ContentListRecord> PinnedRecords { get; } = new List<ContentListRecord>();
         public List<ContentListRecord> Records { get; } = new List<ContentListRecord>();
         public PageNumViewModel PageVM { get; set; } = null;
     }

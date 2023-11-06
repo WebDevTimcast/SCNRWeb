@@ -14,11 +14,13 @@
         </form>
     </div>
     <div class="layout-aside__item">
-        <h4 class="heading-bordered">Archive</h4>
-        <ul class="list-marked list-marked_light">
-            @for (int i = DateTime.Today.Year; i > 2020; i--)
+        <h4 class="heading-bordered">Trending Topics</h4>
+        <ul class="list-tags">
+            @foreach (var tag in await contentService.GetRecentTags())
             {
-                <li><a href="/archive/@i">@i</a></li>
+                <li>
+                    <a href="/tag/@tag">@tag</a>
+                </li>
             }
         </ul>
     </div>
@@ -36,13 +38,11 @@
         <a href="/category/">View All &gt;&gt;&gt;</a>
     </div>
     <div class="layout-aside__item">
-        <h4 class="heading-bordered">Tags</h4>
-        <ul class="list-tags">
-            @foreach (var tag in await contentService.GetRecentTags())
+        <h4 class="heading-bordered">Archive</h4>
+        <ul class="list-marked list-marked_light">
+            @for (int i = DateTime.Today.Year; i > 2020; i--)
             {
-                <li>
-                    <a href="/tag/@tag">@tag</a>
-                </li>
+                <li><a href="/archive/@i">@i</a></li>
             }
         </ul>
     </div>
