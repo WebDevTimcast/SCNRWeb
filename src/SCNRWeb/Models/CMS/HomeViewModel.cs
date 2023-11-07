@@ -13,38 +13,22 @@ namespace SCNRWeb.Models.CMS
     {
         public HomeViewModel() { }
 
-        public HomeViewModel(IEnumerable<ContentListRecord> records, ONUser user)
+        public HomeViewModel(GetAllContentResponse response, ONUser user)
         {
-            var list = records.ToList();
+            MainVideo = response.Records.FirstOrDefault(r => r.PinnedOnUTC != null);
 
-            PinnedRecords.AddRange(list.Where(r => r.PinnedOnUTC != null));
-            Records.AddRange(list.Where(r => r.PinnedOnUTC == null));
+            Records.AddRange(response.Records.Where(r => r != MainVideo));
         }
 
-        public HomeViewModel(GetAllContentResponse contentResponse, ONUser user)
+        public HomeViewModel(SearchContentResponse response, ONUser user)
         {
-            if (contentResponse?.Records == null)
-                return;
+            Records.AddRange(response.Records);
 
-            var list = contentResponse.Records.ToList();
-
-            PinnedRecords.AddRange(list.Where(r => r.PinnedOnUTC != null));
-            Records.AddRange(list.Where(r => r.PinnedOnUTC == null));
+            MainVideo = response.Records.FirstOrDefault(r => r.IsLiveStream);
         }
 
-        public HomeViewModel(SearchContentResponse contentResponse, ONUser user)
-        {
-            if (contentResponse?.Records == null)
-                return;
+        public List<ContentListRecord> Records { get; } = new();
 
-            var list = contentResponse.Records.ToList();
-
-            PinnedRecords.AddRange(list.Where(r => r.PinnedOnUTC != null));
-            Records.AddRange(list.Where(r => r.PinnedOnUTC == null));
-        }
-
-        public List<ContentListRecord> PinnedRecords { get; } = new List<ContentListRecord>();
-        public List<ContentListRecord> Records { get; } = new List<ContentListRecord>();
-        public PageNumViewModel PageVM { get; set; } = null;
+        public ContentListRecord MainVideo { get; } = new();
     }
 }

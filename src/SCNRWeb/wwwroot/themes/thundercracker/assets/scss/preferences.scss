@@ -1,0 +1,141 @@
+#wpadminbar{
+  top:-32px !important;
+   transition:top .3s ease-in-out;
+}
+
+body,html{
+
+   &:hover{ 
+    #wpadminbar{
+      top:0px !important;
+      transition-delay: 2s;
+    }
+  }
+}
+
+
+.nobull{
+	
+	margin:inherit;
+	padding:inherit;
+
+	 ul{
+		margin:inherit;
+		padding:inherit;
+		list-style: none;
+	}
+
+	li{
+		list-style: none;
+	}
+}
+
+
+
+.hidden-field, .botcheck{
+	display:none;
+}
+
+
+
+.med{
+	font-weight:300;
+}
+.b{
+	font-weight:bold;
+}
+
+
+.lc{
+	text-transform:none;
+}
+
+
+.u{
+	text-transform:uppercase;
+}
+
+
+
+.fancybox-skin{
+	overflow:visible;
+}
+
+
+html.fancybox-lock, html.fancybox-open, .fancybox-lock body, .fancybox-open body{
+	overflow:hidden;
+	height:100%;
+	width:100%;
+}
+
+
+.alignright,.alignleft,.aligncenter{
+	display:block;
+}
+
+.alignright{
+	float:right;
+}
+
+
+.alignleft{
+	float:left;
+}
+
+
+
+.aligncenter{
+	float:none;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+
+
+
+@media (max-width:$t-mobile-landscape){
+	.alignleft, .alignright{
+		float: none;
+		margin-right:auto;
+		margin-left:auto;
+	}
+}
+
+
+
+
+
+@media (max-width: $t-site-width) {
+	body > section, body > footer  .container{
+		padding-left:$t-site-padding/3;
+		padding-right:$t-site-padding/3;
+	}
+	body > div > section {
+		padding-left:$t-site-padding/3;
+		padding-right:$t-site-padding/3;
+
+	}
+
+	iframe{
+		width:100% !important;
+
+	}
+
+}
+
+
+
+
+
+
+@media (min-width: $t-tablet-portrait){
+	.flex-m{
+		display: -webkit-flex;
+	    display: flex;
+
+	    .flexed{
+	    	display: flex
+	    }
+	}
+}
+

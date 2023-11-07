@@ -13,6 +13,8 @@ using ON.Fragments.Content;
 using SCNRWeb.Models;
 using SCNRWeb.Models.CMS;
 using SCNRWeb.Services;
+using Tim.Frontend.Web.Helper;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SCNRWeb.Controllers
 {
@@ -26,6 +28,8 @@ namespace SCNRWeb.Controllers
         private readonly SettingsService settingsService;
         private const int ITEMS_PER_MANAGE_PAGE = 20;
         private static TimeZoneInfo estZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+
+        public const string CURRENT_CONTENT_ID = "CURRENT_CONTENT_ID";
 
         public ContentController(ILogger<HomeController> logger, AssetService assetService, ContentService contentService, ONUserHelper userHelper, SettingsService settingsService)
         {
@@ -49,10 +53,28 @@ namespace SCNRWeb.Controllers
             if (res == null)
                 return NotFound();
 
+            HttpContext.Items[CURRENT_CONTENT_ID] = res.ContentID;
+
             if (res.Data.ContentDataOneofCase == ON.Fragments.Content.ContentPublicData.ContentDataOneofOneofCase.Video)
+            {
                 return View("ViewVideo", res);
+            }
+
             if (res.Data.ContentDataOneofCase == ON.Fragments.Content.ContentPublicData.ContentDataOneofOneofCase.Written)
-                return View("ViewWritten", res);
+            {
+                ContentListRecord next = null;
+                var category = await settingsService.GetCategoryById(res.Data.CategoryIds.FirstOrDefault() ?? "");
+                if (category != null)
+                    next = (await contentService.GetAll(new() { CategoryId = category.CategoryId })).Records.AfterOrDefault(r => r.ContentID == res.ContentID);
+
+                var model = new NewsViewModel()
+                {
+                    Record = res,
+                    NextRecord = next,
+                    Category = category,
+                };
+                return View("ViewWritten", model);
+            }
             return NotFound();
         }
 

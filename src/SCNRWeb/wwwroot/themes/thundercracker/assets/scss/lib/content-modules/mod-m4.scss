@@ -1,0 +1,151 @@
+	.mod-quote:before,.mod-quote:after  {
+	    content: '"';
+	    font-size: 30px;
+	}
+
+	.mod-m4 .fitimg{
+		background-repeat:no-repeat;
+		background-position:center center;
+		
+		img{
+			margin:auto
+		}
+	}
+
+@media(max-width:$t-tablet-portrait){
+	.mod-m4 .m4-row .img{
+		background-image:none !important;
+	}
+
+}
+
+@media(min-width:$t-tablet-portrait){
+	.mod-m4 .m4-row{
+		display:flex;
+	}
+
+	.mod-m4 .img{
+		min-height:450px;
+		background-size:contain;
+		background-position:center;
+		background-repeat:no-repeat;
+
+		&:not(.fitimg){
+			background-size:cover;
+		}
+		&.fitimg{
+			background-size:contain !important;
+		}
+	}
+
+
+
+	.mod-m4 .full-width .m4-row .mod-txt{
+			max-width: $t-site-width/2;
+			&.clmnr, &.clmnr + *{
+				float:right;
+				clear:both;
+				text-align:right;
+				padding-right:0 !important;
+				
+			}
+
+			&.clmnl{
+				padding-left:0 !important;
+			}
+	}
+	
+
+	.mod-m4 .full-width{
+
+		h3{
+			&.clmnr{
+				float:right;
+				text-align:right;
+				padding-right:0 !important;
+			}
+			&.clmnl{
+				padding-left:0 !important;
+			}
+		}
+
+
+	}
+
+	.mod-m4.m4_imgl.m4_altrows{
+		.m4-row:nth-child(odd) .img+div{
+			padding-left:$t-site-padding/2
+		}
+		.m4-row:nth-child(even) .img+div{
+			padding-right:$t-site-padding/2
+		}
+	}
+	.mod-m4:not(.m4_imgl).m4_altrows{
+		.m4-row:nth-child(odd) .img+div{
+			padding-right:$t-site-padding/2
+		}
+		.m4-row:nth-child(even) .img+div{
+			padding-left:$t-site-padding/2
+		}
+	}
+
+	.mod-m4.m4_imgl:not(.m4_altrows){
+		.m4-row .img+div{
+			padding-left:$t-site-padding/2
+		}
+
+	}
+
+	.mod-m4:not(.m4_imgl):not(.m4_altrows){
+		.m4-row .img+div{
+			padding-right:$t-site-padding/2
+		}
+
+	}
+
+	
+
+	.mod-m4.m4_imgl .m4-row {
+		flex-direction: row-reverse;
+	}
+
+	.mod-m4.m4_altrows .m4-row:nth-child(even) {
+		flex-direction: row-reverse;
+	}
+
+	.mod-m4.m4_imgl.m4_altrows .m4-row:nth-child(even) {
+		flex-direction: row!important;
+	}
+
+
+
+
+}
+
+.mod-m4 .img h3 {
+    padding: 0 10px;
+}
+
+@media(min-width:$t-desktop){
+	.mod-m4 .m4-row .img+div{
+	}
+
+}
+
+@media(max-width:$t-tablet-portrait){
+	
+	.mod-m4 .padding{
+		padding: $t-site-padding/4 0;
+	}
+
+	.mod-m4 .img{
+	position: relative;
+		h3{
+			position: absolute;
+	    	top: 50%;
+	    	margin-top: -15px;
+		}
+	}
+
+
+}

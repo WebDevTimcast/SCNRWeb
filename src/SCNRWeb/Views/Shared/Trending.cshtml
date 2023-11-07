@@ -1,0 +1,13 @@
+﻿@inject SCNRWeb.Services.ContentService contentService;
+
+<div class="t-hide:under:m  t-bg:clr1">
+    <div class="tag-nav  t-txt:big t-pad:15px:lt ">
+        <div class="links t-contain t-txt:wht t-pos:cntr t-fnt:1">
+            <span class="title t-txt:blk fnt:bold u t-pad:15px:lt">Trending Topics &nbsp;| </span>
+            @foreach (var tag in await contentService.GetRecentTags())
+            {
+                <a href="/tag/@tag" data-test="tst" data-name="">@tag</a>
+            }
+        </div>
+    </div>
+</div>

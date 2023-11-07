@@ -1,0 +1,89 @@
+﻿@model SCNRWeb.Models.NewsViewModel
+@inject SCNRWeb.Services.UserService userService;
+@{
+    ViewData["Title"] = Model.Record.Data.Title;
+}
+
+<div style="padding-top: 40px;">
+    <div class="t-contain t-pos:cntr">
+        <div class="columns t-pad:10px:lt:xs t-pad:10px:rt:xs t-pad:25pc:lt t-pad:25pc:rt ">
+            <div class="t-grid:l:70pc ">
+                <article>
+                    <div class="article-header t-pad:33pc:bot">
+                        @if (Model.Category != null)
+                        {
+                            <a href="/category/@Model.Category.UrlStub" class="cat u b t-pad:10px:rt t-txt:clr3 fnt:secondary fnt:bold">@Model.Category.DisplayName /</a>
+                        }
+                        <h1 class="t-pad:25pc:top t-fnt:1">@Model.Record.Data.Title</h1>
+                        <h2 class="t-pad:10px:top t-txt:clr1 t-txt:h3">@Model.Record.Data.Description</h2>
+                        <hr class="thick t-marg:15px:top " />
+                        <div class="article-meta ">
+                            <div class="t-txt:sm t-txt:u t-display:inline-block">Published: @Model.Record.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MMMM d, yyyy")</div>
+                            <div class="t-display:inline-block t-txt:sm t-txt:u ">&nbsp; | &nbsp; By <a href="/author/@Model.Record.Data.AuthorID" class="auth-link">@Model.Record.Data.Author</a></div>
+                        </div>
+                    </div>
+                    <div class="article-container">
+                        <div class="article-img t-img:cntr:m   t-marg:50pc:bot">
+                            <img src="/image/@Model.Record.Data.FeaturedImageAssetID" alt="@Model.Record.Data.Title" />
+                            <div>
+                            </div>
+                            <div class=" t-txt:rt u"></div>
+                        </div>
+                        <div class="article-content t-pad:50pc:top">
+                            @Html.Raw(Model.Record.Data.Written.HtmlBody)
+                            <div class='code-block code-block-1' style='margin: 8px 0; clear: both;'>
+                                <i>*For corrections please email corrections@scnr.com*</i>
+                            </div>
+
+
+                            @if (Model.NextRecord != null)
+                            {
+                                <div class="next-article t-flex:s:valign:topm t-pad:50pc:bot">
+                                    <div class="next-txt colon-red t-txt:h4 t-pad:10px:bot t-pad:10px:rt t-fnt:1">Next<span></span></div>
+                                    <div class="">
+                                        <div class="article ">
+                                            <div class="article-block ">
+                                                <a href="@Model.NextRecord.URL" class="image">
+                                                    <img src="/image/@Model.NextRecord.FeaturedImageAssetID" alt="@Model.NextRecord.Title" />
+                                                </a>
+                                                <div class="meta t-pad:15px:top t-pad:50pc:bot">
+                                                    <div class="props">
+                                                        <a href="/category/@Model.Category.UrlStub" class="cat u b t-marg:5px:bot t-fnt:bold t-txt:u t-txt:xsm ">@Model.Category.DisplayName</a>
+                                                    </div>
+                                                    <a href="@Model.NextRecord.URL">
+                                                        <div class="summary">
+                                                            <h2 class=" t-txt:grey3 t-txt:h4">@Model.NextRecord.Title</h2>
+                                                            <div class="t-txt:xs t-txt:grey1 t-fnt:1 t-pad:5px:top">
+                                                                @Model.NextRecord.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy")
+                                                                <span class=" auth">  | @Model.NextRecord.Author</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="no-size no-marg" />
+                                </div>
+                            }
+                            @await Html.PartialAsync("Comments", Model.Record)
+                        </div><!-- End Article Content -->
+                    </div><!-- End Article Container -->
+                </article>
+            </div><!-- End Column -->
+            <div class="t-grid:l:30pc t-pad:0px:lt:xs t-pad:0px:top:xs t-pad:0px:top:m t-pad:50pc:top:l t-pad:lt:l  t-pad:50pc:top:xl">
+                <div class="t-hide:under:s side-rail ">
+                    <span class="pretty-header t-marg:5px:bot t-display:inline-block"><h3>Popular</h3></span>
+                    <hr class="thick t-marg:15px:top " />
+                    <div class="popular t-marg:25pc:top t-pad:50pc:rt:l article-links">
+                        @await Component.InvokeAsync("PopularNews")
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Columns -->
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,26 @@
+.mod-m3{
+
+
+	blockquote:before,blockquote:after{
+		font-family: Georgia, "Times New Roman", Times, serif;
+		font-size: 80px !important;
+		position:relative;
+	}
+
+	blockquote:before{
+		top: 30px;
+		content:"\201C" !important;
+		line-height: 1px;
+	}
+	blockquote:after {
+		content:"\201E" !important;
+		line-height: 0em;
+
+	}
+
+	.mod-txt:before{
+		content:"\2014";
+	}
+}
+
+

@@ -1,0 +1,94 @@
+/* Text colors */
+
+.t-txt\:clr1, .t-txt\:clr1 > p{
+	color:$t-color-primary;
+}
+.t-txt\:clr2, .t-txt\:clr2 > p{
+	color:$t-color-secondary;
+}
+.t-txt\:clr3, .t-txt\:clr3 > p{
+	color:$t-color-tertiary;
+}
+.t-txt\:clr4,  .t-txt\:clr4 > p{
+	color:$t-color-quaternary;
+}
+.t-txt\:clr5, .t-txt\:clr5 > p{
+	color:$t-color-quinary;
+}
+
+.t-txt\:clr6, .t-txt\:clr6 > p{
+	color:$t-color-senary;
+}
+
+.t-txt\:clr7, .t-txt\:clr7 > p{
+	color:$t-color-severnary;
+}
+
+.t-txt\:clr8, .t-txt\:clr8 > p{
+	color:$t-color-octarnary;
+}
+
+
+.t-txt\:grey1, .t-txt\:grey1 > p{
+	color:$t-grey-light;
+	-webkit-font-smoothing: antialiased;
+}
+.t-txt\:grey2, .t-txt\:grey2 > p{
+	color:$t-grey-norm;
+}
+.t-txt\:grey3, .t-txt\:grey3 > p{
+	color:$t-grey-med;
+}
+.t-txt\:grey4, .t-txt\:grey4 > p{
+	color:$t-grey-dark;
+}
+
+.t-txt\:blk, .t-txt\:blk > p{
+	color:#000;
+}
+
+.t-txt\:wht, .t-txt\:wht > p{
+	color:#fff;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+}
+
+
+
+/* Background colors */
+.t-bg\:clr1{
+	background-color:$t-color-primary;
+}
+.t-bg\:clr2{
+	background-color:$t-color-secondary;
+}
+.t-bg\:clr3{
+	background-color:$t-color-tertiary;
+}
+.t-bg\:clr4{
+	background-color:$t-color-quaternary;
+}
+.t-bg\:clr5{
+	background-color:$t-color-quinary;
+}
+
+
+.t-bg\:grey1{
+	background-color:$t-grey-light;
+}
+.t-bg\:grey2{
+	background-color:$t-grey-norm;
+}
+.t-bg\:grey3{
+	background-color:$t-grey-med;
+}
+.t-bg\:grey4{
+	background-color:$t-grey-dark;
+}
+
+.t-bg\:blk{
+	background-color:#000;
+}
+.t-bg\:wht{
+	background-color:#fff;
+}

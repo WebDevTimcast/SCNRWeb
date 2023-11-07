@@ -1,0 +1,386 @@
+.t-hide{
+  display:none;
+}
+
+.t-clear{
+    clear:both !important;
+}
+
+@media (max-width: $t-desktop) {
+  .t-hide\:under\:l{
+    display:none;
+  }
+}
+
+@media (max-width: $t-tablet-portrait) {
+  .t-hide\:under\:m{
+    display:none;
+  }
+}
+@media (max-width: $t-mobile-landscape) {
+  .t-hide\:under\:s{
+    display:none;
+  }
+}
+
+.t-show\:under\:l{
+  display:none;
+}
+
+.t-show\:under\:m{
+    display:none;
+} 
+
+.t-show\:under\:s{
+  display:none;
+}
+
+
+@media (max-width: $t-desktop) {
+  .t-show\:under\:l{
+    display:block;
+  }
+}
+
+@media (max-width: $t-tablet-portrait) {
+  .t-show\:under\:m{
+    display:block;
+  }
+}
+@media (max-width: $t-mobile-landscape) {
+  .t-show\:under\:s{
+    display:block;
+  }
+}
+
+
+.t-overflow\:vis{
+  overflow: visible;
+}
+
+.t-contain{
+  max-width:$t-site-width;
+}
+
+.t-pos\:cntr{
+    margin-right:auto;
+    margin-left:auto
+}
+
+.t-pos\:rt{
+    margin-right:0;
+    margin-left:auto
+}
+.t-pos\:lt{
+    margin-right:auto;
+    margin-left:0
+}
+
+
+.t-pos\:rel{
+  position:relative;
+}
+
+.t-pos\:abs{
+  position:absolute
+}
+
+.t-pos\:fix{
+  position:fixed;
+}
+
+
+
+.t-valigner{
+  //@include displayflex();
+  display: table;
+  width:100%;
+  .t-valign{
+   // display:block;
+      display: table-cell;
+      vertical-align:middle;
+      width:100%;
+  }
+}
+
+.t-flex{
+    display:flex;
+
+    &\:align\:cntr{
+        justify-content:center;
+        display:flex;
+    }
+    &\:align\:lt{
+          justify-content: flex-start;
+          display:flex;
+    }
+    &\:align\:rt{
+          justify-content: flex-end;
+          display:flex;
+    }
+   
+     &\:valign\:mid{
+        align-items:center;
+        display:flex;
+    }
+   &\:valign\:top{
+        align-items:flex-start;
+        display:flex;
+    }
+    &\:valign\:bot{
+          align-items:flex-end;
+          display:flex;
+      }
+  }
+  
+
+@media(min-width: $t-mobile-landscape){
+  .t-flex\:s{
+      display:flex;
+
+      &\:align\:cntr{
+          justify-content:center;
+          display:flex;
+      }
+      &\:align\:lt{
+            justify-content: flex-start;
+            display:flex;
+      }
+      &\:align\:rt{
+            justify-content: flex-end;
+            display:flex;
+      }
+     
+       &\:valign\:mid{
+          align-items:center;
+          display:flex;
+      }
+      &\:valign\:top{
+          align-items:flex-start;
+          display:flex;
+      }
+      &\:valign\:bot{
+          align-items:flex-end;
+          display:flex;
+      }
+    }
+  
+}
+
+
+@media(min-width: $t-tablet-portrait){
+  .t-flex\:m{
+      display:flex;
+
+      &\:align\:cntr{
+          justify-content:center;
+          display:flex;
+      }
+      &\:align\:lt{
+            justify-content: flex-start;
+            display:flex;
+      }
+      &\:align\:rt{
+            justify-content: flex-end;
+            display:flex;
+      }
+     
+       &\:valign\:mid{
+          align-items:center;
+          display:flex;
+      }
+      &\:valign\:top{
+          align-items:flex-start;
+          display:flex;
+      }
+      &\:valign\:bot{
+          align-items:flex-end;
+          display:flex;
+      }
+    }
+  
+}
+
+@media(min-width: $t-desktop){
+  .t-flex\:l{
+      display:flex;
+
+      &\:align\:cntr{
+          justify-content:center;
+          display:flex;
+      }
+      &\:align\:lt{
+            justify-content: flex-start;
+            display:flex;
+      }
+      &\:align\:rt{
+            justify-content: flex-end;
+            display:flex;
+      }
+     
+       &\:valign\:mid{
+          align-items:center;
+          display:flex;
+      }
+      &\:valign\:top{
+          align-items:flex-start;
+          display:flex;
+      }
+      &\:valign\:bot{
+          align-items:flex-end;
+          display:flex;
+      }
+    }
+  
+}
+
+
+
+.t-display\:block{
+  display:block
+}
+.t-display\:inline{
+  display:inline
+}
+.t-display\:inline-block{
+  display:inline-block
+}
+
+/* Set grid item's width individually by percent */
+
+
+
+  @for $i from 1 through 10 {
+    $width: percentage($i/10);
+
+    .t-grid\:xs\:#{$i}0pc {
+        display:block;
+        float:left;
+        width: $width;
+    }
+    .t-grid\:xs\:#{$i}5pc {
+        display:block;
+        float:left;
+        width: $width+5;
+    }
+  }
+
+
+
+@media (min-width: $t-mobile-landscape) {
+
+
+  @for $i from 1 through 10 {
+    $width: percentage($i/10);
+
+    .t-grid\:s\:#{$i}0pc {
+        display:block;
+        float:left;
+      width: $width;
+    }
+    .t-grid\:s\:#{$i}5pc {
+        display:block;
+        float:left;
+        width: $width+5;
+    }
+  }
+}
+
+@media (min-width: $t-tablet-portrait) {
+   
+  @for $i from 1 through 10 {
+      $width: percentage($i/10);
+
+     .t-grid\:m\:#{$i}0pc {
+        display:block;
+        float:left;
+        width: $width;
+      }
+      .t-grid\:m\:#{$i}5pc {
+        display:block;
+        float:left;
+          width: $width+5;
+      }
+  }
+}
+
+@media (min-width: $t-desktop) {
+     @for $i from 1 through 10 {
+      $width: percentage($i/10);
+
+     .t-grid\:l\:#{$i}0pc {
+        display:block;
+        float:left;
+          width: $width;
+      }
+      .t-grid\:l\:#{$i}5pc {
+        display:block;
+        float:left;
+          width: $width+5;
+      }
+  }
+}
+
+
+
+
+/* Set items with by number of items in row*/
+
+ @for $i from 1 through 100 {
+    $width: percentage(1/$i);
+
+    .t-grid\:xs\:fit\:#{$i} {
+        display:flex;
+        flex-wrap: wrap;
+        > *{
+          width: $width;
+        }
+    }
+   
+  }
+
+@media (min-width: $t-mobile-landscape) {
+   @for $i from 1 through 100 {
+    $width: percentage(1/$i);
+
+    .t-grid\:s\:fit\:#{$i} {
+        display:flex;
+        flex-wrap: wrap;
+        > *{
+          width: $width;
+        }
+    }
+  }
+}
+
+
+@media (min-width: $t-tablet-portrait) {
+   
+  @for $i from 1 through 100 {
+     $width: percentage(1/$i);
+
+     .t-grid\:m\:fit\:#{$i}{
+         display:flex;
+         flex-wrap: wrap;
+          > *{
+            width: $width;
+          }
+      }
+  }
+}
+
+@media (min-width: $t-desktop) {
+  @for $i from 1 through 100 {
+    $width: percentage(1/$i);
+
+     .t-grid\:l\:fit\:#{$i}{
+          display:flex;
+          flex-wrap: wrap;
+          > *{
+            width: $width;
+          }
+      }
+     
+  }
+}
+

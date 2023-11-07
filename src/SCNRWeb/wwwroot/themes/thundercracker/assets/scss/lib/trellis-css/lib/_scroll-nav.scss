@@ -1,0 +1,47 @@
+/*
+
+<header id="t-scrollnav-holder">
+	<div id="t-scrollnav">
+		<div class="t-contain t-pos-cntr">
+			<div class="t-view-l-15pc">
+				<a href="/" class="logo">
+					<img src="<?php echo get_template_directory_uri(); ?>/images/logo-oneorbit-blue.svg" alt="One Orbit Commander - Leroy Chiao" />
+				</a>
+			</div>
+			
+			<div class="t-navbar t-collapse-below-mltp t-view-l-85pc">
+				<nav>
+					<div class="t-repsonsive-nav" >
+						<div class="t-button-mobile-menu"><div class="t-toggle-icon"></div></div>
+						<ul id="t-nav-desktop" class="t-menu t-txt-rt t-txt-norm t-txt-clr3">
+							<li><a href="#">Link 1 </a></li>
+							<li><a href="#">Link 1 </a></li>
+						</ul>
+						<div id="t-nav-mobile" class="t-txt-grey2">
+							<div class="pad">
+								<ul>
+									<li><a href="#">Link 1 </a></li>
+									<li><a href="#">Link 1 </a></li>
+								</ul>
+							</div>
+						</div>
+					</div> 
+				</nav>
+			</div> 
+		</div> 
+	</div> 
+</header>
+
+*/
+
+#t-scrollnav-holder{
+	position:fixed;
+	width:100%;
+	z-index:1000;
+	top:0;
+	 -webkit-transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+	-webkit-perspective: 1000;
+}
+
+

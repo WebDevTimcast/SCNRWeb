@@ -2,19 +2,20 @@
 
 @if (Model != null && Model.TotalPageNum > 1)
 {
-    <!-- Pagination-->
-    <ul class="pagination-custom">
+    <div class="index-nav">
         @if (Model.CurrentPageNum > 1)
         {
-            <li class="pagination-control"><a href="@Model.UrlBase@(Model.CurrentPageNum - 1)">Prev</a></li>
+            <span class="pag-action prev"><a href="@Model.UrlBase@(Model.CurrentPageNum - 1)">Prev</a></span>
         }
-        @for (int i = Model.StartPageNum; i <= Model.EndPageNum; i++)
-        {
-            <li @Html.Raw(i == Model.CurrentPageNum ? "class=\"active\"" : "")><a href="@Model.UrlBase@i">@i</a></li>
-        }
+        <span class="pgnums">
+            @for (int i = Model.StartPageNum; i <= Model.EndPageNum; i++)
+            {
+                <span class="pgnum"><a href="@Model.UrlBase@i" @Html.Raw(i == Model.CurrentPageNum ? "class=\"active\"" : "")>@i</a></span>
+            }
+        </span>
         @if (Model.CurrentPageNum < Model.TotalPageNum)
         {
-            <li class="pagination-control"><a href="@Model.UrlBase@(Model.CurrentPageNum + 1)">Next</a></li>
+            <span class="pag-action next"><a href="@Model.UrlBase@(Model.CurrentPageNum + 1)">Next</a></span>
         }
-    </ul>
+    </div>
 }

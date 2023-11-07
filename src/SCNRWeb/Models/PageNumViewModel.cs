@@ -21,7 +21,7 @@ namespace SCNRWeb.Models
             if (TotalPageNum < 1)
                 TotalPageNum = 1;
 
-            StartPageNum = ((CurrentPageNum - 1) / 5) * 5 + 1;
+            StartPageNum = (CurrentPageNum - 1) / 5 * 5 + 1;
             EndPageNum = Math.Min(StartPageNum + 4, TotalPageNum);
         }
     }

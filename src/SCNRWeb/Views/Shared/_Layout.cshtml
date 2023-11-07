@@ -1,52 +1,60 @@
-﻿@inject ON.Authentication.ONUserHelper userHelper;
-@inject ON.Settings.SettingsClient settings;
-<!DOCTYPE html>
-<html class="wide wow-animation" lang="en">
+﻿<!doctype html>
+<html lang="en">
 <head>
-    <!-- Site Title-->
-    <title>@ViewData["Title"] - SCNR</title>
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:300,400,700,400italic%7CCormorant+Garamond:400,700,400italic" />
-    <link rel="stylesheet" href="/css/bootstrap.css" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <!--[if lt IE 10]>
-    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."/></a></div>
-    <script src="js/html5shiv.min.js"></script>
-        <![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/scnr-header.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/scnr-header.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/scnr-header.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <link rel="apple-touch-icon" href="/img/scnr-header.png">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+    <title>@ViewData["Title"] | SCNR</title>
+
+    <link rel='stylesheet' id='wp-block-library-css' href='/css/dist/block-library/style.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='dashicons-css' href='/css/dashicons.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='parent-style-css' href='/themes/timcast/style.css' type='text/css' media='all' />
+    <script type='text/javascript' src='/js/jquery/jquery.min.js' id='jquery-core-js'></script>
+    <script type='text/javascript' src='/js/jquery/jquery-migrate.min.js' id='jquery-migrate-js'></script>
+    <link rel="icon" href="/img/scnr-header.png" sizes="32x32" />
+    <link rel="icon" href="/img/scnr-header.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/img/scnr-header.png" />
+    <meta name="msapplication-TileImage" content="/img/scnr-header.png" />
+
+    <!-- End Google Tag Manager -->
     @await RenderSectionAsync("Head", required: false)
 </head>
-<body>
-    <!-- Page Loader-->
-    <div class="page-loader" id="page-loader">
-        <div class="page-loader-body">
-            <svg width="40" height="40" viewBox="0 0 40 40">
-                <polygon class="rect" points="0 0 0 40 40 40 40 0"></polygon>
-            </svg>
-        </div>
-    </div>
-    <!-- Page-->
-    <div class="page">
-        @await Html.PartialAsync("Header")
 
-        @await Html.PartialAsync("Breadcrumbs")
 
-        <div style="min-height: 700px;">
-            <!-- Main Body-->
+<body style=" opacity:0" class="t-bg:grey3  ">
+    <div class="t-bg:blk">
+        @await Component.InvokeAsync("TopNav")
+
+        <div class="t-nav-spacer"></div>
+
+        <main class="t-bg:wht">
             @RenderBody()
-        </div>
 
-        @await Html.PartialAsync("Footer")
+            @await Component.InvokeAsync("BottomNav")
+        </main>
     </div>
-    <!-- Global Mailform Output-->
-    <div class="snackbars" id="form-output-global"></div>
-    <!-- Javascript-->
-    <script src="/js/core.min.js"></script>
-    <script src="/js/script.js"></script>
+    <script type='text/javascript' src='/js/dist/vendor/regenerator-runtime.min.js' id='regenerator-runtime-js'></script>
+    <script type='text/javascript' src='/js/dist/vendor/wp-polyfill.min.js' id='wp-polyfill-js'></script>
+
+    <script src="/themes/timcast/scripts.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

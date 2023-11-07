@@ -1,0 +1,35 @@
+/*The Width of the site in pixels, percent, or auto*/
+$t-site-width:960px;
+$t-site-padding:65px;
+
+/* Responsive sizes*/
+$t-mobile-landscape: 501px; /* Min width */
+$t-tablet-portrait: 767px; /* Min width */
+$t-desktop: 1023px; /* Min width */
+
+/* Paragraph Line Height and Margin */
+$t-p-lh: 35px;
+$t-p-marg:26px;
+
+/*Colors*/
+$t-color-primary: #eb5215;
+$t-color-secondary:#17468f;
+$t-color-tertiary:#669693;
+$t-color-quaternary:#474754;
+$t-color-quinary:#000;
+
+$t-grey-light:#f5f5f6;
+$t-grey-norm:#ccc;
+$t-grey-med:#6a6a6a;
+$t-grey-dark:#333;
+
+/* Text Sizes */
+$t-txt-headline-big:45px;
+$t-txt-headline-med:30px;
+$t-txt-headline-norm:27px;
+$t-txt-headline-small:22px;
+
+$t-txt-big:24px;
+$t-txt-med:22px;
+$t-txt-norm:18px;
+$t-txt-small:11px;

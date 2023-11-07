@@ -1,0 +1,54 @@
+﻿@model SCNRWeb.Models.CMS.News.NewsIndexViewModel
+@{
+    ViewData["Title"] = "News Archive";
+}
+
+@await Html.PartialAsync("Trending")
+<div class="t-flex:valign:mid t-flex:align:cntr bg:pattern  t-pad:50pc:top t-pad:50pc:bot t-pad:15px:lt:xs t-pad:15px:lt:s ">
+    <div class="t-pad:10px:bot t-pad:33pc:top">
+        <h1 class="t-txt:wht">
+            News
+        </h1>
+    </div>
+</div>
+<div class=" t-pad:50pc:bot t-pad:bot:l bg:pattern">
+    <div class="t-contain t-pos:cntr">
+        <div class="columns t-marg:50pc:top ">
+            <div class="index-items ">
+                <div class=" t-marg:50pc:top t-pad:15px:rt:xs t-pad:15px:lt  t-pad:15px:rt">
+                    <div class="t-grid:l:65pc article-links">
+                        <div class="t-pad:15px:bot t-pad:15px:lt">
+                            <h2 class="t-display:inline  t-txt:h3">Results </h2><h3 class="t-display:inline t-txt:h3 t-fnt:light pg-results" style="color: #FFFFFF;">  Page: @Model.PageVM.CurrentPageNum</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class=" t-pad:50pc:bot t-pad:bot:l bg:pattern">
+    <div class="t-contain t-pos:cntr">
+        <div class="article-links t-pad:15px:rt t-pad:15px:lt">
+            <div class="t-grid:s:fit:2 t-grid:m:fit:4 ">
+                @foreach (var rec in Model.Records)
+                {
+                    <div class="article  t-marg:50pc:bot ">
+                        @await Html.PartialAsync("BottomBlockNewsLink", rec)
+                    </div>
+                }   
+            </div>
+        </div>
+        <div class="t-contain t-pos:cntr t-txt:cntr  t-marg:top  fnt-secondary">
+            @await Html.PartialAsync("Paged", Model.PageVM)
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

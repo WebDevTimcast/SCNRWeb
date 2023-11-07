@@ -10677,7 +10677,7 @@ html .page .button.button-load.button-load-loaded {
 }
 
 .box-vacancy .list-bordered {
-	color: #c0c0c0;
+	color: #A0A0A0;
 }
 
 .box-vacancy .list-bordered > li:not(:last-child)::after {
@@ -15844,7 +15844,7 @@ html:not(.tablet):not(.mobile) .thumb-classic:hover .thumb-classic__caption::bef
 }
 
 .product-classic__price_old {
-	color: #c0c0c0;
+	color: #A0A0A0;
 	text-decoration: line-through;
 }
 
@@ -16897,7 +16897,7 @@ html .page .group-middle > * {
 }
 
 .bg-gray-darker .post-bordered::before, .bg-gray-dark .post-bordered::before, .bg-gray-4 .post-bordered::before, .bg-gray-5 .post-bordered::before {
-	border-color: #c0c0c0;
+	border-color: #A0A0A0;
 }
 
 .bg-gray-darker .post-bordered__tags a:hover, .bg-gray-dark .post-bordered__tags a:hover, .bg-gray-4 .post-bordered__tags a:hover, .bg-gray-5 .post-bordered__tags a:hover {
@@ -17320,7 +17320,7 @@ html .page .group-middle > * {
 }
 
 .bg-gray-1 .post-bordered::before {
-	border-color: #c0c0c0;
+	border-color: #A0A0A0;
 }
 
 /**
@@ -27143,7 +27143,7 @@ html[dir='rtl'] .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-current {
 }
 
 .bg-image-dark .post-bordered::before {
-	border-color: #c0c0c0;
+	border-color: #A0A0A0;
 }
 
 .bg-image-dark .post-bordered__tags a:hover {

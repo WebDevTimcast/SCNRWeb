@@ -1,0 +1,68 @@
+.mod-m5:not(.professions-index){
+
+	.m5-section-hit {
+		border-bottom:1px solid $t-color-secondary;
+		@include transition (padding .3s ease);
+		cursor:pointer;
+		
+	}
+
+
+	.m5-section-hit {
+		border-bottom:1px solid $t-color-secondary;
+		@include transition (padding .3s ease, background-color .3s ease);
+
+		cursor:pointer;
+		
+	}
+
+	.m5-section:first-child {
+	    border-top: 1px solid #8DCE46;
+	}
+
+	.m5-section .m5-expander {
+		
+	@include transition (height .3s ease);
+
+	}
+	.m5-section.active .m5-section-hit,.m5-section .m5-section-hit:hover {
+		background-color:$t-color-secondary;
+		color: white;
+		padding-left:$t-site-padding/3
+	}
+
+	.m5-item{
+		border-bottom:1px solid #ccc;
+
+		a, p{
+			text-align:left;
+		}
+	}
+}
+
+
+
+.m5-sizer :last-child {
+	    border: none;
+	    border-bottom:0!important
+	}
+	.m5-sizer :first-child { 
+	    padding-top:0!important
+	}
+
+.m5-section.active .m5-expander{
+	border-bottom:1px solid #ccc;
+}
+
+.m5-section:not(.active), .m5-section:not(.active):hover{
+
+	.m5-expander{
+			height: 0!important;
+		
+	}
+}
+
+
+
+
+

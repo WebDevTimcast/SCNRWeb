@@ -1,0 +1,212 @@
+
+/*
+
+https://ascii.cl/
+
+*/
+
+
+$screensizes: (
+  '':0px,
+  '\\3Axs': 0px,
+  '\\3Am': $t-tablet-portrait,
+  '\\3Al': $t-desktop,
+  '\\3Axl': $t-desktopxl,
+  '\\3Asw': $t-site-width + 20px
+  );
+
+$screensize-keys: map-keys($screensizes);
+
+$radius: (
+    '': '',
+    '-top': '\\3Atop',
+    '-right': '\\3Art',
+    '-bottom': '\\3A bot',
+    '-left': '\\3Alt'
+    );
+
+$radi-keys: map-keys($radius);
+
+$increments: (
+    '': $t-site-padding,
+    '\\3A \37\35pc': $t-site-padding - ($t-site-padding/4),
+    '\\3A \35\30pc': $t-site-padding/2,
+    '\\3A \33\33pc': $t-site-padding/3,
+    '\\3A \32\35pc': $t-site-padding/4
+    );
+
+$increment-keys: map-keys($increments);
+
+$pixels: (
+    '':'',
+    '\\3A \32\30px': 20px,
+    '\\3A \31\35px': 15px,
+    '\\3A \31\30px': 10px,
+    '\\3A \35px': 5px,
+    '\\3A \30px': 0px
+    );
+$pixel-keys: map-keys($pixels);
+
+
+/* @debug$increment-keys; */
+
+/* Padding Percents */
+@each $increment in $increments {
+  $incnt: index($increments,$increment);
+    @each $screensize in $screensizes {
+        $scrncnt: index($screensizes,$screensize);
+        $mediaquery: null;
+        $bodytarget: " body ";
+
+        /* @debug map-get($screensizes,nth($screensize-keys,$scrncnt+1));*/
+    
+
+
+
+        @if $scrncnt < length($screensize-keys) and ( nth($screensize-keys,$scrncnt) == '\\3Axs' or nth($screensize-keys,$scrncnt) == '\\3Am')  {
+            $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))}) and (max-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt+1))})";
+           
+        }
+
+        @elseif $scrncnt < length($screensize-keys) and nth($screensize-keys,$scrncnt) == '' {
+            $mediaquery: "(min-width:0px)";
+            $bodytarget: " ";
+        }
+
+        @elseif $scrncnt < length($screensize-keys) and ( nth($screensize-keys,$scrncnt) == '\\3Axl'  or  nth($screensize-keys,$scrncnt) == '\\3Asw' or nth($screensize-keys,$scrncnt) == '\\3Al'){
+            $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))})";
+    
+        }
+        @else{
+             $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))})";
+             
+        }
+
+      
+
+
+        
+        @media #{$mediaquery}{
+            @each $radi in $radius {
+                $radcnt: index($radius, $radi);
+                #{$bodytarget} .t-pad#{nth($increment-keys,$incnt)}#{map-get($radius,nth($radi-keys,$radcnt))}#{nth($screensize-keys,$scrncnt)} {
+                    padding#{nth($radi-keys,$radcnt)}: #{map-get($increments,nth($increment-keys,$incnt))}; 
+                }
+            }
+        }
+    }
+}
+
+/* Padding Pixels */
+@each $pixel in $pixels {
+    $pixcnt: index($pixels,$pixel);
+    @each $screensize in $screensizes {
+        $scrncnt: index($screensizes,$screensize);
+        $mediaquery: null;
+        $bodytarget: " body ";
+    
+    
+    
+        @if $scrncnt < length($screensize-keys) and ( nth($screensize-keys,$scrncnt) == '\\3Axs' or nth($screensize-keys,$scrncnt) == '\\3Am')  {
+            $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))}) and (max-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt+1))})";
+        }
+
+        @elseif $scrncnt < length($screensize-keys) and nth($screensize-keys,$scrncnt) == '' {
+            $mediaquery: "(min-width:0px)";
+            $bodytarget: " ";
+        }
+
+        @elseif $scrncnt < length($screensize-keys) and ( nth($screensize-keys,$scrncnt) == '\\3Axl'  or  nth($screensize-keys,$scrncnt) == '\\3Asw' or nth($screensize-keys,$scrncnt) == '\\3Al'){
+            $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))})";
+        }
+        @else{
+             $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))})";
+        }
+        
+        @media #{$mediaquery}{
+            @each $radi in $radius {
+                $radcnt: index($radius, $radi);
+               #{$bodytarget} .t-pad#{nth($pixel-keys,$pixcnt)}#{map-get($radius,nth($radi-keys,$radcnt))}#{nth($screensize-keys,$scrncnt)} {
+                    padding#{nth($radi-keys,$radcnt)}: #{map-get($pixels,nth($pixel-keys,$pixcnt))};
+                }
+            }
+        }
+    }
+}
+
+
+
+/* Margin Percents */
+@each $increment in $increments {
+  $incnt: index($increments,$increment);
+    @each $screensize in $screensizes {
+       $scrncnt: index($screensizes,$screensize);
+        $mediaquery: null;
+        $bodytarget: " body ";
+    
+        
+        @if $scrncnt < length($screensize-keys) and ( nth($screensize-keys,$scrncnt) == '\\3Axs' or nth($screensize-keys,$scrncnt) == '\\3Am')  {
+            $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))}) and (max-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt+1))})";
+        }
+
+        @elseif $scrncnt < length($screensize-keys) and nth($screensize-keys,$scrncnt) == '' {
+            $mediaquery: "(min-width:0px)";
+            $bodytarget: " ";
+        }
+
+        @elseif $scrncnt < length($screensize-keys) and ( nth($screensize-keys,$scrncnt) == '\\3Axl'  or  nth($screensize-keys,$scrncnt) == '\\3Asw' or nth($screensize-keys,$scrncnt) == '\\3Al'){
+            $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))})";
+        }
+        @else{
+             $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))})";
+        }
+        
+        @media #{$mediaquery}{
+            @each $radi in $radius {
+                $radcnt: index($radius, $radi);
+              #{$bodytarget}  .t-marg#{nth($increment-keys,$incnt)}#{map-get($radius,nth($radi-keys,$radcnt))}#{nth($screensize-keys,$scrncnt)} {
+                    margin#{nth($radi-keys,$radcnt)}: #{map-get($increments,nth($increment-keys,$incnt))};
+                }
+            }
+        }
+    }
+}
+
+
+/* Margin Pixels */
+@each $pixel in $pixels {
+    $pixcnt: index($pixels,$pixel);
+    @each $screensize in $screensizes {
+        $scrncnt: index($screensizes,$screensize);
+        $mediaquery: null;
+        $bodytarget: " body ";
+    
+       
+        @if $scrncnt < length($screensize-keys) and ( nth($screensize-keys,$scrncnt) == '\\3Axs' or nth($screensize-keys,$scrncnt) == '\\3Am')  {
+            $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))}) and (max-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt+1))})";
+        }
+
+        @elseif $scrncnt < length($screensize-keys) and nth($screensize-keys,$scrncnt) == '' {
+            $mediaquery: "(min-width:0px)";
+            $bodytarget: " ";
+        }
+
+        @elseif $scrncnt < length($screensize-keys) and ( nth($screensize-keys,$scrncnt) == '\\3Axl'  or  nth($screensize-keys,$scrncnt) == '\\3Asw' or nth($screensize-keys,$scrncnt) == '\\3Al'){
+            $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))})";
+        }
+        @else{
+             $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))})";
+        }
+        
+        @media #{$mediaquery}{
+            @each $radi in $radius {
+                $radcnt: index($radius, $radi);
+             #{$bodytarget}   .t-marg#{nth($pixel-keys,$pixcnt)}#{map-get($radius,nth($radi-keys,$radcnt))}#{nth($screensize-keys,$scrncnt)} {
+                    margin#{nth($radi-keys,$radcnt)}: #{map-get($pixels,nth($pixel-keys,$pixcnt))};
+                }
+            }
+        }
+    }
+}
+
+

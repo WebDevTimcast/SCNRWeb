@@ -1,0 +1,36 @@
+﻿@using SCNRWeb.Helper
+@model ON.Fragments.Content.ContentListRecord
+@inject SCNRWeb.Services.SettingsService settingsService;
+@inject SCNRWeb.Services.UserService userService;
+
+@{
+    ON.Fragments.Settings.CategoryRecord cat = await settingsService.GetCategoryById(Model.CategoryIds.FirstOrDefault() ?? "");
+}
+
+<div class="article ">
+    <div class="article-block ">
+        <a href="/content/@(Model.ContentID)/@(Model.URL)" class="image">
+            <img src="/image/@Model.FeaturedImageAssetID" alt="@Model.Title" />
+        </a>
+        <div class="meta t-pad:15px:top t-pad:50pc:bot">
+            <div class="props">
+                @if (cat != null)
+                {
+                    <a href="/category/@cat.UrlStub" class="cat u b t-marg:5px:bot t-fnt:bold t-txt:u t-txt:xsm ">@cat.DisplayName</a>
+                }
+            </div>
+            <a href="/content/@(Model.ContentID)/@(Model.URL)">
+                <div class="summary">
+                    <h2 class=" t-txt:grey3 t-txt:h4">@Model.Title</h2>
+                    <p class="t-txt:grey4 t-txt:sm ">
+                        @Model.Description.TruncatePretty(100)
+                    </p>
+                    <div class="t-txt:xs t-txt:grey1 t-fnt:1 t-pad:5px:top">
+                        @Model.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy")
+                        <span class=" auth">  | @Model.Author</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,321 @@
+@media(min-width: $t-tablet-portrait){
+	.m1_2clmn{
+		display:flex;
+		h2{
+			font-size: $t-txt-headline-norm;
+		}
+	}
+	.m1_2clmn > * {
+	    width: 50%;
+	    float: left;
+	}
+
+	.m1_2clmn:not(.t-contain) .mod{
+
+		&:nth-child(1) .t-contain{
+			margin-right:0;
+
+		}
+		&:nth-child(2) .t-contain{
+			margin-left:0;
+		}
+		
+	}
+
+}
+@media(max-width: $t-tablet-portrait){
+	.m1_2clmn  :nth-child(1){
+		margin-bottom: 10px;
+	}
+}
+
+
+@media(max-width: $t-tablet-portrait){
+	.m1_2clmn{
+
+		h2{
+			font-size: $t-txt-headline-norm-mob;
+		}
+	}
+}
+
+@media(min-width: $t-tablet-portrait){
+ .m1_2clmn.t-flex-align{
+      display:flex; 
+
+      &.t-flex-center{
+      align-items: stretch;
+        > *{
+            align-items:center;
+            display:flex;
+        }
+      }
+  }
+}
+
+
+
+/* overriding column sizing */
+
+@media(min-width: $t-tablet-portrait){
+	.mod-m1-clmns{
+
+			/* Wider right */
+
+			 .colmn_sz_45-55 .mod-m1{
+				&:first-child{
+					width:45%;
+				} 
+				&:last-child{
+					width:55%;
+				} 
+			}
+
+			 .colmn_sz_40-60 .mod-m1{
+				&:first-child{
+					width:40%;
+				} 
+				&:last-child{
+					width:60%;
+				} 
+			}
+
+			 .colmn_sz_35-65 .mod-m1{
+				&:first-child{
+					width:35%;
+				} 
+				&:last-child{
+					width:65%;
+				} 
+			}
+
+			 .colmn_sz_30-70 .mod-m1{
+				&:first-child{
+					width:30%;
+				} 
+				&:last-child{
+					width:70%;
+				} 
+			}
+
+			 .colmn_sz_25-75 .mod-m1{
+				&:first-child{
+					width:25%;
+				} 
+				&:last-child{
+					width:75%;
+				} 
+			}
+
+			 .colmn_sz_20-80 .mod-m1{
+				&:first-child{
+					width:20%;
+				} 
+				&:last-child{
+					width:80%;
+				} 
+			}
+
+			 .colmn_sz_15-75 .mod-m1{
+				&:first-child{
+					width:15%;
+				} 
+				&:last-child{
+					width:75%;
+				} 
+			}
+
+			 .colmn_sz_20-80 .mod-m1{
+				&:first-child{
+					width:20%;
+				} 
+				&:last-child{
+					width:80%;
+				} 
+			}
+
+			 .colmn_sz_15-85 .mod-m1{
+				&:first-child{
+					width:20%;
+				} 
+				&:last-child{
+					width:80%;
+				} 
+			}
+
+             .colmn_sz_10-90 .mod-m1{
+				&:first-child{
+					width:20%;
+				} 
+				&:last-child{
+					width:80%;
+				} 
+			}
+
+
+
+			/* Wider left */
+
+			 .colmn_sz_55-45 .mod-m1{
+				&:first-child{
+					width:55%;
+				} 
+				&:last-child{
+					width:45%;
+				}
+			}
+
+			 .colmn_sz_60-40 .mod-m1{
+				&:first-child{
+					width:60%;
+				} 
+				&:last-child{
+					width:40%;
+				} 
+			}
+
+			 .colmn_sz_65-35 .mod-m1{
+				&:first-child{
+					width:65%;
+				} 
+				&:last-child{
+					width:35%;
+				} 
+			}
+
+			 .colmn_sz_70-30 .mod-m1{
+				&:first-child{
+					width:70%;
+				} 
+				&:last-child{
+					width:30%;
+				} 
+			}
+
+			 .colmn_sz_75-25 .mod-m1{
+				&:first-child{
+					width:75%;
+				} 
+				&:last-child{
+					width:25%;
+				} 
+			}
+
+			 .colmn_sz_80-20 .mod-m1{
+				&:first-child{
+					width:80%;
+				} 
+				&:last-child{
+					width:20%;
+				} 
+			}
+
+			 .colmn_sz_85-15 .mod-m1{
+				&:first-child{
+					width:85%;
+				} 
+				&:last-child{
+					width:15%;
+				} 
+			}
+
+			 .colmn_sz_90-10 .mod-m1{
+				&:first-child{
+					width:90%;
+				} 
+				&:last-child{
+					width:10%;
+				} 
+			}
+
+		
+
+	}
+
+
+}
+
+
+
+
+
+.mod.vid-bg{
+	position:relative;
+	background-size:cover;
+
+
+
+	.vid-pos{
+		position:absolute;
+		background:black;
+	}
+
+	height:50vh;
+
+	.youtube-vid{
+		width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    top: 0;
+	    left:0;
+	}
+
+	
+	.vid-tint{
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    z-index: 2;
+	}
+	.vid-pos{
+		z-index: 1;
+	}
+
+	.t-contain{
+		z-index:3;
+		position:Relative;
+	}
+}
+
+
+@media(max-width:$t-tablet-portrait){
+	.mod.vid-bg{
+		height:200px;
+
+		&.t-flex-align{
+	      display:flex; 
+
+	      &.t-flex-center{
+	      align-items: stretch;
+	        > *{
+	            align-items:center;
+	            display:flex;
+	        }
+	      }
+	  }
+	}
+}
+
+
+.m1_2clmn .full-width .t-contain{
+width:100%;
+
+ }
+
+.m1_2clmn .mod-m1.floating-overlay .t-contain {
+   
+    padding: $t-site-padding/2;
+}
+
+
+
+@media(min-width: $t-tablet-portrait) and (max-width: 968px){
+	.m1_2clmn .mod-m1.floating-overlay .t-contain {
+	    padding:40px;
+	    margin:0 30px
+	   
+	  }
+}
+

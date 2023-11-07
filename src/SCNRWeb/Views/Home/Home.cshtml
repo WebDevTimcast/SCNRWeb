@@ -1,34 +1,200 @@
 ﻿@model SCNRWeb.Models.CMS.HomeViewModel
-@inject ON.Settings.SettingsClient settings;
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Watch and Read Latest News, Our Podcast and More";
 }
 
-<section class="section section-lg bg-gray-1 text-center">
-    <div class="container container-wide">
-        <div class="row row-90">
-            <div class="col-lg-9">
-                <div class="row row-40 row-flex">
-                    @foreach (var record in Model.PinnedRecords.Take(1))
-                    {
-                        @await Html.PartialAsync("FeaturedArticle", record)
-                    }
-                    @foreach (var record in Model.Records)
-                    {
-                        @await Html.PartialAsync("ContentRecord", record)
-                    }
+@await Html.PartialAsync("Trending")
+<div class="mantle-holder t-pad:15px:lt:xl featured t-pad:25pc:bot bg:pattern">
+    <div class="mantle-grid t-marg:75pc:bot  t-pad:0px:rt:sw t-pad:0px:lt:sw t-pad:20px:rt:l t-pad:15px:lt:l t-pad:15px:lt:m  t-pad:0px:lt:xs t-contain t-pos:cntr t-txt:wht" style="margin-top: 15px">
+        <div class="clmn clmn1 t-pad:33pc:lt t-pad:33pc:rt t-show:under:m">
+            <h2 class="header t-marg:25pc:bot t-txt:cntr t-txt:wht">Featured</h2>
+            <div class="article">
+                <div class="article ">
+                    <div class="article-block  video">
+                        <a href="/content/@(Model?.MainVideo?.ContentID)/@(Model?.MainVideo?.URL)" class="image">
+                            <img src="/image/@Model?.MainVideo?.FeaturedImageAssetID" alt="@Model?.MainVideo?.Title" />
+                        </a>
+                        <div class="baloon baloon-video">
+                        </div>
+                        <div class="meta t-pad:15px:top t-pad:50pc:bot">
+                            <a href="/content/@(Model?.MainVideo?.ContentID)/@(Model?.MainVideo?.URL)">
+                                <div class="summary">
+                                    <div class="t-txt:big t-txt:grey1 t-fnt:1 t-pad:5px:top t-pad:5px:bot">
+                                        @Model?.MainVideo?.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy")
+                                    </div>
+                                    <h2 class=" t-txt:grey3 t-txt:h4">@Model?.MainVideo?.Title</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                @await Html.PartialAsync("Paged", Model.PageVM)
-            </div>
-            <div class="col-lg-3">
-                @await Html.PartialAsync("RightNav")
+                <div class="t-txt:cntr:xs t-txt:cntr:s">
+                    <a href="/content/@(Model?.MainVideo?.ContentID)/@(Model?.MainVideo?.URL)" class="button:rev ">More</a>
+                </div>
             </div>
         </div>
+
+        <div class="clmn clmn2 t-pad:top:xs t-marg:top:xs  t-pad:25pc:lt:m t-pad:33pc:lt:xs t-pad:33pc:rt t-fnt:smooth members  t-pad:15px:lt:l t-pad:15px:lt:xl ">
+            <h2 class="header t-marg:25pc:bot t-txt:cntr t-txt:wht">Latest Videos</h2>
+            @foreach (var item in Model.Records.Where(r => r.SubscriptionLevel > 0).Take(2))
+            {
+                @await Html.PartialAsync("~/Views/Channel/NormalVideoLink.cshtml", item)
+            }
+            <div class="t-txt:cntr:xs t-txt:cntr:s"><a href="/videos/" class="button:rev">View All</a></div>
+        </div>
+        <div class="clmn clmn1 t-pad:33pc:lt t-pad:33pc:rt t-hide:under:m">
+            <h2 class="header t-marg:25pc:bot t-txt:cntr t-txt:wht">Featured</h2>
+            <div class="article">
+                <div class="article ">
+                    <div class="article-block  video">
+                        <a href="/content/@(Model?.MainVideo?.ContentID)/@(Model?.MainVideo?.URL)" class="image">
+                            <img src="/image/@Model.MainVideo?.FeaturedImageAssetID" alt="@Model.MainVideo?.Title" />
+                        </a>
+                        <div class="baloon baloon-video">
+                        </div>
+                        <div class="meta t-pad:15px:top t-pad:50pc:bot">
+                            <a href="/content/@(Model?.MainVideo?.ContentID)/@(Model?.MainVideo?.URL)">
+                                <div class="summary">
+                                    <div class="t-txt:big t-txt:grey1 t-fnt:1 t-pad:5px:top t-pad:5px:bot">
+                                        @Model.MainVideo?.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy")
+                                    </div>
+                                    <h2 class=" t-txt:grey3 t-txt:h4">@Model.MainVideo?.Title</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="t-txt:cntr:xs t-txt:cntr:s">
+                    <a href="/content/@(Model?.MainVideo?.ContentID)/@(Model?.MainVideo?.URL)" class="button:rev ">More</a>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="clmn clmn3 t-pad:33pc:rt:xs t-pad:15px:rt t-pad:top:xs t-marg:top:xs t-pad:33pc:lt t-pad:25pc:rt:m">
+            <h2 class="header t-marg:25pc:bot t-txt:cntr t-txt:wht">Latest News</h2>
+            @foreach (var item in Model.Records.Where(r => r.ContentType == ON.Fragments.Content.ContentType.Written).Take(4))
+            {
+                @await Html.PartialAsync("LatestNewsLink", item)
+            }
+            <span class="clear"></span>
+            <div class="t-txt:cntr:xs t-txt:cntr:s"><a href="/news/" class="button:rev t-marg:25pc:top">View All</a></div>
+
+
+        </div>
     </div>
-</section>
+</div>
 
 
 
 
+<div class="clmn clmn1 t-show:under:m">
+</div>
+
+<div class="t-pad:15px:rt t-pad:0px:rt:xs t-pad:0px:lt:xs  t-pad:15px:lt  t-pad:33pc:lt:xs t-pad:33pc:rt:xs bg:pattern:rev t-txt:wht t-pad:top:l t-pad:50pc:top">
+    <div class="t-txt:cntr t-contain t-pos:cntr">
+        <div class="banner-ad non-member t-pad:50pc:bot t-pad:bot:l">
+        </div>
+    </div>
+    <div class="columns t-contain t-pos:cntr t-pad:15px:rt:xs t-pad:15px:lt:xs">
+        <div class="t-grid:l:60pc t-marg:50pc:bot">
+            <div class="pretty-header" data-size="full"><h3>More News</h3></div>
+        </div>
+    </div>
+    <div class="article-links t-contain t-pos:cntr ">
+        <div class="t-grid:s:fit:2 t-grid:l:fit:4">
+            @foreach (var item in Model.Records.Where(r => r.ContentType == ON.Fragments.Content.ContentType.Written).Skip(3).Take(8))
+            {
+                @await Html.PartialAsync("BottomBlockNewsLink", item)
+            }
+        </div>
+        <div class="t-txt:cntr t-pad:25pc:top  t-pad:50pc:bot  t-pad:bot:m t-pad:bot:l">
+            <div class="t-txt:cntr:xs t-txt:cntr:s"> <a href="/news/" class="button">View All</a></div>
+        </div>
+    </div>
+    <div class="t-txt:cntr t-contain t-pos:cntr">
+        <div class="banner-ad non-member t-pad:50pc:bot t-pad:50pc:bot:m t-pad:bot:l">
+        </div>
+    </div>
+</div>
 
 
+
+@section Head
+    {
+    <style>
+        .blink_text {
+            animation: 1s blinker linear infinite;
+            -webkit-animation: 1s blinker linear infinite;
+            -moz-animation: 1s blinker linear infinite;
+            color: red;
+        }
+
+        \@@-moz-keyframes blinker {
+            0% {
+                opacity: 0.7;
+            }
+
+            45% {
+                opacity: 0.9;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            95% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 0.7;
+            }
+        }
+
+        \@@-webkit-keyframes blinker {
+            0% {
+                opacity: 0.7;
+            }
+
+            45% {
+                opacity: 0.9;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            95% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 0.7;
+            }
+        }
+
+        @@keyframes blinker {
+            0% {
+                opacity: 0.7;
+            }
+
+            45% {
+                opacity: 0.9;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            95% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 0.7;
+            }
+        }
+    </style>
+}

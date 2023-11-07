@@ -45,7 +45,7 @@ namespace SCNRWeb.Controllers
         [AllowAnonymous]
         [HttpGet("{tag}")]
         [HttpGet("{tag}/page/{pageNum}")]
-        public async Task<IActionResult> CategoryPage(string tag, int pageNum = 1)
+        public async Task<IActionResult> TagPage(string tag, int pageNum = 1)
         {
             if (pageNum < 1)
                 return Redirect("/");
@@ -65,7 +65,7 @@ namespace SCNRWeb.Controllers
 
             var model = new TagViewModel();
             model.Tag = tag;
-            model.ContentRecords = res.Records.ToList();
+            model.Records = res.Records.ToList();
             model.PageVM = new(pageNum, ((int)res.PageTotalItems + ITEMS_PER_PAGE - 1) / ITEMS_PER_PAGE, $"/tag/{tag}/page/");
 
             return View("View", model);

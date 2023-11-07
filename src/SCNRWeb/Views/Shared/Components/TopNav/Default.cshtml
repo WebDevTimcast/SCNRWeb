@@ -1,0 +1,63 @@
+﻿@using SCNRWeb.Models;
+@model TopNavModel
+@using userHelper = ON.Authentication.ONUserHelper;
+
+<header id="t-scrollnav-holder" class="t-bg:wht">
+    <nav id="t-scrollnav">
+        <div class="t-pos:cntr t-pos:rel flex-nav" style="background: #000000;">
+            <div class="nav-and-search">
+                <div class="t-button-mobile-menu">
+                    <div class="t-toggle-icon"></div>
+                </div>
+                <div class="btn-search">
+                    <svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+                        <desc>Created with Sketch.</desc>
+                        <g id="Post-v2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="01-siderail-template-v1" transform="translate(-1230.000000, -179.000000)" stroke="#FFFFFF">
+                                <g id="Group-4" transform="translate(1231.000000, 180.000000)">
+                                    <circle id="Oval" stroke-width="2" cx="8" cy="8" r="8"></circle>
+                                    <line x1="14.5" y1="14.5" x2="18.25" y2="18.25" id="Line-2" stroke-width="3" stroke-linecap="square"></line>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            <div class="logo t-pos:cntr t-txt:cntr">
+                <div class="t-pad:10px:lt   t-pad:5px:top t-pad:10px:bot">
+                    <a href="/">
+                        <img src="/img/scnr-header.png" alt="SCNR" class="t-hide:under:s" />
+                        <img src="/img/scnr-header.png" alt="SCNR" class="t-show:under:s mobile" />
+                    </a>
+                </div>
+            </div>
+            <div class="t-pos:rt t-pad:25pc:rt nav-utility">
+                <ul class="t-menu t-pad:0px:top t-pad:0px:bot t-marg:0px t-pad:5px:rt   txt-light">
+                    @if (userHelper.IsLoggedIn)
+                    {
+                        <li class="non-member menu-item menu-item-type-custom menu-item-object-custom"><a href="/logout/">Log Out</a></li>
+                        <li class="non-member menu-item menu-item-type-custom menu-item-object-custom"><a href="/admin">Admin</a></li>
+                    }
+                    else
+                    {
+@*                        <li class="non-member menu-item menu-item-type-custom menu-item-object-custom"><a href="/login/">Log In</a></li>
+*@
+                    }
+                </ul>
+            </div>
+            @await Component.InvokeAsync("LeftNav")
+        </div>
+        </div>
+        <div class="search-box clear t-bg:clr1">
+            <div class="t-display:inline-block t-pos:cntr">
+                <div class="t-contain t-pos:cntr t-flex:valign:mid">
+                    <span class="search-field">
+                        <span class="shadowfield"><input type="text" id="searchfield" name="search" placeholder="Keyword..."></span>
+                    </span>
+                    <div class="button:alt btn-search btn-alt">Search</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

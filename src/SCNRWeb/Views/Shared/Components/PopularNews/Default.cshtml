@@ -1,0 +1,8 @@
+﻿@model SCNRWeb.Models.CMS.News.PopularNewsModel
+
+<ul class="nobull">
+    @foreach(var rec in Model.Records)
+    {
+        @await Html.PartialAsync("~/Views/News/NormalNewsLink.cshtml", rec)
+    }
+</ul>

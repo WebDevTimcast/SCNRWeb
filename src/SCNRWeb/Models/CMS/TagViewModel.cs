@@ -7,7 +7,7 @@ namespace SCNRWeb.Models.CMS
     public class TagViewModel
     {
         public string Tag { get; set; }
-        public List<ContentListRecord> ContentRecords { get; set; } = new();
+        public List<ContentListRecord> Records { get; set; } = new();
         public PageNumViewModel PageVM { get; set; } = null;
     }
 }

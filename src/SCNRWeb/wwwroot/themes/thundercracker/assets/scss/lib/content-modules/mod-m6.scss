@@ -1,0 +1,32 @@
+
+.has-m6:not(body),.mod-m6, .mod-m6 * {
+	overflow: visible;
+}
+
+	.m6-stick-l .m6-columns{
+		-webkit-flex-direction: row-reverse; /* Safari 6.1+ */
+		flex-direction: row-reverse; 
+
+	}
+
+	.m6-columns {
+		display:flex;
+		flex-wrap: nowrap;
+
+	.m6_stickied {
+		overflow: visible;
+	}
+	.m6_stickied{
+		position: sticky;
+		position: -webkit-sticky;
+		top: 50%;
+	}
+
+	& > div {
+		width:50%
+	}
+
+	.m6-item {
+			height: 75vh;
+	}
+}

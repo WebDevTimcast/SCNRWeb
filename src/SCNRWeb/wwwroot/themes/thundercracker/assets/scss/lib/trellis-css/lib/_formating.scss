@@ -1,0 +1,351 @@
+a{
+	color:inherit;
+	text-decoration:none
+}
+
+p a{
+	text-decoration:underline;
+}
+
+body{
+	font-size:$t-txt-norm;
+}
+
+img{
+	max-width: 100%;
+}
+
+
+h1{
+	font-size:$t-txt-headline-big;
+}
+
+h2{
+	font-size:$t-txt-headline-med;
+}
+
+h3{
+	font-size:$t-txt-headline-norm;
+}
+
+h4{
+	font-size:$t-txt-headline-small;
+}
+
+
+p{
+	font-size:$t-txt-norm;
+	line-height:$t-p-lh;
+	margin:$t-p-marg 0;
+}
+
+
+.t-txt\:u{
+	text-transform:uppercase;
+}
+
+
+$screensizes: (
+  '':0px,
+  '\\3Axs': 0px,
+  '\\3As': $t-mobile-landscape,
+  '\\3Am': $t-tablet-portrait,
+  '\\3Al': $t-desktop,
+);
+$screensize-keys: map-keys($screensizes);
+
+
+$alignment: (
+    'left': '\\3A lt',
+    'right': '\\3Art',
+    'center': '\\3A cntr',
+);
+$align-keys: map-keys($alignment);
+
+
+.t-txt\:h1, .t-txt\:h1 p{
+	font-size:$t-txt-headline-big;
+}
+.t-txt\:h2, .t-txt\:h2 p{
+	font-size:$t-txt-headline-med;
+}
+.t-txt\:h3, .t-txt\:h3 p{
+	font-size:$t-txt-headline-norm;
+}
+.t-txt\:h4, .t-txt\:h4 p{
+	font-size:$t-txt-headline-small;
+}
+
+
+
+
+.t-fnt\:1{
+  @include font-primary();
+}
+
+
+.t-fnt\:2{
+  @include font-secondary();
+}
+
+
+.t-fnt\:3{
+  @include font-tertiary();
+}
+
+
+.t-txt\:big, .t-txt\:big p{
+	font-size:$t-txt-big;
+}
+
+.t-txt\:med, .t-txt\:med p{
+	font-size:$t-txt-med;
+}
+.t-txt\:norm, .t-txt\:norm p{
+	font-size:$t-txt-norm;
+}
+
+.t-txt\:sm, .t-txt\:sm p{
+	font-size:$t-txt-small;
+}
+
+.t-txt\:xsm, .t-txt\:xsm p{
+	font-size:$t-txt-xsmall;
+}
+
+
+.t-txt\:cntr, .t-txt\:cntr p{
+	text-align:center
+}
+.t-txt\:lt, .t-txt\:lt p{
+	text-align:left
+}
+
+
+.t-txt\:rt, .t-txt\:rt p{
+	text-align:right
+}
+
+
+@media(max-width:$t-mobile-landscape){
+	
+	.t-txt\:cntr\:xs, .t-txt\:cntr\:xs p{
+		text-align:center
+	}
+	.t-txt\:lt\:xs, .t-txt\:lt\:xs p{
+		text-align:left
+	}
+
+
+	.t-txt\:rt\:xs, .t-txt\:rt\:xs p{
+		text-align:right
+	}
+}
+
+@media(min-width:$t-mobile-landscape) and (max-width:$t-desktop){
+	
+	.t-txt\:cntr\:m, .t-txt\:cntr\:m p{
+		text-align:center
+	}
+	.t-txt\:lt\:m, .t-txt\:lt\:m p{
+		text-align:left
+	}
+
+
+	.t-txt\:rt\:m, .t-txt\:rt\:m p{
+		text-align:right
+	}
+}
+
+@media(min-width:$t-desktop){
+	
+	.t-txt\:cntr\:l, .t-txt\:cntr\:l p{
+		text-align:center
+	}
+	.t-txt\:lt\:l, .t-txt\:lt\:l p{
+		text-align:left
+	}
+
+
+	.t-txt\:rt\:l, .t-txt\:rt\:l p{
+		text-align:right
+	}
+}
+
+
+
+
+
+    @each $screensize in $screensizes {
+        $scrncnt: index($screensizes,$screensize);
+        $mediaquery: null;
+
+        /* @debug map-get($screensizes,nth($screensize-keys,$scrncnt+1));*/
+    
+        @if $scrncnt < length($screensize-keys) and map-get($screensizes,nth($screensize-keys,$scrncnt+1))!= 0px{
+          $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))}) and (max-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt+1))})";
+        }
+        @else{
+             $mediaquery: "(min-width:#{map-get($screensizes,nth($screensize-keys,$scrncnt))})";
+        }
+        
+        @media #{$mediaquery}{
+            @each $align in $alignment {
+                $aligncnt: index($alignment, $align);
+                .t-txt#{map-get($alignment,nth($align-keys,$aligncnt))}#{nth($screensize-keys,$scrncnt)} {
+                   text-align: #{nth($align-keys,$aligncnt)};
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+@media (max-width: $t-mobile-landscape){
+	
+	h1{
+		font-size:$t-txt-headline-big-mob;
+	}
+
+	h2{
+		font-size:$t-txt-headline-med-mob;
+	}
+
+	h3{
+		font-size:$t-txt-headline-norm-mob;
+	}
+
+	h4{
+		font-size:$t-txt-headline-small-mob;
+	}
+
+
+	.t-txt\:h1, .t-txt\:h1 p{
+		font-size:$t-txt-headline-big-mob;
+	}
+	.t-txt\:h2, .t-txt\:h2 p{
+		font-size:$t-txt-headline-med-mob;
+	}
+	.t-txt\:h3, .t-txt\:h3 p{
+		font-size:$t-txt-headline-norm-mob;
+	}
+	.t-txt\:h4, .t-txt\:h4 p{
+		font-size:$t-txt-headline-small-mob;
+	}
+
+
+	.t-txt\:big, .t-txt\:big p{
+		font-size:$t-txt-big-mob;
+	}
+
+	.t-txt\:med, .t-txt\:med p{
+		font-size:$t-txt-med-mob;
+	}
+	.t-txt\:norm, .t-txt\:norm p{
+		font-size:$t-txt-norm-mob;
+	}
+
+	.t-txt\:sm, .t-txt\:sm p{
+		font-size:$t-txt-small-mob;
+	}
+
+	.t-txt\:xsm, .t-txt\:xsm p{
+		font-size:$t-txt-xsmall-mob;
+	}
+
+}
+
+
+
+
+@media (min-width: $t-desktopxl){
+	
+	h1{
+		font-size:$t-txt-headline-big-xl;
+	}
+
+	h2{
+		font-size:$t-txt-headline-med-xl;
+	}
+
+	h3{
+		font-size:$t-txt-headline-norm-xl;
+	}
+
+	h4{
+		font-size:$t-txt-headline-small-xl;
+	}
+
+
+	.t-txt\:h1, .t-txt\:h1 p{
+		font-size:$t-txt-headline-big-xl;
+	}
+	.t-txt\:h2, .t-txt\:h2 p{
+		font-size:$t-txt-headline-med-xl;
+	}
+	.t-txt\:h3, .t-txt\:h3 p{
+		font-size:$t-txt-headline-norm-xl;
+	}
+	.t-txt\:h4, .t-txt\:h4 p{
+		font-size:$t-txt-headline-small-xl;
+	}
+
+
+	.t-txt\:big, .t-txt\:big p{
+		font-size:$t-txt-big-xl;
+	}
+
+	.t-txt\:med, .t-txt\:med p{
+		font-size:$t-txt-med-xl;
+	}
+	.t-txt\:norm, .t-txt\:norm p{
+		font-size:$t-txt-norm-xl;
+	}
+
+	.t-txt\:sm, .t-txt\:sm p{
+		font-size:$t-txt-small-xl;
+	}
+
+	.t-txt\:xsm, .t-txt\:xsm p{
+		font-size:$t-txt-xsmall-xl;
+	}
+
+}
+
+
+
+.t-img\:cnt\r:m{
+	background-position: center center !important;
+}
+.t-img\:lt\:m{
+	background-position: left center !important;
+}
+.t-img\:rt\:m{
+	background-position: right center !important;
+}
+.t-img\:cntr\:b{
+	background-position: center bottom !important;
+}
+.t-img\:lt\:b{
+	background-position: left bottom !important;
+}
+.t-img\:rt\:b{
+	background-position: right bottom !important;
+}
+.t-img\:cntr\:t{
+	background-position: center top !important;
+}
+.t-img\:lt\:t {
+	background-position: left top !important;
+}
+.t-img\:rt\:t{
+	background-position: right top !important;
+}
+
+
+
+
