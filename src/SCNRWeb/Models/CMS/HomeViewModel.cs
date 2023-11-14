@@ -16,6 +16,8 @@ namespace SCNRWeb.Models.CMS
         public HomeViewModel(GetAllContentResponse response, ONUser user)
         {
             MainVideo = response.Records.FirstOrDefault(r => r.PinnedOnUTC != null);
+            if (MainVideo == null)
+                MainVideo = response.Records.FirstOrDefault();
 
             Records.AddRange(response.Records.Where(r => r != MainVideo));
         }
