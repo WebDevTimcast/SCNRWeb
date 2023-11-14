@@ -8586,7 +8586,7 @@ header .nav-and-search .btn-search {
 
 @media (min-width: 1023px) {
   .t-mobmenu main {
-    margin-left: 285px;
+    margin-left: 109px;
     width: calc(100vw - 300px); }
 
   .t-mobmenu main > div:not(.no-auto-marg), .t-mobmenu main > footer {
@@ -8655,7 +8655,7 @@ header .nav-and-search .btn-search {
   top: 12px; }
 
 .t-nav-mobile {
-  width: 285px !important; }
+  width: 109px !important; }
 
 .nav-and-search.close + .t-nav-mobile {
   width: 86px !important;
