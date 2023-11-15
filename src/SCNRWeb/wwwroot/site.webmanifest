@@ -3,12 +3,12 @@
     "short_name": "SCNR",
     "icons": [
       {
-        "src": "/img/scnr-header.png",
+        "src": "/img/s.png",
         "sizes": "192x192",
         "type": "image/png"
       },
       {
-        "src": "/img/scnr-header.png",
+        "src": "/img/s.png",
         "sizes": "512x512",
         "type": "image/png"
       }
