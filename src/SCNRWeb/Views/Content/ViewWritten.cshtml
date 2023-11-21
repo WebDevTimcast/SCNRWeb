@@ -84,6 +84,15 @@
 </div>
 
 @section head {
+    <meta property="og:url" content="http://scnr.com/content/@(Model.Record.ContentID)/@(Model.Record.Data.URL)" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="@Model.Record.Data.Title" />
+    <meta property="og:description" content="@Model.Record.Data.Description" />
+    <meta property="og:image" content="https://scnr.com/image/@Model.Record.Data.FeaturedImageAssetID" />
+    <meta property="og:site_name" content="SCNR" />
+    <meta property="og:locale" content="en_US" />
+
+
     <script type="application/ld+json">
         {
           "@@context": "https://schema.org",
