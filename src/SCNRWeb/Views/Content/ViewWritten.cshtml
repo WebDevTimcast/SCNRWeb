@@ -83,4 +83,22 @@
     </div>
 </div>
 
-
+@section head {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org",
+          "@@type": "NewsArticle",
+          "headline": "@Model.Record.Data.Title",
+          "image": [
+            "https://scnr.com/image/@Model.Record.Data.FeaturedImageAssetID"
+           ],
+          "datePublished": "@Html.Raw(Model.Record.PublishOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK"))",
+          "dateModified": "@Html.Raw(Model.Record.ModifiedOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK"))",
+          "author": [{
+              "@@type": "Person",
+              "name": "@Model.Record.Data.Author",
+              "url": "https://scnr.com/author/@Model.Record.Data.AuthorID"
+            }]
+        }
+    </script>
+}
