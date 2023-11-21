@@ -22,11 +22,14 @@ namespace SCNRWeb.Models.CMS
 
             public ExportItemModel(ContentListRecord item)
             {
-                Id = item.ContentID;
-                Title = item.Title;
-                Url = $"https://scnr.com/content/{item.ContentID}/{item.URL}";
-                Image = $"https://scnr.com/image/{item.FeaturedImageAssetID}";
+                Id = item.ContentID ?? "";
+                Title = item.Title ?? "";
+                Url = $"https://scnr.com/content/{item.ContentID}/{item.URL}" ?? "";
+                Image = $"https://scnr.com/image/{item.FeaturedImageAssetID}" ?? "";
                 Time = item.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy");
+
+                if (Title.Length > 305)
+                    Title = Title.Substring(0, 305);
             }
         }
     }
