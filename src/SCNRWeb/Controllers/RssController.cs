@@ -23,25 +23,31 @@ using System.IO;
 using ON.Fragments.Content;
 using ON.Fragments.Settings;
 using ON.Fragments.Generic;
+using ON.Fragments.Authentication;
+using SCNRWeb.Models.CMS.News;
 
 namespace SCNRWeb.Controllers
 {
     [Route("rss")]
     public class RssController : Controller
     {
+        private const int ITEMS_PER_PAGE = 30;
+
         private readonly ILogger logger;
         private readonly AssetService assetService;
         private readonly ContentService contentService;
         private readonly SettingsService settingsService;
+        private readonly UserService userService;
 
         private const string MIME_TYPE = "application/rss+xml";
 
-        public RssController(ILogger<RssController> logger, AssetService assetService, ContentService contentService, SettingsService settingsService)
+        public RssController(ILogger<RssController> logger, AssetService assetService, ContentService contentService, SettingsService settingsService, UserService userService)
         {
             this.logger = logger;
             this.assetService = assetService;
             this.contentService = contentService;
             this.settingsService = settingsService;
+            this.userService = userService;
         }
 
         [HttpGet("")]
@@ -50,7 +56,7 @@ namespace SCNRWeb.Controllers
             var items = await contentService.GetAll(new()
             {
                 PageOffset = 0,
-                PageSize = 30,
+                PageSize = ITEMS_PER_PAGE,
             });
 
             RssDocument doc = await CreateRssDoc(items);
@@ -67,12 +73,53 @@ namespace SCNRWeb.Controllers
             var items = await contentService.GetAll(new()
             {
                 PageOffset = 0,
-                PageSize = 30,
+                PageSize = ITEMS_PER_PAGE,
                 ContentType = ContentType.Written,
             });
 
             RssDocument doc = await CreateRssDoc(items);
             doc.Channel.AtomLink.InternalHref = Url.ActionLink("Articles");
+            using var ms = new MemoryStream();
+            RssDocument.WriteRSS(doc, ms);
+
+            return File(ms.ToArray(), MIME_TYPE);
+        }
+
+        [HttpGet("/json/articles")]
+        public async Task<IActionResult> JsonArticles()
+        {
+            var items = await contentService.GetAll(new()
+            {
+                PageOffset = 0,
+                PageSize = 4,
+                ContentType = ContentType.Written,
+            });
+
+            return Ok(new ExportModel(items));
+        }
+
+        [AllowAnonymous]
+        [HttpGet("/author/{authorId}/rss")]
+        public async Task<IActionResult> AuthorPage(string authorId)
+        {
+            UserPublicRecord author;
+            Guid authorGuid = authorId.ToGuid();
+            author = await userService.GetUserPublic(authorGuid.ToString());
+
+            if (author == null)
+                return NotFound();
+
+            var items = await contentService.GetAll(new()
+            {
+                PageSize = ITEMS_PER_PAGE,
+                PageOffset = 0,
+                AuthorId = authorId.ToString(),
+            });
+            if (items == null)
+                return NotFound();
+
+            RssDocument doc = await CreateRssDoc(items);
+            doc.Channel.AtomLink.InternalHref = Url.ActionLink("AuthorPage", null, new { authorId });
             using var ms = new MemoryStream();
             RssDocument.WriteRSS(doc, ms);
 
@@ -85,7 +132,7 @@ namespace SCNRWeb.Controllers
             var items = await contentService.GetAll(new()
             {
                 PageOffset = 0,
-                PageSize = 30,
+                PageSize = ITEMS_PER_PAGE,
                 ContentType = ContentType.Video,
             });
 
