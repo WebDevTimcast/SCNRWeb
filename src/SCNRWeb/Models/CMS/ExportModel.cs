@@ -16,6 +16,7 @@ namespace SCNRWeb.Models.CMS
         {
             public string Id { get; }
             public string Title { get; }
+            public string Author { get; }
             public string Url { get; }
             public string Image { get; }
             public string Time { get; }
@@ -24,6 +25,7 @@ namespace SCNRWeb.Models.CMS
             {
                 Id = item.ContentID ?? "";
                 Title = item.Title ?? "";
+                Author = item.Author ?? "";
                 Url = $"https://scnr.com/content/{item.ContentID}/{item.URL}" ?? "";
                 Image = $"https://scnr.com/image/{item.FeaturedImageAssetID}" ?? "";
                 Time = item.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy");

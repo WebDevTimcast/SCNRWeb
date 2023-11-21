@@ -91,7 +91,7 @@ namespace SCNRWeb.Controllers
             var items = await contentService.GetAll(new()
             {
                 PageOffset = 0,
-                PageSize = 4,
+                PageSize = 12,
                 ContentType = ContentType.Written,
             });
 
