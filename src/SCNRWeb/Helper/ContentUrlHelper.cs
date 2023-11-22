@@ -12,7 +12,10 @@ namespace SCNRWeb.Helper
         public ContentUrlHelper(IHttpContextAccessor accessor)
         {
             var req = accessor.HttpContext.Request;
-            host = $"{req.Scheme}://{req.Host}";
+            if (req.Host.Value == "localhost")
+                host = "http://localhost";
+            else
+                host = $"https://{req.Host}";
         }
 
         public string GenerateFullArticleUrl(ContentListRecord rec) => host + GeneratePartialArticleUrl(rec);

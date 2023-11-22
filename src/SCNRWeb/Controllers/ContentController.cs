@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using ON.Authentication;
 using ON.Fragments.Content;
+using SCNRWeb.Helper;
 using SCNRWeb.Models;
 using SCNRWeb.Models.CMS;
 using SCNRWeb.Services;
@@ -24,6 +25,7 @@ namespace SCNRWeb.Controllers
         private readonly ILogger<HomeController> logger;
         private readonly AssetService assetService;
         private readonly ContentService contentService;
+        private readonly ContentUrlHelper cUrl;
         private readonly ONUserHelper userHelper;
         private readonly SettingsService settingsService;
         private const int ITEMS_PER_MANAGE_PAGE = 20;
@@ -31,11 +33,12 @@ namespace SCNRWeb.Controllers
 
         public const string CURRENT_CONTENT_ID = "CURRENT_CONTENT_ID";
 
-        public ContentController(ILogger<HomeController> logger, AssetService assetService, ContentService contentService, ONUserHelper userHelper, SettingsService settingsService)
+        public ContentController(ILogger<HomeController> logger, AssetService assetService, ContentService contentService, ContentUrlHelper cUrl, ONUserHelper userHelper, SettingsService settingsService)
         {
             this.logger = logger;
             this.assetService = assetService;
             this.contentService = contentService;
+            this.cUrl = cUrl;
             this.userHelper = userHelper;
             this.settingsService = settingsService;
         }
@@ -44,9 +47,20 @@ namespace SCNRWeb.Controllers
         [AllowAnonymous]
         [HttpGet("/content/{id}")]
         [HttpGet("/content/{id}/{stub}")]
-        public Task<IActionResult> CanonicalGet(string id, string stub)
+        public async Task<IActionResult> CanonicalGet(string id, string stub)
         {
-            return Get(id);
+            Guid contentId;
+            if (!Guid.TryParse(id, out contentId))
+                return NotFound();
+
+            var record = await contentService.GetContent(contentId);
+            if (record == null)
+                return NotFound();
+
+            if (record.Data.ContentDataOneofCase == ContentPublicData.ContentDataOneofOneofCase.Written)
+                return RedirectPermanent(cUrl.GeneratePartialArticleUrl(record));
+
+            return NotFound();
         }
 
         [AllowAnonymous]
