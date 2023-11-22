@@ -1,5 +1,4 @@
 ﻿@model SCNRWeb.Models.NewsViewModel
-@inject SCNRWeb.Services.UserService userService;
 @{
     ViewData["Title"] = Model.Record.Data.Title;
 }
@@ -24,7 +23,7 @@
                     </div>
                     <div class="article-container">
                         <div class="article-img t-img:cntr:m   t-marg:50pc:bot">
-                            <img src="/image/@Model.Record.Data.FeaturedImageAssetID" alt="@Model.Record.Data.Title" />
+                            <img src="@cUrl.GeneratePartialImageUrl(Model.Record)" alt="@Model.Record.Data.Title" />
                             <div>
                             </div>
                             <div class=" t-txt:rt u"></div>
@@ -43,14 +42,14 @@
                                     <div class="">
                                         <div class="article ">
                                             <div class="article-block ">
-                                                <a href="@Model.NextRecord.URL" class="image">
-                                                    <img src="/image/@Model.NextRecord.FeaturedImageAssetID" alt="@Model.NextRecord.Title" />
+                                                <a href="@cUrl.GeneratePartialArticleUrl(Model.NextRecord)" class="image">
+                                                    <img src="@cUrl.GeneratePartialImageUrl(Model.NextRecord)" alt="@Model.NextRecord.Title" />
                                                 </a>
                                                 <div class="meta t-pad:15px:top t-pad:50pc:bot">
                                                     <div class="props">
                                                         <a href="/category/@Model.Category.UrlStub" class="cat u b t-marg:5px:bot t-fnt:bold t-txt:u t-txt:xsm ">@Model.Category.DisplayName</a>
                                                     </div>
-                                                    <a href="@Model.NextRecord.URL">
+                                                    <a href="@cUrl.GeneratePartialArticleUrl(Model.NextRecord)">
                                                         <div class="summary">
                                                             <h2 class=" t-txt:grey3 t-txt:h4">@Model.NextRecord.Title</h2>
                                                             <div class="t-txt:xs t-txt:grey1 t-fnt:1 t-pad:5px:top">
@@ -84,11 +83,11 @@
 </div>
 
 @section head {
-    <meta property="og:url" content="http://scnr.com/content/@(Model.Record.ContentID)/@(Model.Record.Data.URL)" />
+    <meta property="og:url" content="@cUrl.GenerateFullArticleUrl(Model.Record)" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="@Model.Record.Data.Title" />
     <meta property="og:description" content="@Model.Record.Data.Description" />
-    <meta property="og:image" content="https://scnr.com/image/@Model.Record.Data.FeaturedImageAssetID" />
+    <meta property="og:image" content="@cUrl.GenerateFullImageUrl(Model.Record)" />
     <meta property="og:site_name" content="SCNR" />
     <meta property="og:locale" content="en_US" />
 
@@ -96,7 +95,7 @@
     <meta name="twitter:site" content="@@scnrnews" />
     <meta name="twitter:title" content="@Model.Record.Data.Title" />
     <meta name="twitter:description" content="@Model.Record.Data.Description" />
-    <meta name="twitter:image" content="https://scnr.com/image/@Model.Record.Data.FeaturedImageAssetID" />
+    <meta name="twitter:image" content="@cUrl.GenerateFullImageUrl(Model.Record)" />
 
     <script type="application/ld+json">
         {
@@ -104,7 +103,7 @@
           "@@type": "NewsArticle",
           "headline": "@Model.Record.Data.Title",
           "image": [
-            "https://scnr.com/image/@Model.Record.Data.FeaturedImageAssetID"
+            "@cUrl.GenerateFullImageUrl(Model.Record)"
            ],
           "datePublished": "@Html.Raw(Model.Record.PublishOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK"))",
           "dateModified": "@Html.Raw(Model.Record.ModifiedOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK"))",

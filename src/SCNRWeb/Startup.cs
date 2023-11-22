@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ON.Authentication;
 using ON.Settings;
+using SCNRWeb.Helper;
 using SCNRWeb.Services;
 
 namespace SCNRWeb
@@ -32,6 +33,7 @@ namespace SCNRWeb
 
             services.AddScoped<AssetService>();
             services.AddScoped<ContentService>();
+            services.AddScoped<ContentUrlHelper>();
             services.AddScoped<UserService>();
 
             services.AddSingleton<SettingsService>();

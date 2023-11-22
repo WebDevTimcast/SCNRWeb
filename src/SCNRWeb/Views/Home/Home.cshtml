@@ -11,13 +11,13 @@
             <div class="article">
                 <div class="article ">
                     <div class="article-block  video">
-                        <a href="/content/@(Model?.MainVideo?.ContentID)/@(Model?.MainVideo?.URL)" class="image">
-                            <img src="/image/@Model?.MainVideo?.FeaturedImageAssetID" alt="@Model?.MainVideo?.Title" />
+                        <a href="@cUrl.GeneratePartialArticleUrl(Model?.MainVideo)" class="image">
+                            <img src="cUrl.GeneratePartialImageUrl(Model?.MainVideo)" alt="@Model?.MainVideo?.Title" />
                         </a>
                         <div class="baloon baloon-video">
                         </div>
                         <div class="meta t-pad:15px:top t-pad:50pc:bot">
-                            <a href="/content/@(Model?.MainVideo?.ContentID)/@(Model?.MainVideo?.URL)">
+                            <a href="@cUrl.GeneratePartialArticleUrl(Model?.MainVideo)">
                                 <div class="summary">
                                     <div class="t-txt:big t-txt:grey1 t-fnt:1 t-pad:5px:top t-pad:5px:bot">
                                         @Model?.MainVideo?.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy")
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="t-txt:cntr:xs t-txt:cntr:s">
-                    <a href="/content/@(Model?.MainVideo?.ContentID)/@(Model?.MainVideo?.URL)" class="button:rev ">More</a>
+                    <a href="@cUrl.GeneratePartialArticleUrl(Model?.MainVideo)" class="button:rev ">More</a>
                 </div>
             </div>
         </div>
@@ -47,13 +47,13 @@
             <div class="article">
                 <div class="article ">
                     <div class="article-block  video">
-                        <a href="/content/@(Model?.MainVideo?.ContentID)/@(Model?.MainVideo?.URL)" class="image">
-                            <img src="/image/@Model.MainVideo?.FeaturedImageAssetID" alt="@Model.MainVideo?.Title" />
+                        <a href="@cUrl.GeneratePartialArticleUrl(Model?.MainVideo)" class="image">
+                            <img src="@cUrl.GeneratePartialImageUrl(Model?.MainVideo)" alt="@Model.MainVideo?.Title" />
                         </a>
                         <div class="baloon baloon-video">
                         </div>
                         <div class="meta t-pad:15px:top t-pad:50pc:bot">
-                            <a href="/content/@(Model?.MainVideo?.ContentID)/@(Model?.MainVideo?.URL)">
+                            <a href="@cUrl.GeneratePartialArticleUrl(Model?.MainVideo)">
                                 <div class="summary">
                                     <div class="t-txt:big t-txt:grey1 t-fnt:1 t-pad:5px:top t-pad:5px:bot">
                                         @Model.MainVideo?.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy")
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="t-txt:cntr:xs t-txt:cntr:s">
-                    <a href="/content/@(Model?.MainVideo?.ContentID)/@(Model?.MainVideo?.URL)" class="button:rev ">More</a>
+                    <a href="@cUrl.GeneratePartialArticleUrl(Model?.MainVideo)" class="button:rev ">More</a>
                 </div>
             </div>
 

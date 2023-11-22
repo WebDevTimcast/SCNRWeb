@@ -25,6 +25,7 @@ using ON.Fragments.Settings;
 using ON.Fragments.Generic;
 using ON.Fragments.Authentication;
 using SCNRWeb.Models.CMS.News;
+using SCNRWeb.Helper;
 
 namespace SCNRWeb.Controllers
 {
@@ -36,16 +37,18 @@ namespace SCNRWeb.Controllers
         private readonly ILogger logger;
         private readonly AssetService assetService;
         private readonly ContentService contentService;
+        private readonly ContentUrlHelper cUrl;
         private readonly SettingsService settingsService;
         private readonly UserService userService;
 
         private const string MIME_TYPE = "application/rss+xml";
 
-        public RssController(ILogger<RssController> logger, AssetService assetService, ContentService contentService, SettingsService settingsService, UserService userService)
+        public RssController(ILogger<RssController> logger, AssetService assetService, ContentService contentService, ContentUrlHelper cUrl, SettingsService settingsService, UserService userService)
         {
             this.logger = logger;
             this.assetService = assetService;
             this.contentService = contentService;
+            this.cUrl = cUrl;
             this.settingsService = settingsService;
             this.userService = userService;
         }
@@ -67,6 +70,7 @@ namespace SCNRWeb.Controllers
             return File(ms.ToArray(), MIME_TYPE);
         }
 
+        [HttpGet("article")]
         [HttpGet("articles")]
         public async Task<IActionResult> Articles()
         {
@@ -95,7 +99,7 @@ namespace SCNRWeb.Controllers
                 ContentType = ContentType.Written,
             });
 
-            return Ok(new ExportModel(items));
+            return Ok(new ExportModel(items, cUrl));
         }
 
         [AllowAnonymous]
@@ -194,7 +198,7 @@ namespace SCNRWeb.Controllers
                     Title = item.Title,
                     Description = item.Description,
                     PubDate = item.PublishOnUTC.ToDateTime(),
-                    Link = new RssUrl(Url.ActionLink("Get", "Content", new { id = item.ContentID, stub = item.URL })),
+                    Link = new RssUrl(cUrl.GenerateFullArticleUrl(item)),
                     Guid = new RssGuid { IsPermaLink = false, Value = item.ContentID.ToString() },
                 };
 
@@ -216,7 +220,7 @@ namespace SCNRWeb.Controllers
                 {
                     rss.Enclosure = new()
                     {
-                        Url = new RssUrl(Url.ActionLink("Get", "Asset", new { id = image.AssetID })),
+                        Url = new RssUrl(cUrl.GenerateFullImageUrl(item)),
                         Type = image.Data.MimeType,
                         Length = image.Data.Data.Length,
                     };

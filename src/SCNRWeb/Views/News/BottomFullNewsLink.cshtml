@@ -9,8 +9,8 @@
 
 <div class="article  t-marg:50pc:bot ">
     <div class="article-block ">
-        <a href="@Model.URL" class="image">
-            <img src="/image/@Model.FeaturedImageAssetID" alt="@Model.Title" />
+        <a href="@cUrl.GeneratePartialArticleUrl(Model)" class="image">
+            <img src="@cUrl.GeneratePartialImageUrl(Model)" alt="@Model.Title" />
         </a>
         <div class="meta t-pad:15px:top t-pad:50pc:bot">
             <div class="props">
@@ -19,7 +19,7 @@
                     <a href="/category/@cat.UrlStub" class="cat u b t-marg:5px:bot t-fnt:bold t-txt:u t-txt:xsm ">@cat.DisplayName</a>
                 }
             </div>
-            <a href="@Model.URL">
+            <a href="@cUrl.GeneratePartialArticleUrl(Model)">
                 <div class="summary">
                     <h2 class=" t-txt:grey3 t-txt:h4">@Model.Title</h2>
                     <p class="t-txt:grey4 t-txt:sm ">

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using ON.Authentication;
 using ON.Fragments.Content;
 using SCNRWeb.Models.CMS;
+using SCNRWeb.Models.CMS.Categories;
 using SCNRWeb.Services;
 
 namespace SCNRWeb.Controllers
@@ -22,7 +23,7 @@ namespace SCNRWeb.Controllers
         private readonly ContentService contentService;
         private readonly ONUserHelper userHelper;
         private readonly SettingsService settingsService;
-        private const int ITEMS_PER_PAGE = 15;
+        private const int ITEMS_PER_PAGE = 24;
 
         public CategoryController(ILogger<CategoryController> logger, ContentService contentService, ONUserHelper userHelper, SettingsService settingsService)
         {
@@ -42,34 +43,34 @@ namespace SCNRWeb.Controllers
         //    return View(model);
         //}
 
-        //[AllowAnonymous]
-        //[HttpGet("{slug}")]
-        //[HttpGet("{slug}/page/{pageNum}")]
-        //public async Task<IActionResult> CategoryPage(string slug, int pageNum = 1)
-        //{
-        //    if (pageNum < 1)
-        //        return RedirectToAction(nameof(Index));
+        [AllowAnonymous]
+        [HttpGet("{slug}")]
+        [HttpGet("{slug}/page/{pageNum}")]
+        public async Task<IActionResult> CategoryPage(string slug, int pageNum = 1)
+        {
+            if (pageNum < 1)
+                return RedirectToAction(nameof(Index));
 
-        //    var category = await settingsService.GetCategoryBySlug(slug);
-        //    if (category == null)
-        //        return RedirectToAction(nameof(Index));
+            var category = await settingsService.GetCategoryBySlug(slug);
+            if (category == null)
+                return RedirectToAction(nameof(Index));
 
-        //    var res = await contentService.GetAll(new()
-        //    {
-        //        PageSize = ITEMS_PER_PAGE,
-        //        PageOffset = (uint)((pageNum - 1) * ITEMS_PER_PAGE),
-        //        ContentType = ContentType.Written,
-        //        CategoryId = category.CategoryId,
-        //    });
-        //    if (res == null)
-        //        return NotFound();
+            var res = await contentService.GetAll(new()
+            {
+                PageSize = ITEMS_PER_PAGE,
+                PageOffset = (uint)((pageNum - 1) * ITEMS_PER_PAGE),
+                ContentType = ContentType.Written,
+                CategoryId = category.CategoryId,
+            });
+            if (res == null)
+                return NotFound();
 
-        //    var model = new CategoryViewModel();
-        //    model.CategoryRecord = category;
-        //    model.ContentRecords = res.Records.ToList();
-        //    model.PageVM = new(pageNum, ((int)res.PageTotalItems + ITEMS_PER_PAGE - 1) / ITEMS_PER_PAGE, $"/category/{slug}/page/");
+            var model = new CategoryViewModel();
+            model.CategoryRecord = category;
+            model.ContentRecords = res.Records.ToList();
+            model.PageVM = new(pageNum, ((int)res.PageTotalItems + ITEMS_PER_PAGE - 1) / ITEMS_PER_PAGE, $"/category/{slug}/page/");
 
-        //    return View("View", model);
-        //}
+            return View("View", model);
+        }
     }
 }

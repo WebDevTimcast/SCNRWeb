@@ -1,4 +1,5 @@
 ﻿using ON.Fragments.Content;
+using SCNRWeb.Helper;
 using System.Linq;
 
 namespace SCNRWeb.Models.CMS
@@ -7,9 +8,9 @@ namespace SCNRWeb.Models.CMS
     {
         public ExportItemModel[] Items { get; set; }
 
-        public ExportModel(GetAllContentResponse items)
+        public ExportModel(GetAllContentResponse items, ContentUrlHelper cUrl)
         {
-            Items = items.Records.Where(i => i != null).Select(i => new ExportItemModel(i)).ToArray();
+            Items = items.Records.Where(i => i != null).Select(i => new ExportItemModel(i, cUrl)).ToArray();
         }
 
         public class ExportItemModel
@@ -21,13 +22,13 @@ namespace SCNRWeb.Models.CMS
             public string Image { get; }
             public string Time { get; }
 
-            public ExportItemModel(ContentListRecord item)
+            public ExportItemModel(ContentListRecord item, ContentUrlHelper cUrl)
             {
                 Id = item.ContentID ?? "";
                 Title = item.Title ?? "";
                 Author = item.Author ?? "";
-                Url = $"https://scnr.com/content/{item.ContentID}/{item.URL}" ?? "";
-                Image = $"https://scnr.com/image/{item.FeaturedImageAssetID}" ?? "";
+                Url = cUrl.GenerateFullArticleUrl(item);
+                Image = cUrl.GenerateFullImageUrl(item);
                 Time = item.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy");
 
                 if (Title.Length > 305)

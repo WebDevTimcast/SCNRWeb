@@ -40,10 +40,23 @@ namespace SCNRWeb.Controllers
             this.settingsService = settingsService;
         }
 
+
         [AllowAnonymous]
         [HttpGet("/content/{id}")]
         [HttpGet("/content/{id}/{stub}")]
-        public async Task<IActionResult> Get(string id, string stub)
+        public Task<IActionResult> CanonicalGet(string id, string stub)
+        {
+            return Get(id);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("/article/{stub}_{id}")]
+        public Task<IActionResult> GetArticle(string stub, string id)
+        {
+            return Get(id);
+        }
+
+        private async Task<IActionResult> Get(string id)
         {
             Guid contentId;
             if (!Guid.TryParse(id, out contentId))
@@ -55,12 +68,12 @@ namespace SCNRWeb.Controllers
 
             HttpContext.Items[CURRENT_CONTENT_ID] = res.ContentID;
 
-            if (res.Data.ContentDataOneofCase == ON.Fragments.Content.ContentPublicData.ContentDataOneofOneofCase.Video)
+            if (res.Data.ContentDataOneofCase == ContentPublicData.ContentDataOneofOneofCase.Video)
             {
                 return View("ViewVideo", res);
             }
 
-            if (res.Data.ContentDataOneofCase == ON.Fragments.Content.ContentPublicData.ContentDataOneofOneofCase.Written)
+            if (res.Data.ContentDataOneofCase == ContentPublicData.ContentDataOneofOneofCase.Written)
             {
                 ContentListRecord next = null;
                 var category = await settingsService.GetCategoryById(res.Data.CategoryIds.FirstOrDefault() ?? "");

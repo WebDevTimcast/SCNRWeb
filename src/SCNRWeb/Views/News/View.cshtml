@@ -24,7 +24,7 @@
                     </div>
                     <div class="article-container">
                         <div class="article-img t-img:cntr:m   t-marg:50pc:bot">
-                            <img src="/image/@Model.Record.Data.FeaturedImageAssetID" alt="@Model.Record.Data.Title" />
+                            <img src="@cUrl.GeneratePartialImageUrl(Model.Record)" alt="@Model.Record.Data.Title" />
                             <div>
                             </div>
                             <div class=" t-txt:rt u"></div>
@@ -43,14 +43,14 @@
                                     <div class="">
                                         <div class="article ">
                                             <div class="article-block ">
-                                                <a href="@Model.NextRecord.URL" class="image">
-                                                    <img src="/image/@Model.NextRecord.FeaturedImageAssetID" alt="@Model.NextRecord.Title" />
+                                                <a href="@cUrl.GeneratePartialArticleUrl(Model.NextRecord)" class="image">
+                                                    <img src="@cUrl.GeneratePartialImageUrl(Model.NextRecord)" alt="@Model.NextRecord.Title" />
                                                 </a>
                                                 <div class="meta t-pad:15px:top t-pad:50pc:bot">
                                                     <div class="props">
                                                         <a href="/category/@Model.Category.UrlStub" class="cat u b t-marg:5px:bot t-fnt:bold t-txt:u t-txt:xsm ">@Model.Category.DisplayName</a>
                                                     </div>
-                                                    <a href="@Model.NextRecord.URL">
+                                                    <a href="@cUrl.GeneratePartialArticleUrl(Model.NextRecord)">
                                                         <div class="summary">
                                                             <h2 class=" t-txt:grey3 t-txt:h4">@Model.NextRecord.Title</h2>
                                                             <div class="t-txt:xs t-txt:grey1 t-fnt:1 t-pad:5px:top">

@@ -1,8 +1,8 @@
 ﻿@model ON.Fragments.Content.ContentListRecord
 
 <li>
-    <a href="/content/@(Model.ContentID)/@(Model.URL)">
-        <div class="image" style="background-image:url('/image/@Model.FeaturedImageAssetID')"></div>
+    <a href="@cUrl.GeneratePartialArticleUrl(Model)">
+        <div class="image" style="background-image:url('@cUrl.GeneratePartialImageUrl(Model)')"></div>
         <h4 class="t-txt:sm t-fnt:3 t-fnt:med t-txt:blk">@Model.Title</h4>
     </a>
 </li>

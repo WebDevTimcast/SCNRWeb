@@ -2,6 +2,7 @@
 @model ON.Fragments.Content.ContentListRecord
 @inject SCNRWeb.Services.SettingsService settingsService;
 @inject SCNRWeb.Services.UserService userService;
+@inject SCNRWeb.Helper.ContentUrlHelper cUrl;
 
 @{
     ON.Fragments.Settings.CategoryRecord cat = await settingsService.GetCategoryById(Model.CategoryIds.FirstOrDefault() ?? "");
@@ -10,7 +11,7 @@
 <div class="article ">
     <div class="article ">
         <div class="article-block ">
-            <div class="image-thumb" style="background-image:url('/image/@Model.FeaturedImageAssetID')"></div>
+            <div class="image-thumb" style="background-image:url('@cUrl.GeneratePartialImageUrl(Model)')"></div>
             <div class="meta t-pad:15px:top t-pad:50pc:bot">
                 <div class="props">
                     @if (cat != null)
@@ -18,7 +19,7 @@
                         <a href="/category/@cat.UrlStub" class="cat u b t-marg:5px:bot t-fnt:bold t-txt:u t-txt:xsm ">@cat.DisplayName</a>
                     }
                 </div>
-                <a href="/content/@(Model.ContentID)/@(Model.URL)">
+                <a href="@cUrl.GeneratePartialArticleUrl(Model)">
                     <div class="summary">
                         <h2 class=" t-txt:grey3 t-txt:h4">@Model.Title</h2>
                         <p class="t-txt:grey4 t-txt:sm ">
