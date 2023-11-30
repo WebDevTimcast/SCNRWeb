@@ -21,9 +21,14 @@ namespace SCNRWeb.Helper
         public string GenerateFullArticleUrl(ContentListRecord rec) => host + GeneratePartialArticleUrl(rec);
         public string GenerateFullArticleUrl(ContentPublicRecord rec) => host + GeneratePartialArticleUrl(rec);
         public string GenerateFullArticleUrl(Guid id, string stub) => host + GeneratePartialArticleUrl(id, stub);
+        public string GenerateFullContentUrl(ContentListRecord rec) => rec == null ? "" : (rec.ContentType == ContentType.Video ? GenerateFullVideoUrl(rec) : GenerateFullArticleUrl(rec));
+        public string GenerateFullContentUrl(ContentPublicRecord rec) => rec == null ? "" : (rec.Data.ContentDataOneofCase == ContentPublicData.ContentDataOneofOneofCase.Video ? GenerateFullVideoUrl(rec) : GenerateFullArticleUrl(rec));
         public string GenerateFullImageUrl(ContentListRecord rec) => host + GeneratePartialImageUrl(rec);
         public string GenerateFullImageUrl(ContentPublicRecord rec) => host + GeneratePartialImageUrl(rec);
         public string GenerateFullImageUrl(Guid id) => host + GeneratePartialImageUrl(id);
+        public string GenerateFullVideoUrl(ContentListRecord rec) => host + GeneratePartialVideoUrl(rec);
+        public string GenerateFullVideoUrl(ContentPublicRecord rec) => host + GeneratePartialVideoUrl(rec);
+        public string GenerateFullVideoUrl(Guid id) => host + GeneratePartialVideoUrl(id);
 
         public string GeneratePartialArticleUrl(ContentListRecord rec) => rec == null ? "" : GeneratePartialArticleUrl(rec.ContentIDGuid, rec.URL);
         public string GeneratePartialArticleUrl(ContentPublicRecord rec) => rec == null ? "" : GeneratePartialArticleUrl(rec.ContentIDGuid, rec.Data.URL);

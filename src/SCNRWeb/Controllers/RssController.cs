@@ -198,7 +198,7 @@ namespace SCNRWeb.Controllers
                     Title = item.Title,
                     Description = item.Description,
                     PubDate = item.PublishOnUTC.ToDateTime(),
-                    Link = new RssUrl(cUrl.GenerateFullArticleUrl(item)),
+                    Link = new RssUrl(cUrl.GenerateFullContentUrl(item)),
                     Guid = new RssGuid { IsPermaLink = false, Value = item.ContentID.ToString() },
                 };
 
