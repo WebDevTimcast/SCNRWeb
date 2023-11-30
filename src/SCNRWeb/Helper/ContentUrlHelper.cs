@@ -28,6 +28,8 @@ namespace SCNRWeb.Helper
         public string GeneratePartialArticleUrl(ContentListRecord rec) => rec == null ? "" : GeneratePartialArticleUrl(rec.ContentIDGuid, rec.URL);
         public string GeneratePartialArticleUrl(ContentPublicRecord rec) => rec == null ? "" : GeneratePartialArticleUrl(rec.ContentIDGuid, rec.Data.URL);
         public string GeneratePartialArticleUrl(Guid id, string stub) => $"/article/{stub}_{ConvertGuid(id)}";
+        public string GeneratePartialContentUrl(ContentListRecord rec) => rec == null ? "" : (rec.ContentType == ContentType.Video ? GeneratePartialVideoUrl(rec) : GeneratePartialArticleUrl(rec));
+        public string GeneratePartialContentUrl(ContentPublicRecord rec) => rec == null ? "" : (rec.Data.ContentDataOneofCase == ContentPublicData.ContentDataOneofOneofCase.Video ? GeneratePartialVideoUrl(rec) : GeneratePartialArticleUrl(rec));
         public string GeneratePartialImageUrl(ContentListRecord rec) => GeneratePartialImageUrl(rec?.FeaturedImageAssetID);
         public string GeneratePartialImageUrl(ContentPublicRecord rec) => GeneratePartialImageUrl(rec?.Data?.FeaturedImageAssetID);
 
@@ -43,6 +45,9 @@ namespace SCNRWeb.Helper
 
         public string GeneratePartialImageUrl(Guid id) => $"/image/{ConvertGuid(id)}";
 
+        public string GeneratePartialVideoUrl(ContentListRecord rec) => rec == null ? "" : GeneratePartialVideoUrl(rec.ContentIDGuid);
+        public string GeneratePartialVideoUrl(ContentPublicRecord rec) => rec == null ? "" : GeneratePartialVideoUrl(rec.ContentIDGuid);
+        public string GeneratePartialVideoUrl(Guid id) => $"/video/{ConvertGuid(id)}";
         private string ConvertGuid(Guid id) => id.ToString().Replace("-", "");
     }
 }

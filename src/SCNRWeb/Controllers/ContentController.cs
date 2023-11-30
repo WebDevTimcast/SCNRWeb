@@ -60,12 +60,22 @@ namespace SCNRWeb.Controllers
             if (record.Data.ContentDataOneofCase == ContentPublicData.ContentDataOneofOneofCase.Written)
                 return RedirectPermanent(cUrl.GeneratePartialArticleUrl(record));
 
+            if (record.Data.ContentDataOneofCase == ContentPublicData.ContentDataOneofOneofCase.Video)
+                return RedirectPermanent(cUrl.GeneratePartialVideoUrl(record));
+
             return NotFound();
         }
 
         [AllowAnonymous]
         [HttpGet("/article/{stub}_{id}")]
         public Task<IActionResult> GetArticle(string stub, string id)
+        {
+            return Get(id);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("/video/{id}")]
+        public Task<IActionResult> GetVideo(string id)
         {
             return Get(id);
         }

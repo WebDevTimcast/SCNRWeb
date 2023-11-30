@@ -16,6 +16,7 @@ using SCNRWeb.Models.Auth;
 using SCNRWeb.Models.CMS;
 using SCNRWeb.Models.CMS.News;
 using SCNRWeb.Services;
+using static Google.Rpc.Context.AttributeContext.Types;
 
 namespace SCNRWeb.Controllers
 {
@@ -37,11 +38,10 @@ namespace SCNRWeb.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View("Home", new HomeViewModel((await contentService.GetAll(new()
-            {
-                PageOffset = 0,
-                PageSize = ITEMS_PER_PAGE,
-            })), userHelper.MyUser));
+            var news = await contentService.GetAll(new() { PageOffset = 0, PageSize = 13, ContentType = ON.Fragments.Content.ContentType.Written });
+            var videos = await contentService.GetAll(new() { PageOffset = 0, PageSize = 3, ContentType = ON.Fragments.Content.ContentType.Video });
+            var model = new HomeViewModel(news, videos, userHelper.MyUser);
+            return View("Home", model);
         }
 
         [Authorize]
@@ -53,7 +53,8 @@ namespace SCNRWeb.Controllers
             return RedirectToAction("SettingsGet", "Auth");
         }
 
-        [HttpGet("search/{s}")]
+        [HttpGet("/search/{s}")]
+        [HttpGet("/search/{s}/page/{pageNum}")]
         public async Task<IActionResult> Search(string s, int pageNum = 1)
         {
             if (string.IsNullOrWhiteSpace(s))
@@ -66,11 +67,12 @@ namespace SCNRWeb.Controllers
                 Query = s,
             });
 
-            var model = new HomeViewModel(res, userHelper.MyUser)
-            {
-            };
+            var model = new SearchViewModel(res, userHelper.MyUser);
+            model.PagedRecords = res.Records.ToList();
+            model.Query = s;
+            model.PageVM = new(pageNum, ((int)res.PageTotalItems + ITEMS_PER_PAGE - 1) / ITEMS_PER_PAGE, $"/search/{s.ToString()}/page/");
 
-            return View("Home", model);
+            return View(model);
         }
 
         [AllowAnonymous]

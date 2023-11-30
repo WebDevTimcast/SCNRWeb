@@ -13,24 +13,19 @@ namespace SCNRWeb.Models.CMS
     {
         public HomeViewModel() { }
 
-        public HomeViewModel(GetAllContentResponse response, ONUser user)
+        public HomeViewModel(GetAllContentResponse news, GetAllContentResponse videos, ONUser user)
         {
-            MainVideo = response.Records.FirstOrDefault(r => r.PinnedOnUTC != null);
-            if (MainVideo == null)
-                MainVideo = response.Records.FirstOrDefault();
+            var allItems = news.Records.ToList();
+            allItems.AddRange(videos.Records);
+            FeaturedItem = allItems.OrderByDescending(r => r.PublishOnUTC).OrderByDescending(r => r.PinnedOnUTC).FirstOrDefault();
 
-            Records.AddRange(response.Records.Where(r => r != MainVideo));
+            News.AddRange(news.Records.Where(r => r != FeaturedItem));
+            Videos.AddRange(videos.Records.Where(r => r != FeaturedItem));
         }
 
-        public HomeViewModel(SearchContentResponse response, ONUser user)
-        {
-            Records.AddRange(response.Records);
+        public List<ContentListRecord> News { get; } = new();
+        public List<ContentListRecord> Videos { get; } = new();
 
-            MainVideo = response.Records.FirstOrDefault(r => r.IsLiveStream);
-        }
-
-        public List<ContentListRecord> Records { get; } = new();
-
-        public ContentListRecord MainVideo { get; } = new();
+        public ContentListRecord FeaturedItem { get; } = new();
     }
 }

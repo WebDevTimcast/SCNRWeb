@@ -1,0 +1,53 @@
+﻿@model SCNRWeb.Models.CMS.SearchViewModel
+@{
+    ViewData["Title"] = "Search: " + Model.Query;
+}
+
+<div class=" t-bg:clr4  t-pad-top t-marg-50pc-top t-marg-bot  txt-lght t-pad-50pc-rt t-pad-50pc-lt t-pad-bot author-block ">
+    <div class="t-flex:valign:top t-pad t-contain t-pos-cntr author ">
+        <summary>
+            <h1 class="t-txt-h2 t-pad-33pc-top t-pad-33pc-bot t-txt-wht">Search results for: @Model.Query</h1>
+        </summary>
+    </div>
+</div>
+<div class=" t-pad:50pc:bot t-pad:bot:l">
+    <div class="t-contain t-pos:cntr">
+        <div class="columns t-marg:50pc:top ">
+            <div class="index-items ">
+                <div class=" t-marg:50pc:top t-pad:15px:rt:xs t-pad:15px:lt  t-pad:15px:rt">
+                    <div class="t-grid:l:65pc article-links">
+                        <div class="t-pad:15px:bot t-pad:15px:lt">
+                            <h2 class="t-display:inline  t-txt:h3">Results </h2><h3 class="t-display:inline t-txt:h3 t-fnt:light pg-results">  Page: @Model.PageVM.CurrentPageNum</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class=" t-pad:50pc:bot t-pad:bot:l">
+    <div class="t-contain t-pos:cntr">
+        <div class="article-links t-pad:15px:rt t-pad:15px:lt">
+            <div class="t-grid:s:fit:2 t-grid:m:fit:4 ">
+                @foreach (var rec in Model.PagedRecords)
+                {
+                    <div class="article  t-marg:50pc:bot ">
+                        @await Html.PartialAsync("BottomFullNewsLink", rec)
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="t-contain t-pos:cntr t-txt:cntr  t-marg:top  fnt-secondary">
+            @await Html.PartialAsync("Paged", Model.PageVM)
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

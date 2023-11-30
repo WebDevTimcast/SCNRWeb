@@ -11,34 +11,34 @@
             <div class="article">
                 <div class="article ">
                     <div class="article-block  video">
-                        <a href="@cUrl.GeneratePartialArticleUrl(Model?.MainVideo)" class="image">
-                            <img src="@cUrl.GeneratePartialImageUrl(Model?.MainVideo)" alt="@Model?.MainVideo?.Title" />
+                        <a href="@cUrl.GeneratePartialContentUrl(Model?.FeaturedItem)" class="image">
+                            <img src="@cUrl.GeneratePartialImageUrl(Model?.FeaturedItem)" alt="@Model?.FeaturedItem?.Title" />
                         </a>
                         <div class="baloon baloon-video">
                         </div>
                         <div class="meta t-pad:15px:top t-pad:50pc:bot">
-                            <a href="@cUrl.GeneratePartialArticleUrl(Model?.MainVideo)">
+                            <a href="@cUrl.GeneratePartialContentUrl(Model?.FeaturedItem)">
                                 <div class="summary">
                                     <div class="t-txt:big t-txt:grey1 t-fnt:1 t-pad:5px:top t-pad:5px:bot">
-                                        @Model?.MainVideo?.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy")
+                                        @Model?.FeaturedItem?.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy")
                                     </div>
-                                    <h2 class=" t-txt:grey3 t-txt:h4">@Model?.MainVideo?.Title</h2>
+                                    <h2 class=" t-txt:grey3 t-txt:h4">@Model?.FeaturedItem?.Title</h2>
                                 </div>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="t-txt:cntr:xs t-txt:cntr:s">
-                    <a href="@cUrl.GeneratePartialArticleUrl(Model?.MainVideo)" class="button:rev ">More</a>
+                    <a href="@cUrl.GeneratePartialContentUrl(Model?.FeaturedItem)" class="button:rev ">More</a>
                 </div>
             </div>
         </div>
 
         <div class="clmn clmn2 t-pad:top:xs t-marg:top:xs  t-pad:25pc:lt:m t-pad:33pc:lt:xs t-pad:33pc:rt t-fnt:smooth members  t-pad:15px:lt:l t-pad:15px:lt:xl ">
             <h2 class="header t-marg:25pc:bot t-txt:cntr t-txt:wht">Latest Videos</h2>
-            @foreach (var item in Model.Records.Where(r => r.SubscriptionLevel > 0).Take(2))
+            @foreach (var item in Model.Videos.Take(2))
             {
-                @await Html.PartialAsync("~/Views/Channel/NormalVideoLink.cshtml", item)
+                @await Html.PartialAsync("NormalVideoLink", item)
             }
             <div class="t-txt:cntr:xs t-txt:cntr:s"><a href="/video/" class="button:rev">View All</a></div>
         </div>
@@ -47,25 +47,25 @@
             <div class="article">
                 <div class="article ">
                     <div class="article-block  video">
-                        <a href="@cUrl.GeneratePartialArticleUrl(Model?.MainVideo)" class="image">
-                            <img src="@cUrl.GeneratePartialImageUrl(Model?.MainVideo)" alt="@Model.MainVideo?.Title" />
+                        <a href="@cUrl.GeneratePartialContentUrl(Model?.FeaturedItem)" class="image">
+                            <img src="@cUrl.GeneratePartialImageUrl(Model?.FeaturedItem)" alt="@Model.FeaturedItem?.Title" />
                         </a>
                         <div class="baloon baloon-video">
                         </div>
                         <div class="meta t-pad:15px:top t-pad:50pc:bot">
-                            <a href="@cUrl.GeneratePartialArticleUrl(Model?.MainVideo)">
+                            <a href="@cUrl.GeneratePartialContentUrl(Model?.FeaturedItem)">
                                 <div class="summary">
                                     <div class="t-txt:big t-txt:grey1 t-fnt:1 t-pad:5px:top t-pad:5px:bot">
-                                        @Model.MainVideo?.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy")
+                                        @Model.FeaturedItem?.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy")
                                     </div>
-                                    <h2 class=" t-txt:grey3 t-txt:h4">@Model.MainVideo?.Title</h2>
+                                    <h2 class=" t-txt:grey3 t-txt:h4">@Model.FeaturedItem?.Title</h2>
                                 </div>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="t-txt:cntr:xs t-txt:cntr:s">
-                    <a href="@cUrl.GeneratePartialArticleUrl(Model?.MainVideo)" class="button:rev ">More</a>
+                    <a href="@cUrl.GeneratePartialContentUrl(Model?.FeaturedItem)" class="button:rev ">More</a>
                 </div>
             </div>
 
@@ -74,7 +74,7 @@
 
         <div class="clmn clmn3 t-pad:33pc:rt:xs t-pad:15px:rt t-pad:top:xs t-marg:top:xs t-pad:33pc:lt t-pad:25pc:rt:m">
             <h2 class="header t-marg:25pc:bot t-txt:cntr t-txt:wht">Latest News</h2>
-            @foreach (var item in Model.Records.Where(r => r.ContentType == ON.Fragments.Content.ContentType.Written).Take(4))
+            @foreach (var item in Model.News.Take(4))
             {
                 @await Html.PartialAsync("LatestNewsLink", item)
             }
@@ -104,7 +104,7 @@
     </div>
     <div class="article-links t-contain t-pos:cntr ">
         <div class="t-grid:s:fit:2 t-grid:l:fit:4">
-            @foreach (var item in Model.Records.Where(r => r.ContentType == ON.Fragments.Content.ContentType.Written).Skip(3).Take(8))
+            @foreach (var item in Model.News.Where(r => r.ContentType == ON.Fragments.Content.ContentType.Written).Skip(4).Take(8))
             {
                 @await Html.PartialAsync("BottomBlockNewsLink", item)
             }

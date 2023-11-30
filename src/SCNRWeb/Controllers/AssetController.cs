@@ -44,6 +44,9 @@ namespace SCNRWeb.Controllers
             if (res == null)
                 return NotFound();
 
+            if (string.IsNullOrWhiteSpace(res.Data.MimeType))
+                return File(res.Data.Data.ToByteArray(), "application/octet-stream");
+
             return File(res.Data.Data.ToByteArray(), res.Data.MimeType);
         }
 

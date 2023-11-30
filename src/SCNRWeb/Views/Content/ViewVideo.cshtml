@@ -1,0 +1,75 @@
+﻿@model ON.Fragments.Content.ContentPublicRecord
+@{
+    ViewData["Title"] = Model.Data.Title;
+}
+
+<div style="padding-top: 40px;">
+    <div class="t-contain t-pos:cntr">
+        <div class="columns t-pad:10px:lt:xs t-pad:10px:rt:xs t-pad:25pc:lt t-pad:25pc:rt ">
+            <div class="t-grid:l:70pc ">
+                <article>
+                    <div class="article-header t-pad:33pc:bot">
+                        <h1 class="t-pad:25pc:top t-fnt:1">@Model.Data.Title</h1>
+                        <h2 class="t-pad:10px:top t-txt:clr1 t-txt:h3">@Model.Data.Description</h2>
+                        <hr class="thick t-marg:15px:top " />
+                        <div class="article-meta ">
+                            <div class="t-txt:sm t-txt:u t-display:inline-block">Published: @Model.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MMMM d, yyyy")</div>
+                        </div>
+                    </div>
+                    <div class="article-container">
+                        <div class="article-img t-img:cntr:m   t-marg:50pc:bot">
+                            <div>
+                                @if (Model.Data.Video.YoutubeVideoId != "")
+                                {
+                                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/@Model.Data.Video.YoutubeVideoId" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="youtubeframe" style="min-height:500px"></iframe>
+                                }
+                                @if (Model.Data.Video.RumbleVideoId != "")
+                                {
+                                    <p><iframe loading="lazy" class="rumble" width="640" height="360" src="https://rumble.com/embed/@(Model.Data.Video.RumbleVideoId)/?pub=lf6yv&rel=0" frameborder="0" allowfullscreen></iframe></p>
+                                }
+                            </div>
+                        </div>
+                    </div><!-- End Article Container -->
+                </article>
+            </div><!-- End Column -->
+            <div class="t-grid:l:30pc t-pad:0px:lt:xs t-pad:0px:top:xs t-pad:0px:top:m t-pad:50pc:top:l t-pad:lt:l  t-pad:50pc:top:xl">
+                <div class="t-hide:under:s side-rail ">
+                    <span class="pretty-header t-marg:5px:bot t-display:inline-block"><h3>Popular</h3></span>
+                    <hr class="thick t-marg:15px:top " />
+                    <div class="popular t-marg:25pc:top t-pad:50pc:rt:l article-links">
+                        @await Component.InvokeAsync("PopularNews")
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Columns -->
+    </div>
+</div>
+
+@section head {
+    <meta property="og:url" content="@cUrl.GenerateFullArticleUrl(Model)" />
+    <meta property="og:type" content="video" />
+    <meta property="og:title" content="@Model.Data.Title" />
+    <meta property="og:description" content="@Model.Data.Description" />
+    <meta property="og:image" content="@cUrl.GenerateFullImageUrl(Model)" />
+    <meta property="og:site_name" content="SCNR" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@@scnrnews" />
+    <meta name="twitter:title" content="@Model.Data.Title" />
+    <meta name="twitter:description" content="@Model.Data.Description" />
+    <meta name="twitter:image" content="@cUrl.GenerateFullImageUrl(Model)" />
+
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org",
+          "@@type": "Video",
+          "headline": "@Model.Data.Title",
+          "image": [
+            "@cUrl.GenerateFullImageUrl(Model)"
+           ],
+          "datePublished": "@Html.Raw(Model.PublishOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK"))",
+          "dateModified": "@Html.Raw(Model.ModifiedOnUTC == null ? Model.PublishOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK") : Model.ModifiedOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK"))"
+        }
+    </script>
+}
