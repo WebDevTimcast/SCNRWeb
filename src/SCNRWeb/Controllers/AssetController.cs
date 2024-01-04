@@ -33,7 +33,7 @@ namespace SCNRWeb.Controllers
 
         [AllowAnonymous]
         [HttpGet("/image/{id}")]
-        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any, NoStore = false)]
+        [ResponseCache(Duration = 2592000, Location = ResponseCacheLocation.Any, NoStore = false)]
         public async Task<IActionResult> Get(string id)
         {
             Guid assetId;
