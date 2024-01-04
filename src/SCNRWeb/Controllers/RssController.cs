@@ -63,7 +63,7 @@ namespace SCNRWeb.Controllers
             });
 
             RssDocument doc = await CreateRssDoc(items);
-            doc.Channel.AtomLink.InternalHref = Url.ActionLink("All");
+            doc.Channel.AtomLink.InternalHref = Url.ActionLink("All", null, null, "https");
             using var ms = new MemoryStream();
             RssDocument.WriteRSS(doc, ms);
 
@@ -82,7 +82,7 @@ namespace SCNRWeb.Controllers
             });
 
             RssDocument doc = await CreateRssDoc(items);
-            doc.Channel.AtomLink.InternalHref = Url.ActionLink("Articles");
+            doc.Channel.AtomLink.InternalHref = Url.ActionLink("Articles", null, null, "https");
             using var ms = new MemoryStream();
             RssDocument.WriteRSS(doc, ms);
 
@@ -123,7 +123,7 @@ namespace SCNRWeb.Controllers
                 return NotFound();
 
             RssDocument doc = await CreateRssDoc(items);
-            doc.Channel.AtomLink.InternalHref = Url.ActionLink("AuthorPage", null, new { authorId });
+            doc.Channel.AtomLink.InternalHref = Url.ActionLink("AuthorPage", null, new { authorId }, "https");
             using var ms = new MemoryStream();
             RssDocument.WriteRSS(doc, ms);
 
@@ -141,7 +141,7 @@ namespace SCNRWeb.Controllers
             });
 
             RssDocument doc = await CreateRssDoc(items);
-            doc.Channel.AtomLink.InternalHref = Url.ActionLink("Videos");
+            doc.Channel.AtomLink.InternalHref = Url.ActionLink("Videos", null, null, "https");
             using var ms = new MemoryStream();
             RssDocument.WriteRSS(doc, ms);
 
@@ -150,7 +150,7 @@ namespace SCNRWeb.Controllers
 
         private async Task<RssDocument> CreateRssDoc(GetAllContentResponse items)
         {
-            var home = Url.ActionLink("Index", "Home");
+            var home = Url.ActionLink("Index", "Home", null, "https");
 
             var doc = new RssDocument()
             {
