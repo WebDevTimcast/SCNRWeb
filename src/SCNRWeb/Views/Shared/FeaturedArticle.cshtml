@@ -1,4 +1,5 @@
 ﻿@using ON.Fragments.Settings;
+@using SCNRWeb.Helper;
 @model ON.Fragments.Content.ContentListRecord
 @inject SCNRWeb.Services.SettingsService settingsService;
 @{
@@ -29,7 +30,7 @@
                 <p>@Model.Description</p>
             </div>
             <div class="post-boxed__footer">
-                <time class="post-boxed__time" datetime="2018">@Model.PublishOnUTC.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt")</time><a class="post-boxed__link" href="@cUrl.GeneratePartialArticleUrl(Model)" style="color: #ffffff !important;">Read More</a>
+                <time class="post-boxed__time" datetime="2018">@Model.PublishOnUTC.ToDateTime().FromUTCToEastern().ToString("yyyy-MM-dd h:mm tt")</time><a class="post-boxed__link" href="@cUrl.GeneratePartialArticleUrl(Model)" style="color: #ffffff !important;">Read More</a>
             </div>
         </div>
     </article>

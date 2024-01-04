@@ -1,4 +1,5 @@
-﻿@model SCNRWeb.Models.CMS.ManageViewModel
+﻿@using SCNRWeb.Helper;
+@model SCNRWeb.Models.CMS.ManageViewModel
 @{
     Layout = "_Manage";
     ViewData["Title"] = "Manage Articles";
@@ -25,7 +26,7 @@
             <td>
                 <a href="/content/@(record.ContentID)">@record.Title</a>
             </td>
-            <td>@record.PublishOnUTC?.ToDateTime().ToLocalTime().ToString("yyyy-MM-dd h:mm tt")</td>
+            <td>@record.PublishOnUTC?.ToDateTime().FromUTCToEastern().ToString("yyyy-MM-dd h:mm tt")</td>
             <td>
                 @if (record.PublishOnUTC != null)
                 {

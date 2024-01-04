@@ -29,7 +29,7 @@ namespace SCNRWeb.Models.CMS
                 Author = item.Author ?? "";
                 Url = cUrl.GenerateFullArticleUrl(item);
                 Image = cUrl.GenerateFullImageUrl(item);
-                Time = item.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy");
+                Time = item.PublishOnUTC.ToDateTime().FromUTCToEastern().ToString("MM.d.yy");
 
                 if (Title.Length > 305)
                     Title = Title.Substring(0, 305);

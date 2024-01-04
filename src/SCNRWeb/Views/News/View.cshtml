@@ -1,4 +1,5 @@
-﻿@model SCNRWeb.Models.NewsViewModel
+﻿@using SCNRWeb.Helper;
+@model SCNRWeb.Models.NewsViewModel
 @inject SCNRWeb.Services.UserService userService;
 @{
     ViewData["Title"] = Model.Record.Data.Title;
@@ -18,7 +19,7 @@
                         <h2 class="t-pad:10px:top t-txt:clr1 t-txt:h3">@Model.Record.Data.Description</h2>
                         <hr class="thick t-marg:15px:top " />
                         <div class="article-meta ">
-                            <div class="t-txt:sm t-txt:u t-display:inline-block">Published: @Model.Record.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MMMM d, yyyy")</div>
+                            <div class="t-txt:sm t-txt:u t-display:inline-block">Published: @Model.Record.PublishOnUTC.ToDateTime().FromUTCToEastern().ToString("MMMM d, yyyy")</div>
                             <div class="t-display:inline-block t-txt:sm t-txt:u ">&nbsp; | &nbsp; By <a href="/author/@Model.Record.Data.AuthorID" class="auth-link">@Model.Record.Data.Author</a></div>
                         </div>
                     </div>
@@ -54,7 +55,7 @@
                                                         <div class="summary">
                                                             <h2 class=" t-txt:grey3 t-txt:h4">@Model.NextRecord.Title</h2>
                                                             <div class="t-txt:xs t-txt:grey1 t-fnt:1 t-pad:5px:top">
-                                                                @Model.NextRecord.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy")
+                                                                @Model.NextRecord.PublishOnUTC.ToDateTime().FromUTCToEastern().ToString("MM.d.yy")
                                                                 <span class=" auth">  | @Model.NextRecord.Author</span>
                                                             </div>
                                                         </div>

@@ -13,9 +13,9 @@ namespace SCNRWeb.ViewComponents
         {
             this.context = context;
         }
-        public async Task<IViewComponentResult> InvokeAsync()
+        public Task<IViewComponentResult> InvokeAsync()
         {
-            return View(new TopNavModel(context));
+            return Task.FromResult((IViewComponentResult)View(new TopNavModel(context)));
         }
     }
 }

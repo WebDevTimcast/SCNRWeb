@@ -27,7 +27,7 @@
                         @Model.Description.TruncatePretty(100)
                     </p>
                     <div class="t-txt:xs t-txt:grey1 t-fnt:1 t-pad:5px:top">
-                        @Model.PublishOnUTC.ToDateTime().ToLocalTime().ToString("MM.d.yy")
+                        @Model.PublishOnUTC.ToDateTime().FromUTCToEastern().ToString("MM.d.yy")
                         @if (!string.IsNullOrWhiteSpace(Model.Author))
                         {
                             <span class=" auth">  | @Model.Author</span>
