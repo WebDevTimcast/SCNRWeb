@@ -164,11 +164,11 @@ namespace SCNRWeb.Controllers
                         new RssImage
                         {
                             Description = "SCNR",
-                            Height = 138,
-                            Width = 582,
+                            Height = 34,
+                            Width = 144,
                             Link = new RssUrl(home),
                             Title = "SCNR",
-                            Url = new RssUrl(home + "img/scnr-header.png")
+                            Url = new RssUrl(home + "img/scnr-header-small.png")
                         },
                     Language = new CultureInfo("en-us"),
                     LastBuildDate = DateTime.UtcNow,
