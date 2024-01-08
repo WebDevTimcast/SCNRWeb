@@ -38,7 +38,6 @@
                             <div class="minds-comments"
                                  data-href="@cUrl.GenerateFullArticleUrl(Model.Record)"
                                  data-owner-guid="1591172494029492227"></div>
-                            <script async defer crossorigin="anonymous" src="https://network.scnr.com/plugins/embedded-comments/js/embed.js"></script>
 
 
                             @if (Model.NextRecord != null)
@@ -120,4 +119,9 @@
             }]
         }
     </script>
+}
+
+@section Scripts
+{
+    <script async defer crossorigin="anonymous" src="https://network.scnr.com/plugins/embedded-comments/js/embed.js"></script>
 }
