@@ -71,7 +71,7 @@ namespace SCNRWeb.Helper
         {
             public override string ToString()
             {
-                string pattern = @"https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)";
+                string pattern = @"https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)(?:.*)+";
                 string replacePattern = @"<blockquote class=""twitter-tweet""><a class=""twitter-timeline"" href=""https://twitter.com/$1/status/$3"">Loading...</a></blockquote><script async src=""https://platform.twitter.com/widgets.js"" charset=""utf-8""></script>";
 
                 var fixedStr = Regex.Replace(Str, pattern, replacePattern, RegexOptions.IgnoreCase);
