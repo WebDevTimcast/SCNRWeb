@@ -32,6 +32,9 @@
                         </div>
                     </div><!-- End Article Container -->
                 </article>
+                <div class="minds-comments"
+                     data-href="@cUrl.GenerateFullArticleUrl(Model)"
+                     data-owner-guid="1591172494029492227"></div>
             </div><!-- End Column -->
             <div class="t-grid:l:30pc t-pad:0px:lt:xs t-pad:0px:top:xs t-pad:0px:top:m t-pad:50pc:top:l t-pad:lt:l  t-pad:50pc:top:xl">
                 <div class="t-hide:under:s side-rail ">
@@ -40,6 +43,15 @@
                     <div class="popular t-marg:25pc:top t-pad:50pc:rt:l article-links">
                         @await Component.InvokeAsync("PopularNews")
                     </div>
+                </div>
+                <div style="width:300px;height:250px;">
+                    <script id="nrp-53" type="text/javascript" class="" style="">
+                        (function (node) {
+                            var nrp = document.createElement("script");
+                            nrp.type = "text/javascript", nrp.async = true, nrp.src = "//a.ads.rmbl.ws/warp/53?r=" + Math.floor(Math.random() * 99999) + "";
+                            node.appendChild(nrp);
+                        })(document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].parentNode)
+                    </script>
                 </div>
             </div>
         </div><!-- End Columns -->
@@ -73,4 +85,9 @@
           "dateModified": "@Html.Raw(Model.ModifiedOnUTC == null ? Model.PublishOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK") : Model.ModifiedOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK"))"
         }
     </script>
+}
+
+@section Scripts
+    {
+    <script async defer crossorigin="anonymous" src="https://network.scnr.com/plugins/embedded-comments/js/embed.js"></script>
 }
