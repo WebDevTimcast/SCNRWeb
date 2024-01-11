@@ -8,17 +8,17 @@ namespace SCNRWeb.Helper
     {
         public static string Process(string html)
         {
-            RemoveBraces(ref html);
+            //RemoveBraces(ref html);
             var pieces = FindAllUrls(html ?? "");
 
             return string.Join("", pieces);
         }
 
-        private static void RemoveBraces(ref string html)
-        {
-            string pattern = @"\[[^\]]*\]";
-            html = Regex.Replace(html, pattern, "");
-        }
+        //private static void RemoveBraces(ref string html)
+        //{
+        //    string pattern = @"\[[^\]]*\]";
+        //    html = Regex.Replace(html, pattern, "");
+        //}
 
         private static IEnumerable<Piece> FindAllUrls(string html)
         {
