@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using ON.Authentication;
 using ON.Settings;
 using SCNRWeb.Helper;
+using SCNRWeb.Models;
 using SCNRWeb.Services;
 
 namespace SCNRWeb
@@ -30,6 +31,8 @@ namespace SCNRWeb
         {
             services.AddHttpContextAccessor();
             services.AddControllersWithViews();
+
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddScoped<AssetService>();
             services.AddScoped<ContentService>();

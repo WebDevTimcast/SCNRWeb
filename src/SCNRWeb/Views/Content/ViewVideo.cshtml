@@ -1,5 +1,6 @@
 ﻿@using SCNRWeb.Helper;
 @model ON.Fragments.Content.ContentPublicRecord
+@inject Microsoft.Extensions.Options.IOptions<AppSettings> settings
 @{
     ViewData["Title"] = Model.Data.Title;
 }
@@ -32,9 +33,14 @@
                         </div>
                     </div><!-- End Article Container -->
                 </article>
-                <div class="minds-comments"
-                     data-href="@cUrl.GenerateFullArticleUrl(Model)"
-                     data-owner-guid="1591172494029492227"></div>
+
+                @if (settings.Value.EnableMinds)
+                {
+                    <div class="minds-comments"
+                         data-href="@cUrl.GenerateFullArticleUrl(Model)"
+                         data-owner-guid="1591172494029492227"></div>
+                }
+
             </div><!-- End Column -->
             <div class="t-grid:l:30pc t-pad:0px:lt:xs t-pad:0px:top:xs t-pad:0px:top:m t-pad:50pc:top:l t-pad:lt:l  t-pad:50pc:top:xl">
                 <div class="t-hide:under:s side-rail ">
@@ -87,7 +93,9 @@
     </script>
 }
 
-@section Scripts
+@section Scripts {
+    @if (settings.Value.EnableMinds)
     {
-    <script async defer crossorigin="anonymous" src="https://network.scnr.com/plugins/embedded-comments/js/embed.js"></script>
+        <script async defer crossorigin="anonymous" src="https://network.scnr.com/plugins/embedded-comments/js/embed.js"></script>
+    }
 }
