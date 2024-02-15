@@ -37,7 +37,7 @@
                 @if (settings.Value.EnableMinds)
                 {
                     <div class="minds-comments"
-                         data-href="@cUrl.GenerateFullArticleUrl(Model)"
+                         data-href="@cUrl.GenerateFullVideoUrl(Model)"
                          data-owner-guid="1591172494029492227"></div>
                 }
 
@@ -65,7 +65,7 @@
 </div>
 
 @section head {
-    <meta property="og:url" content="@cUrl.GenerateFullArticleUrl(Model)" />
+    <meta property="og:url" content="@cUrl.GenerateFullVideoUrl(Model)" />
     <meta property="og:type" content="video" />
     <meta property="og:title" content="@Model.Data.Title" />
     <meta property="og:description" content="@Model.Data.Description" />
