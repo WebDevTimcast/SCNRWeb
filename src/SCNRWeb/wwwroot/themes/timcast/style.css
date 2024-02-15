@@ -13917,6 +13917,10 @@ html .t-txt\:wht .revcontent * h3 {
         background: black;
     }
 
+.article-content {
+    font-size: 18px;
+}
+
 .article-content p {
     font-size: 18px;
 }
