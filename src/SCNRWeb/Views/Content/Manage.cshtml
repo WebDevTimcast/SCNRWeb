@@ -24,7 +24,7 @@
     {
         <tr>
             <td>
-                <a href="/content/@(record.ContentID)">@record.Title</a>
+                <a href="/content/@(record.ContentID)/edit">@record.Title</a>
             </td>
             <td>@record.PublishOnUTC?.ToDateTime().FromUTCToEastern().ToString("yyyy-MM-dd h:mm tt")</td>
             <td>

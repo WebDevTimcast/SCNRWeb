@@ -1,0 +1,38 @@
+﻿@using SCNRWeb.Helper;
+@model SCNRWeb.Models.Admin.ManageChannelsViewModel
+@{
+    Layout = "_Manage";
+    ViewData["Title"] = "Manage Channels";
+}
+
+<br />
+
+<a href="/admin/channel/new" class="btn btn-primary">New Channel</a>
+
+<br />
+<br />
+
+<table>
+    <thead>
+        <tr>
+            <th>Display Name</th>
+            <th>Url Stub</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    @foreach (var record in Model.Records)
+    {
+        <tr>
+            <td>
+                <a href="/admin/channel/@(record.ChannelId)">@record.DisplayName</a>
+            </td>
+            <td>
+                <a href="/channel/@(record.UrlStub)">@record.UrlStub</a>
+            </td>
+            <td>
+                <img src="@cUrl.GeneratePartialImageUrl(record.ImageAssetId)" style="height: 80px;">
+            </td>
+        </tr>
+    }
+</table>
+

@@ -6,6 +6,10 @@
 
 @await Html.PartialAsync("Trending")
 <div class="mantle-holder t-pad:15px:lt:xl featured t-pad:25pc:bot bg:pattern">
+    @if (Model.LiveVideo != null)
+    {
+        @await Html.PartialAsync("LiveVideo", Model.LiveVideo)
+    }
     <div class="mantle-grid t-marg:75pc:bot  t-pad:0px:rt:sw t-pad:0px:lt:sw t-pad:20px:rt:l t-pad:15px:lt:l t-pad:15px:lt:m  t-pad:0px:lt:xs t-contain t-pos:cntr t-txt:wht" style="margin-top: 15px">
         <div class="clmn clmn1 t-pad:33pc:lt t-pad:33pc:rt t-show:under:m">
             <h2 class="header t-marg:25pc:bot t-txt:cntr t-txt:wht">Featured</h2>
@@ -81,6 +85,7 @@
             }
             <span class="clear"></span>
             <div class="t-txt:cntr:xs t-txt:cntr:s"><a href="/news/" class="button:rev t-marg:25pc:top">View All</a></div>
+            <br />
             <div style="width:300px;height:250px;">
                 <script id="nrp-53" type="text/javascript" class="" style="">
                     (function (node) {

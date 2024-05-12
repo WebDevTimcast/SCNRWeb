@@ -8,6 +8,8 @@ using Grpc.Core;
 using ON.Settings;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using SCNRWeb.Models.Admin;
+using System.Threading.Channels;
 
 namespace SCNRWeb.Services
 {
@@ -155,6 +157,55 @@ namespace SCNRWeb.Services
             var settings = settingsClient.PublicData;
 
             return Task.FromResult(settings?.CMS?.Channels?.ToList() ?? new());
+        }
+
+        internal async Task<ModifyResponseErrorType> CreateChannel(NewChannelViewModel vm, ONUser user)
+        {
+            var data = settingsClient.PublicData;
+            var record = data.CMS;
+
+            record.Channels.Add(vm.ToChannel());
+
+
+            var res = await Modify(record, user);
+
+            return res;
+        }
+
+        internal async Task<ModifyResponseErrorType> ModifyChannel(string channelId, EditChannelViewModel vm, ONUser user)
+        {
+            var data = settingsClient.PublicData;
+            var record = data.CMS;
+
+            var channel = record.Channels.FirstOrDefault(c => c.ChannelId == channelId);
+            if (channel == null)
+                return ModifyResponseErrorType.UnknownError;
+
+            channel.DisplayName = vm.DisplayName ?? "N/A";
+            channel.UrlStub = vm.UrlStub ?? "";
+            channel.ImageAssetId = vm.ImageAssetID ?? "";
+            channel.YoutubeUrl = vm.YoutubeUrl ?? "";
+            channel.RumbleUrl = vm.RumbleUrl ?? "";
+
+            var res = await Modify(record, user);
+
+            return res;
+        }
+
+        internal async Task<ModifyResponseErrorType> UpdateChannelAssetID(Guid channelId, Guid assetId, ONUser user)
+        {
+            var data = settingsClient.PublicData;
+            var record = data.CMS;
+
+            var channel = record.Channels.FirstOrDefault(c => c.ChannelId == channelId.ToString());
+            if (channel == null)
+                return ModifyResponseErrorType.UnknownError;
+
+            channel.ImageAssetId = assetId.ToString();
+
+            var res = await Modify(record, user);
+
+            return res;
         }
     }
 }

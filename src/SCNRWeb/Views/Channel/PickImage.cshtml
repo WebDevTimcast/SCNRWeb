@@ -1,11 +1,10 @@
-﻿@model SCNRWeb.Models.Asset.ImageSearchViewModel;
+﻿@model SCNRWeb.Models.CMS.PickImageViewModel;
 @{
     Layout = "_Manage";
-    ViewData["Title"] = "Manage Articles";
+    ViewData["Title"] = "Pick Image";
 }
 
-<a href="/admin/image/new" class="btn btn-primary">New Image</a>
-<br />
+<a asp-action="EditChannelGet">&lt;&lt;&lt; Back</a>
 <br />
 <br />
 
@@ -24,8 +23,7 @@
                 @foreach (var record in Model.Records)
                 {
                     <div class="col-md-6 col-xl-4 col-xxl-3">
-                        <a href="/admin/image/@(record.AssetID)/detail"><img src="/image/@(record.AssetID)" alt="@record.Caption" title="@record.Caption" /></a>
-                        <a href="/admin/image/@(record.AssetID)/detail">@record.Title</a>
+                        <a asp-action="ImagePicked" asp-route-id="@Model.Id" asp-route-aid="@record.AssetID"><img src="/image/@(record.AssetID)" alt="@record.Caption" title="@record.Caption" /></a>
                     </div>
                 }
             </div>

@@ -41,6 +41,10 @@ namespace SCNRWeb.Controllers
             var news = await contentService.GetAll(new() { PageOffset = 0, PageSize = 13, ContentType = ON.Fragments.Content.ContentType.Written });
             var videos = await contentService.GetAll(new() { PageOffset = 0, PageSize = 3, ContentType = ON.Fragments.Content.ContentType.Video });
             var model = new HomeViewModel(news, videos, userHelper.MyUser);
+
+            if (model.LiveId != Guid.Empty)
+                model.LiveVideo = await contentService.GetContent(model.LiveId);
+
             return View("Home", model);
         }
 

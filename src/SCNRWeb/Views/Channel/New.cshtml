@@ -1,0 +1,43 @@
+﻿@model SCNRWeb.Models.Admin.NewChannelViewModel
+@{
+    Layout = "_Manage";
+    ViewData["Title"] = "New Channel";
+}
+
+<h1>Create new channel</h1>
+<br />
+
+@if (!string.IsNullOrEmpty(Model?.ErrorMessage))
+{
+    <h2 style="color: red;">@Model.ErrorMessage</h2>
+}
+
+@if (!string.IsNullOrEmpty(Model?.SuccessMessage))
+{
+    <h2 style="color: green;">@Model.SuccessMessage</h2>
+}
+
+<form method="post" class="needs-validation" novalidate>
+    <div class="form-group">
+        <label asp-for="DisplayName"></label>
+        <input class="form-control" asp-for="DisplayName" />
+        <span asp-validation-for="DisplayName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UrlStub"></label>
+        <input class="form-control" asp-for="UrlStub" />
+        <span asp-validation-for="UrlStub"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="YoutubeUrl"></label>
+        <input class="form-control" asp-for="YoutubeUrl" />
+        <span asp-validation-for="YoutubeUrl"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RumbleUrl"></label>
+        <input class="form-control" asp-for="RumbleUrl" />
+        <span asp-validation-for="RumbleUrl"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

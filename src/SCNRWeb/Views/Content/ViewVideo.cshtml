@@ -15,7 +15,7 @@
                         <h2 class="t-pad:10px:top t-txt:clr1 t-txt:h3">@Model.Data.Description</h2>
                         <hr class="thick t-marg:15px:top " />
                         <div class="article-meta ">
-                            <div class="t-txt:sm t-txt:u t-display:inline-block">Published: @Model.PublishOnUTC.ToDateTime().FromUTCToEastern().ToString("MMMM d, yyyy")</div>
+                            <div class="t-txt:sm t-txt:u t-display:inline-block">Published: @Model.PublishOnUTC?.ToDateTime().FromUTCToEastern().ToString("MMMM d, yyyy")</div>
                         </div>
                     </div>
                     <div class="article-container">
@@ -87,8 +87,8 @@
           "image": [
             "@cUrl.GenerateFullImageUrl(Model)"
            ],
-          "datePublished": "@Html.Raw(Model.PublishOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK"))",
-          "dateModified": "@Html.Raw(Model.ModifiedOnUTC == null ? Model.PublishOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK") : Model.ModifiedOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK"))"
+          "datePublished": "@Html.Raw(Model.PublishOnUTC?.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK"))",
+          "dateModified": "@Html.Raw(Model.ModifiedOnUTC == null ? Model.PublishOnUTC?.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK") : Model.ModifiedOnUTC.ToDateTimeOffset().ToString("yyyy-MM-ddThh:mm:ssK"))"
         }
     </script>
 }

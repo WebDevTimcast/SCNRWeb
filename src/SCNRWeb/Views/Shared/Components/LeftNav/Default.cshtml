@@ -10,21 +10,17 @@
     <div class="t-nav-scroller">
         <div class="t-pad:20px:rt t-pad:20px:lt">
             <ul class="t-menu t-marg:0px t-pad:15px:top t-pad:5px:bot  t-pad:0px:lt t-txt:lt txt-light">
-                <li id="menu-item-154775" class="menu-item menu-item-type-custom menu-item-object-custom @(Model.IsHome ? "active" : "")"><a href="/">Home</a></li>
-                <li id="menu-item-154776" class="menu-item menu-item-type-custom menu-item-object-custom @(Model.IsAbout ? "active" : "")"><a href="/about-us/" aria-current="page">About</a></li>
-                <li id="menu-item-154778" class="menu-item menu-item-type-custom menu-item-object-custom @(Model.IsWatch ? "active" : "")"><a href="/video/">Watch</a></li>
-                <li id="menu-item-154779" class="menu-item menu-item-type-custom menu-item-object-custom @(Model.IsRead ? "active" : "")"><a href="/news/">Read</a></li>
-                <li id="menu-item-154779" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://network.scnr.com/register" target="_blank">Join SCNR</a></li>
+                <li class="menu-item menu-item-type-custom menu-item-object-custom @(Model.IsHome ? "active" : "")"><a href="/">Home</a></li>
+                <li class="menu-item menu-item-type-custom menu-item-object-custom @(Model.IsAbout ? "active" : "")"><a href="/about-us/" aria-current="page">About</a></li>
+                <li class="menu-item menu-item-type-custom menu-item-object-custom @(Model.IsWatch ? "active" : "")"><a href="/video/">Watch</a></li>
+                <li class="menu-item menu-item-type-custom menu-item-object-custom @(Model.IsRead ? "active" : "")"><a href="/news/">Read</a></li>
+                <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://network.scnr.com/register" target="_blank">Join SCNR</a></li>
             </ul>
-            <div class="non-member-alt">
-                <ul class="t-menu t-marg:0px t-pad:10px:top t-pad:5px:bot  t-pad:0px:lt t-txt:lt txt-light">
-                    <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-profil">
-                        <a href="/login/edit-profile/">My Profile</a>
-                    </li>
-                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-profil">
-                        <a href="/login/password-reset/">Reset Password</a>
-                    </li>
-                </ul>
-            </div>
+            <ul class=" t-marg:0px t-pad:15px:top t-pad:5px:bot  t-pad:0px:lt t-txt:lt txt-light">
+                @foreach (var chan in await settingsService.GetChannels())
+                {
+                    <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="/channel/@chan.UrlStub"><img src="@cUrl.GeneratePartialImageUrl(chan.ImageAssetId)" /></a></li>
+                }
+            </ul>
         </div>
     </div>

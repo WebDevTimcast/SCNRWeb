@@ -17,7 +17,8 @@
         }
         @if (Model.CanSeeSettings)
         {
-        <li><a class="nav-link @(Model.IsSettings ? "active" : "")" href="/admin/settings">Site Settings</a></li>
+            <li><a class="nav-link @(Model.IsSettings ? "active" : "")" href="/admin/settings">Site Settings</a></li>
+            <li><a class="nav-link @(Model.IsChannels ? "active" : "")" href="/admin/channel">Video Channels</a></li>
         }
         <li><a class="nav-link @(Model.IsProfile ? "active" : "")" href="/settings">My Profile</a></li>
         <li><a class="nav-link" href="/logout">Logout</a></li>

@@ -1,0 +1,87 @@
+﻿@using SCNRWeb.Helper;
+@model ON.Fragments.Content.ContentPublicRecord
+
+<div class="t-txt:cntr t-contain t-pos:cntr t-pad:50pc:bot:xs t-pad:50pc:bot:s t-pad:50pc:bot:m t-pad:bot:l t-pad:top:xs t-marg:top:xs" style="padding-left: 13px; padding-right: 13px;">
+    <h2 class="header t-marg:25pc:bot t-txt:cntr t-txt:wht" style="margin-top:10px">
+        <style>
+            .blink_text {
+                animation: 1s blinker linear infinite;
+                -webkit-animation: 1s blinker linear infinite;
+                -moz-animation: 1s blinker linear infinite;
+                color: red;
+            }
+
+            @@-moz-keyframes blinker {
+                0% {
+                    opacity: 0.7;
+                }
+
+                45% {
+                    opacity: 0.9;
+                }
+
+                50% {
+                    opacity: 0.0;
+                }
+
+                95% {
+                    opacity: 0.0;
+                }
+
+                100% {
+                    opacity: 0.7;
+                }
+            }
+
+            @@-webkit-keyframes blinker {
+                0% {
+                    opacity: 0.7;
+                }
+
+                45% {
+                    opacity: 0.9;
+                }
+
+                50% {
+                    opacity: 0.0;
+                }
+
+                95% {
+                    opacity: 0.0;
+                }
+
+                100% {
+                    opacity: 0.7;
+                }
+            }
+
+            @@keyframes blinker {
+                0% {
+                    opacity: 0.7;
+                }
+
+                45% {
+                    opacity: 0.9;
+                }
+
+                50% {
+                    opacity: 0.0;
+                }
+
+                95% {
+                    opacity: 0.0;
+                }
+
+                100% {
+                    opacity: 0.7;
+                }
+            }
+        </style>
+        <span style="color: #ff0000; font-size: 100%; position: relative; top:-3px;" class="blink_text">●</span>
+        Watch
+        <span style="color: #ff0000">Live</span>
+        Now!
+    </h2>
+    <iframe width="69%" height="100%" src="https://www.youtube.com/embed/@(Model.Data.Video.YoutubeVideoId)?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="youtubeframe" style="min-height:350px"></iframe>
+    <iframe width="30%" height="100%" src="https://www.youtube.com/live_chat?v=@(Model.Data.Video.YoutubeVideoId)&embed_domain=timcast.com" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="youtubeframe" style="min-height:350px"></iframe>
+</div>

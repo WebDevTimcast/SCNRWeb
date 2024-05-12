@@ -215,9 +215,15 @@ namespace SCNRWeb.Controllers
                 Author = res.Public.Data.Author,
                 RumbleVideoId = res.Public.Data.Video.RumbleVideoId,
                 YoutubeVideoId = res.Public.Data.Video.YoutubeVideoId,
+                ChannelID = res.Public.Data.ChannelIds.FirstOrDefault(),
+                IsLiveStream = res.Public.Data.Video.IsLiveStream,
+                IsLive = res.Public.Data.Video.IsLive,
                 Body = res.Public.Data.Video.HtmlBody,
                 Level = res.Public.Data.SubscriptionLevel,
+                FeaturedImageAssetID = res.Public.Data.FeaturedImageAssetID,
             };
+
+            vm.Channels = GetChannelDropDowns();
 
             return View("EditVideo", vm);
         }
@@ -233,6 +239,15 @@ namespace SCNRWeb.Controllers
             if (res == null)
                 return NotFound();
 
+            vm.Channels = GetChannelDropDowns();
+
+            if (vm.File?.Length > 0)
+            {
+                var resImage = await assetService.CreateImage(vm.File);
+                if ((resImage?.Record?.AssetIDGuid ?? Guid.Empty) != Guid.Empty)
+                    vm.FeaturedImageAssetID = resImage.Record.AssetIDGuid.ToString();
+            }
+
             vm.ErrorMessage = vm.SuccessMessage = "";
             if (!ModelState.IsValid)
             {
@@ -243,7 +258,7 @@ namespace SCNRWeb.Controllers
 
             var res2 = await contentService.UpdateContent(contentId, vm);
 
-            return Redirect("/content/" + res2.Public.ContentID);
+            return Redirect("/content/" + id);
         }
 
         [HttpGet("/content/{id}/written/edit")]
@@ -470,6 +485,15 @@ namespace SCNRWeb.Controllers
             List<SelectListItem> categories = new() { new SelectListItem("", "") };
 
             categories.AddRange(settingsService.GetCategories().Result.OrderBy(c => c.DisplayName).Select(c => new SelectListItem(c.DisplayName, c.CategoryId)));
+
+            return categories;
+        }
+
+        private List<SelectListItem> GetChannelDropDowns()
+        {
+            List<SelectListItem> categories = new() { new SelectListItem("", "") };
+
+            categories.AddRange(settingsService.GetChannels().Result.OrderBy(c => c.DisplayName).Select(c => new SelectListItem(c.DisplayName, c.ChannelId)));
 
             return categories;
         }

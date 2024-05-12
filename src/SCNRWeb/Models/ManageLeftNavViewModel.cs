@@ -11,6 +11,9 @@ namespace SCNRWeb.Models
         {
             switch (context.HttpContext.Request.Path.Value.ToLower())
             {
+                case string s when s.StartsWith("/admin/channel"):
+                    IsChannels = true;
+                    break;
                 case string s when s.StartsWith("/admin/content"):
                     IsContent = true;
                     break;
@@ -34,6 +37,7 @@ namespace SCNRWeb.Models
             CanSeeSettings = user?.MyUser?.IsAdminOrHigher ?? false;
         }
 
+        public bool IsChannels { get; set; } = false;
         public bool IsContent { get; set; } = false;
         public bool IsImage { get; set; } = false;
         public bool IsAuth { get; set; } = false;

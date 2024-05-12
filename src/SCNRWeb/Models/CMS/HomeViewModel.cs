@@ -1,6 +1,7 @@
 ﻿using ON.Authentication;
 using ON.Fragments.Authentication;
 using ON.Fragments.Content;
+using SCNRWeb.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,9 +16,13 @@ namespace SCNRWeb.Models.CMS
 
         public HomeViewModel(GetAllContentResponse news, GetAllContentResponse videos, ONUser user)
         {
-            var allItems = news.Records.ToList();
-            allItems.AddRange(videos.Records);
-            FeaturedItem = allItems.OrderByDescending(r => r.PublishOnUTC).OrderByDescending(r => r.PinnedOnUTC).FirstOrDefault();
+            var live = videos.Records.Where(r => r.IsLiveStream && r.IsLive).OrderByDescending(r => r.PublishOnUTC).OrderByDescending(r => r.PinnedOnUTC).FirstOrDefault();
+            if (live != null)
+                LiveId = live.ContentIDGuid;
+
+            //var allItems = news.Records.ToList();
+            //allItems.AddRange(videos.Records);
+            FeaturedItem = news.Records.OrderByDescending(r => r.PublishOnUTC).OrderByDescending(r => r.PinnedOnUTC).FirstOrDefault();
 
             News.AddRange(news.Records.Where(r => r != FeaturedItem));
             Videos.AddRange(videos.Records.Where(r => r != FeaturedItem));
@@ -27,5 +32,8 @@ namespace SCNRWeb.Models.CMS
         public List<ContentListRecord> Videos { get; } = new();
 
         public ContentListRecord FeaturedItem { get; } = new();
+
+        public Guid LiveId { get; } = Guid.Empty;
+        public ContentPublicRecord? LiveVideo { get; set; } = null;
     }
 }

@@ -38,8 +38,8 @@ namespace SCNRWeb.Services
                 Public = new()
                 {
                     Title = vm.Title,
-                    Description = vm.Subtitle,
-                    Author = vm.Author,
+                    Description = vm.Subtitle ?? "",
+                    Author = vm.Author ?? "",
                     SubscriptionLevel = vm.Level,
 
                     Video = new()
@@ -250,12 +250,18 @@ namespace SCNRWeb.Services
             var record = await GetContentAdmin(contentId);
 
             record.Public.Data.Title = vm.Title;
-            record.Public.Data.Description = vm.Subtitle;
-            record.Public.Data.Author = vm.Author;
+            record.Public.Data.Description = vm.Subtitle ?? "";
+            record.Public.Data.Author = vm.Author ?? "";
             record.Public.Data.SubscriptionLevel = vm.Level;
             record.Public.Data.Video.RumbleVideoId = vm.RumbleVideoId ?? "";
             record.Public.Data.Video.YoutubeVideoId = vm.YoutubeVideoId ?? "";
+            record.Public.Data.Video.IsLiveStream = vm.IsLiveStream;
+            record.Public.Data.Video.IsLive = vm.IsLive;
             record.Public.Data.Video.HtmlBody = vm.Body ?? "";
+            record.Public.Data.FeaturedImageAssetID = vm.FeaturedImageAssetID ?? "";
+
+            record.Public.Data.ChannelIds.Clear();
+            record.Public.Data.ChannelIds.Add(vm.ChannelID ?? "");
 
             var req = new ModifyContentRequest()
             {
