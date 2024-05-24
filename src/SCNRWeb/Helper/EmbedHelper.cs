@@ -59,7 +59,9 @@ namespace SCNRWeb.Helper
                 {
                     case string s when s.Contains("youtube.com"):
                         return new YoutubePiece() { Str = str };
-                    case string s when s.Contains("twitter.com") || s.Contains("://x.com") || s.Contains("://www.x.com"):
+                    case string s when s.Contains("twitter.com"):
+                        return new TwitterPiece() { Str = str };
+                    case string s when s.Contains("://x.com") || s.Contains("://www.x.com"):
                         return new TwitterPiece() { Str = str };
                     default:
                         return new UrlPiece() { Str = str };
@@ -72,6 +74,18 @@ namespace SCNRWeb.Helper
             public override string ToString()
             {
                 string pattern = @"https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)(?:.*)+";
+                string replacePattern = @"<blockquote class=""twitter-tweet""><a class=""twitter-timeline"" href=""https://twitter.com/$1/status/$3"">Loading...</a></blockquote><script async src=""https://platform.twitter.com/widgets.js"" charset=""utf-8""></script>";
+
+                var fixedStr = Regex.Replace(Str, pattern, replacePattern, RegexOptions.IgnoreCase);
+                return fixedStr;
+            }
+        }
+
+        private class XPiece : UrlPiece
+        {
+            public override string ToString()
+            {
+                string pattern = @"https?:\/\/x\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)(?:.*)+";
                 string replacePattern = @"<blockquote class=""twitter-tweet""><a class=""twitter-timeline"" href=""https://twitter.com/$1/status/$3"">Loading...</a></blockquote><script async src=""https://platform.twitter.com/widgets.js"" charset=""utf-8""></script>";
 
                 var fixedStr = Regex.Replace(Str, pattern, replacePattern, RegexOptions.IgnoreCase);
