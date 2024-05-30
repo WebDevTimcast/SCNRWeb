@@ -59,6 +59,8 @@ namespace SCNRWeb.Helper
                 {
                     case string s when s.Contains("youtube.com"):
                         return new YoutubePiece() { Str = str };
+                    case string s when s.Contains("tiktok.com"):
+                        return new TikTokPiece() { Str = str };
                     case string s when s.Contains("twitter.com"):
                         return new TwitterPiece() { Str = str };
                     case string s when s.Contains("://x.com") || s.Contains("://www.x.com"):
@@ -66,6 +68,18 @@ namespace SCNRWeb.Helper
                     default:
                         return new UrlPiece() { Str = str };
                 }
+            }
+        }
+
+        private class TikTokPiece : UrlPiece
+        {
+            public override string ToString()
+            {
+                string pattern = @"https?:\/\/(?:www\.)?tiktok\.com\/@?(\w+)\/video\/(\d+)(?:.*)+";
+                string replacePattern = @"<blockquote class=""tiktok-embed"" cite=""https://www.tiktok.com/@$1/video/$2"" data-video-id=""$2"" data-embed-from=""oembed"" style=""max-width:605px; min-width:325px;""></blockquote><p><script async src=""https://www.tiktok.com/embed.js""></script></p>";
+
+                var fixedStr = Regex.Replace(Str, pattern, replacePattern, RegexOptions.IgnoreCase);
+                return fixedStr;
             }
         }
 
