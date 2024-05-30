@@ -97,9 +97,9 @@ namespace SCNRWeb.Helper
         {
             public override string ToString()
             {
-                string pattern = @"http(?:s?)://(?:www\.)?youtu(?:be\.com/watch\?v=|\.be/)([\w\-]+)(&(amp;)?[\w\?=]*)?";
+                string pattern = @"http(?:s?)://(?:www\.)?youtu(?:be\.com/watch\?v=|\.be/)([\w\-]+)(&(amp;)?[\w\?=]*)?(?:.*)+";
 
-                var replacePattern = @"<iframe loading=""lazy"" title=""Jon Stewart On Vaccine Science And The Wuhan Lab Theory"" width=""500"" height=""281"" src=""https://www.youtube.com/embed/$1?feature=oembed"" frameborder=""0"" allow=""accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"" allowfullscreen></iframe>";
+                var replacePattern = @"<iframe loading=""lazy"" title="""" width=""500"" height=""281"" src=""https://www.youtube.com/embed/$1?feature=oembed"" frameborder=""0"" allow=""accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"" allowfullscreen></iframe>";
 
                 var fixedStr = Regex.Replace(Str, pattern, replacePattern, RegexOptions.IgnoreCase);
                 return fixedStr;
