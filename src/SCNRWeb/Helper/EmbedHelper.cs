@@ -76,7 +76,7 @@ namespace SCNRWeb.Helper
             public override string ToString()
             {
                 string pattern = @"https?:\/\/(?:www\.)?tiktok\.com\/@?(\w+)\/video\/(\d+)(?:.*)+";
-                string replacePattern = @"<blockquote class=""tiktok-embed"" cite=""https://www.tiktok.com/@$1/video/$2"" data-video-id=""$2"" data-embed-from=""oembed"" style=""max-width:605px; min-width:325px;""></blockquote><p><script async src=""https://www.tiktok.com/embed.js""></script></p>";
+                string replacePattern = @"<blockquote class=""tiktok-embed"" cite=""https://www.tiktok.com/@$1/video/$2"" data-video-id=""$2"" data-embed-from=""embed_page"" style=""max-width:605px; min-width:325px;""> <section> <a target=""_blank"" title=""@$1"" href=""https://www.tiktok.com/@$1?refer=embed"">@$1</a> <p></p> <a target=""_blank"" title=""♬ original sound - $1"" href=""https://www.tiktok.com/music/original-sound-$2?refer=embed"">♬ original sound - $1</a> </section> </blockquote> <script async src=""https://www.tiktok.com/embed.js""></script>";
 
                 var fixedStr = Regex.Replace(Str, pattern, replacePattern, RegexOptions.IgnoreCase);
                 return fixedStr;
