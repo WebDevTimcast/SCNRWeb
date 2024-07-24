@@ -16,6 +16,10 @@
                 <li class="menu-item menu-item-type-custom menu-item-object-custom @(Model.IsRead ? "active" : "")"><a href="/news/">Read</a></li>
                 <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://network.scnr.com/register" target="_blank">Join SCNR</a></li>
             </ul>
+            <ul class="t-menu t-marg:0px t-pad:15px:top t-pad:5px:bot  t-pad:0px:lt t-txt:lt txt-light">
+                <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://play.google.com/store/apps/details?id=com.scnr.network&hl=en_US&gl=US" target="_blank"><img src="/img/icon.android.jpeg" alt="Download Android App" /></a></li>
+                <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://apps.apple.com/us/app/scnr/id6479642313" target="_blank"><img src="/img/icon.ios.svg" alt="Download iOS App" /></a></li>
+            </ul>
             <ul class=" t-marg:0px t-pad:15px:top t-pad:5px:bot  t-pad:0px:lt t-txt:lt txt-light">
                 @foreach (var chan in await settingsService.GetChannels())
                 {
